@@ -45,3 +45,4 @@ Ainda precisam ser acordados com o orientador:
 Consulte [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) para conhecer a organização completa, [docs/PROJECT_CONTEXT.md](docs/PROJECT_CONTEXT.md) para o contexto acadêmico e pedagógico e [docs/DECISIONS.md](docs/DECISIONS.md) para acompanhar as decisões do projeto.
 
 O uso de modelos de IA no projeto segue a [arquitetura econômica de orquestração](09_orquestracao_ia/README.md), que separa planejamento e validação avançados de tarefas executivas de menor custo.
+# Machine_learning_project
