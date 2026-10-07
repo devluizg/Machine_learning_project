@@ -1,0 +1,165 @@
+PROJETO DE QUALIFICAÇÃO
+
+Pesquisador: Luiz Gabriel
+Programa: PROFCOMP/UFPA
+Orientador: professor Marcos Braga
+
+
+TÍTULO PROVISÓRIO
+
+Ensino de fundamentos de machine learning no 1º ano do Ensino Médio por meio de uma sequência didática apoiada por uma plataforma interativa
+
+
+1. INTRODUÇÃO
+
+
+1.1 Contextualização e delimitação do tema
+
+O ensino de Computação na Educação Básica passou a envolver temas que ultrapassam a utilização de programas prontos, uma vez que os estudantes convivem com sistemas capazes de recomendar conteúdos, reconhecer imagens, classificar informações e produzir previsões. Embora esses sistemas estejam presentes em diferentes situações cotidianas, compreender como aprendem a partir de dados ainda representa uma dificuldade para quem está iniciando os estudos de machine learning.
+
+O projeto propõe o ensino introdutório de dados, treinamento, previsão, erro e decisão para estudantes do 1º ano do Ensino Médio, sem exigir conhecimentos prévios de programação. A aplicação será realizada na disciplina PPA do tempo integral, que oferece espaço para desenvolver atividades investigativas com apoio de computadores e para articular os experimentos realizados na plataforma às explicações produzidas pelos estudantes.
+
+O produto educacional será constituído por uma plataforma interativa em português brasileiro, uma sequência didática, uma cartilha do estudante e um guia do professor. Os materiais permitirão registrar previsões, organizar as atividades e orientar futuras aplicações por outros docentes.
+
+
+1.2 Problema educacional e justificativa
+
+Estudantes iniciantes podem utilizar ferramentas ou observar resultados de machine learning sem compreender como os dados são empregados, o que ocorre durante o treinamento, de que maneira uma previsão é produzida ou por que um modelo comete erros. Essa dificuldade também aparece quando fórmulas e gráficos são apresentados de forma isolada, sem que o estudante consiga relacionar a representação matemática ao comportamento visível do modelo.
+
+O ensino de machine learning na Educação Básica não deve se limitar a uma ferramenta que entrega uma classificação pronta, pois a conclusão de uma atividade não garante que o estudante tenha compreendido o processo realizado. Para quem atua em sala de aula, a dificuldade está em organizar situações nas quais seja possível acompanhar o que muda quando um dado ou parâmetro é alterado, discutir o resultado e voltar à hipótese formulada antes do experimento.
+
+O rompimento com a lógica de apenas executar comandos orienta a proposta, que organiza as atividades pelo ciclo 'prever, experimentar, observar e explicar'. No módulo de regressão linear, por exemplo, o estudante não deverá apenas movimentar uma reta, uma vez que precisará antecipar o efeito da mudança e relacionar o novo posicionamento aos resíduos e ao erro produzido.
+
+Os primeiros trabalhos localizados mostram que já existem propostas para ensinar machine learning no Ensino Médio, inclusive experiências brasileiras em língua portuguesa. As revisões também registram predominância de oficinas extracurriculares curtas, ferramentas voltadas à classificação de imagens e limitações na avaliação da aprendizagem, o que justifica investigar uma sequência aplicada ao contexto escolar e centrada na explicação dos processos internos de modelos tabulares.
+
+
+1.3 Pergunta de pesquisa
+
+Como uma sequência didática apoiada por uma plataforma interativa pode contribuir para a compreensão de dados, treinamento, previsão, erro e decisão em machine learning por estudantes do 1º ano do Ensino Médio?
+
+A pergunta relaciona o problema educacional, o público, a intervenção e os conceitos que serão observados. O termo 'compreensão' deverá ser operacionalizado por meio de critérios que permitam analisar se o estudante diferencia conceitos, prevê consequências, interpreta representações e explica os resultados dos experimentos.
+
+
+2. OBJETIVOS
+
+
+2.1 Objetivo geral
+
+Desenvolver e analisar uma sequência didática apoiada por uma plataforma interativa para o ensino de dados, treinamento, previsão, erro e decisão em machine learning a estudantes do 1º ano do Ensino Médio.
+
+
+2.2 Objetivos específicos
+
+- analisar trabalhos sobre o ensino de machine learning na Educação Básica, considerando conteúdos, estratégias pedagógicas, ferramentas utilizadas e formas de avaliação;
+- aperfeiçoar a plataforma e organizar seus módulos de acordo com objetivos de aprendizagem adequados ao 1º ano do Ensino Médio;
+- elaborar uma sequência didática e materiais de apoio para aplicação na disciplina PPA do tempo integral;
+- aplicar a sequência e identificar indícios de compreensão nas previsões, observações e explicações produzidas pelos estudantes;
+- analisar dificuldades, mudanças nas respostas e percepções dos participantes, mantendo a usabilidade como dimensão complementar;
+- sistematizar a plataforma, a sequência e o guia de aplicação como produto educacional do mestrado profissional.
+
+
+3. REFERENCIAL TEÓRICO
+
+
+3.1 Ensino de inteligência artificial e machine learning na Educação Básica
+
+O ensino de machine learning na Educação Básica envolve mais do que apresentar aplicações de inteligência artificial, pois exige selecionar conceitos compatíveis com a idade dos estudantes e estabelecer o que eles devem conseguir explicar depois das atividades. Marques, Gresse von Wangenheim e Hauck (2020) mapearam unidades didáticas voltadas a esse público, enquanto Martins e Gresse von Wangenheim (2023) analisaram resultados de experiências realizadas no Ensino Médio. As progressões da iniciativa AI4K12 também oferecem uma referência para organizar o que estudantes de diferentes faixas escolares podem compreender sobre sistemas que aprendem a partir de dados.
+
+
+3.2 Dados, modelos e processos de aprendizagem computacional
+
+Dados, treinamento, previsão, erro e decisão formam o núcleo conceitual adotado neste projeto. Esses elementos permitem discutir o funcionamento de modelos sem exigir que o estudante programe os algoritmos, mas também evitam que a interação se reduza ao envio de exemplos para uma ferramenta que oculta todo o processo. A revisão de Gresse von Wangenheim et al. (2021) mostra que muitas ferramentas visuais se concentram na classificação de imagens, ao passo que o presente trabalho utiliza modelos tabulares para explorar regressão, classificação e agrupamento.
+
+
+3.3 Visualização, experimentação guiada e múltiplas representações
+
+A visualização não será utilizada apenas como recurso decorativo, uma vez que cada gráfico deverá permitir observar uma consequência relacionada ao conceito estudado. A sequência começa com uma previsão, passa pela alteração de dados ou parâmetros e retorna à explicação, articulando linguagem verbal, representação gráfica e expressão matemática. Hitron et al. (2019) oferecem evidências de que revelar etapas internas do processo pode favorecer a compreensão de conceitos de machine learning por crianças, embora o contexto e a faixa etária do presente estudo sejam diferentes.
+
+
+3.4 Avaliação da compreensão conceitual
+
+A aprendizagem será examinada pelas previsões, justificativas e explicações elaboradas pelos estudantes, e não somente pela capacidade de operar a plataforma. As revisões de Sanusi et al. (2023) e Martins e Gresse von Wangenheim (2023) apontam limites nas formas de avaliação utilizadas em parte das experiências de ensino de machine learning, reforçando a necessidade de critérios que permitam observar o uso dos conceitos durante a resolução das atividades.
+
+
+4. PRODUTO EDUCACIONAL
+
+
+4.1 Plataforma interativa
+
+A plataforma foi concebida para estudantes iniciantes e possui módulos de regressão linear, regressão logística, k-vizinhos mais próximos, árvore de decisão e k-means. O conjunto permite apresentar regressão, classificação e agrupamento, mas a presença dos cinco modelos no produto não obriga que todos sejam analisados com a mesma profundidade durante a pesquisa.
+
+Cada módulo parte de uma situação-problema, solicita uma previsão, permite alterar dados ou parâmetros e apresenta uma consequência visual acompanhada por explicação matemática gradual. O estudante também encontra uma atividade de verificação e informações sobre aplicações e limitações do modelo.
+
+
+4.2 Sequência didática na disciplina PPA
+
+A sequência preliminar está organizada em oito aulas de 50 minutos. A primeira apresenta dados, treinamento, modelo e previsão; as cinco aulas seguintes utilizam os módulos da plataforma; a sétima compara regressão, classificação e agrupamento; a oitava reúne um desafio final, a síntese e a atividade de avaliação.
+
+Em cada encontro, o estudante registra uma previsão antes de utilizar os controles, realiza o experimento em dupla, observa o resultado e produz uma explicação individual. O planejamento detalhado está no arquivo SEQUENCIA_DIDATICA_PPA.txt e deverá ser ajustado às condições reais da turma depois da reunião de orientação.
+
+
+5. PERCURSO METODOLÓGICO
+
+
+5.1 Natureza e delineamento da pesquisa
+
+O estudo será desenvolvido como pesquisa aplicada, por meio de uma intervenção educacional com estudantes do 1º ano do Ensino Médio. A abordagem será predominantemente qualitativa, porque o interesse principal está nas previsões, justificativas e explicações produzidas pelos participantes, enquanto resultados de questões fechadas serão utilizados de forma descritiva para apoiar a interpretação.
+
+
+5.2 Contexto e participantes
+
+A aplicação ocorrerá em uma turma do 1º ano do Ensino Médio em tempo integral, durante a disciplina PPA. A caracterização do campo apresentará o nome completo do componente, a escola, o número de estudantes, a duração das aulas, a disponibilidade de computadores e as condições de acesso à internet.
+
+Os participantes serão iniciantes em machine learning, sem exigência de programação. A sequência retomará leitura de gráficos, operações aritméticas, comparação de valores e noção inicial de média quando esses conhecimentos forem necessários.
+
+
+5.3 Etapas e instrumentos
+
+O percurso inclui revisão da literatura, refinamento da plataforma, validação da sequência, aplicação em sala e análise das evidências produzidas. A produção de dados utilizará atividade diagnóstica, registros realizados durante as aulas, explicações escritas, desafio final, observações do professor e questionário breve de percepção.
+
+A compreensão será analisada por critérios observáveis, verificando se o estudante diferencia treinamento de previsão, antecipa uma consequência, relaciona a alteração ao gráfico ou à decisão, utiliza o conceito matemático pertinente e reconhece uma limitação do modelo. Esses critérios ainda deverão ser transformados em uma rubrica.
+
+
+5.4 Procedimentos de análise e cuidados éticos
+
+As respostas poderão ser comparadas entre o início e o final da sequência, observando mudanças no uso dos conceitos e na qualidade das justificativas. As produções escritas poderão ser classificadas por níveis definidos na rubrica, enquanto frequências de respostas serão apresentadas apenas como apoio descritivo.
+
+Como a aplicação poderá envolver estudantes menores de idade, nenhuma produção de dados deverá começar antes da definição dos procedimentos institucionais e éticos. O projeto deverá considerar autorização da escola, consentimento dos responsáveis, assentimento dos estudantes, anonimização, participação voluntária e atividade pedagógica equivalente para quem não participar da pesquisa.
+
+A plataforma não coleta nomes, respostas ou dados pessoais. Qualquer material produzido para a pesquisa deverá permanecer separado do código público e ser armazenado de forma protegida.
+
+
+6. RESULTADOS ESPERADOS
+
+
+Espera-se produzir uma proposta de ensino de fundamentos de machine learning adequada ao 1º ano do Ensino Médio, acompanhada por uma plataforma interativa e por materiais que orientem sua utilização em sala. A pesquisa pretende identificar quais elementos da sequência ajudam os estudantes a explicar dados, treinamento, previsão, erro e decisão, além de registrar dificuldades que permaneçam depois das atividades.
+
+Essas contribuições são esperadas e não poderão ser apresentadas como resultados alcançados antes da aplicação e da análise.
+
+
+7. CRONOGRAMA
+
+O cronograma apresentará os períodos destinados à revisão de literatura, ao aperfeiçoamento do produto, à submissão ética, à validação dos instrumentos, à aplicação na escola, à análise dos dados, à redação da dissertação e à preparação da versão final do produto educacional. As datas serão preenchidas de acordo com o calendário acadêmico e com as condições de acesso à turma.
+
+
+REFERÊNCIAS
+
+GRESSE VON WANGENHEIM, Christiane et al. Visual tools for teaching machine learning in K-12: a ten-year systematic mapping. Education and Information Technologies, 2021. DOI: 10.1007/s10639-021-10570-8.
+
+HITRON, Tom et al. Can children understand machine learning concepts? The effect of uncovering black boxes. Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems, 2019. DOI: 10.1145/3290605.3300645.
+
+MARQUES, Lívia S.; GRESSE VON WANGENHEIM, Christiane; HAUCK, Jean C. R. Teaching machine learning in school: a systematic mapping of the state of the art. Informatics in Education, v. 19, n. 2, p. 283-321, 2020. DOI: 10.15388/infedu.2020.14.
+
+MARTINS, Ramon Mayor; GRESSE VON WANGENHEIM, Christiane. Findings on teaching machine learning in high school: a ten-year systematic literature review. Informatics in Education, v. 22, n. 3, p. 421-440, 2023. DOI: 10.15388/infedu.2023.18.
+
+SANUSI, Ismaila O. et al. A systematic review of teaching and learning machine learning in K-12 education. Education and Information Technologies, 2023. DOI: 10.1007/s10639-022-11416-7.
+
+
+APÊNDICES
+
+- sequência didática completa;
+- cartilha ou folha de atividades do estudante;
+- guia de aplicação para o professor;
+- instrumentos de produção de dados;
+- rubrica de análise das explicações;
+- documentos éticos aplicáveis.

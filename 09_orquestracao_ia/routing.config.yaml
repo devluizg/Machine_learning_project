@@ -1,0 +1,79 @@
+version: 1
+
+objective: "minimizar_tokens_por_resultado_correto"
+
+roles:
+  supervisor:
+    model_default: "gpt-6.1-sol"
+    reasoning_default: "medium"
+    reasoning_for_architecture: "high"
+    responsibilities:
+      - "interpretar_intencao"
+      - "controlar_escopo"
+      - "planejar"
+      - "tomar_decisoes_complexas"
+      - "validar_resultados"
+      - "sintetizar_resposta_final"
+
+  executor:
+    model_default: "gpt-6-luna"
+    reasoning_default: "low"
+    reasoning_for_small_code: "medium"
+    fork_turns: "none"
+    responsibilities:
+      - "pesquisa_focada"
+      - "extracao_de_dados"
+      - "operacoes_mecanicas"
+      - "testes"
+      - "pequena_implementacao_especificada"
+
+routing:
+  direct:
+    when_all:
+      - "tarefa_deterministica"
+      - "ate_um_passo_ou_uma_chamada_de_ferramenta"
+      - "sem_decisao_relevante"
+
+  cheap_executor:
+    when_all:
+      - "objetivo_delimitado"
+      - "criterio_de_aceite_verificavel"
+      - "contexto_minimo_suficiente"
+    typical_tasks:
+      - "busca_web_focada"
+      - "inventario_de_arquivos"
+      - "edicao_mecanica"
+      - "execucao_de_testes"
+      - "formatacao"
+      - "extracao"
+
+  supervisor:
+    when_any:
+      - "decisao_de_arquitetura"
+      - "sintese_de_evidencias"
+      - "metodologia_de_pesquisa"
+      - "etica_ou_dados_sensiveis"
+      - "ambiguidade_com_alto_impacto"
+      - "resultado_do_executor_requer_julgamento"
+
+scope_expansion:
+  allowed_only_for:
+    - "corrigir_erro_material"
+    - "resolver_bloqueio"
+    - "seguranca_ou_etica"
+    - "incompatibilidade_academica_relevante"
+  otherwise: "sugerir_sem_executar"
+
+budgets:
+  task_packet_max_words: 350
+  worker_default_output_max_words: 500
+  web_sources_default_max: 5
+  retry_same_worker_max: 1
+  validation_checks_default_max: 1
+
+worker_output_schema:
+  - "status"
+  - "resultado_ou_alteracoes"
+  - "verificacao"
+  - "bloqueio_ou_incerteza"
+

@@ -1,0 +1,55 @@
+project:
+  working_name: "Plataforma Interativa para Ensino de Machine Learning"
+  status: "concepcao_inicial"
+  academic_milestone: "pre_defesa_do_mestrado"
+  language: "pt-BR"
+
+academic_context:
+  researcher: "Luiz Gabriel"
+  program: "PROFCOMP/UFPA"
+  official_program_name: "Programa de Pos-Graduacao em Ensino de Computacao para a Educacao Basica"
+  area: "ensino_de_computacao_e_docencia"
+  advisor: "Professor Marcos Braga"
+
+product:
+  type: "plataforma_educacional_interativa"
+  subject: "machine_learning"
+  primary_audience:
+    - "estudantes_do_ensino_medio"
+    - "iniciantes_em_machine_learning"
+  priorities:
+    - "compreensao_conceitual"
+    - "matematica_em_camadas"
+    - "visualizacoes_interativas"
+    - "experimentacao_com_parametros"
+    - "acessibilidade"
+  scope: "poucos_modelos_selecionados"
+  final_models: []
+  prototype_models:
+    - "regressao_linear"
+    - "regressao_logistica"
+    - "k_vizinhos_mais_proximos"
+    - "arvore_de_decisao"
+    - "k_means"
+  technology_stack: "Vite + React + TypeScript; SVG para gráficos didáticos e Canvas nativo decorativo; execução local no navegador; sem backend"
+  audience_alignment_status: "alinhado_a_educacao_basica"
+
+reference:
+  name: "NEURON — Machine Learning, Made Visible"
+  url: "https://kw1fpt-ahmet-duyar.shinyapps.io/Neuron/"
+  usage: "inspiracao_pedagogica_e_visual_sem_copia"
+
+documentation:
+  required_reading:
+    - "README.md"
+    - "AGENTS.md"
+    - "docs/PROJECT_CONTEXT.md"
+    - "docs/DECISIONS.md"
+
+ai_orchestration:
+  enabled: true
+  architecture: "supervisor_executor_adaptive_routing"
+  config: "09_orquestracao_ia/routing.config.yaml"
+  supervisor_prompt: "09_orquestracao_ia/prompts/supervisor.md"
+  executor_prompt: "09_orquestracao_ia/prompts/executor_economico.md"
+  task_packet_template: "09_orquestracao_ia/templates/task_packet.yaml"

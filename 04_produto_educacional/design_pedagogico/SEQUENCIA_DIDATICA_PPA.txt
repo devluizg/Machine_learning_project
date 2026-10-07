@@ -1,0 +1,305 @@
+SEQUÊNCIA DIDÁTICA PROVISÓRIA — FUNDAMENTOS DE MACHINE LEARNING
+
+Componente curricular: PPA — tempo integral
+Nome oficial da disciplina: a confirmar
+Público prioritário: estudantes do 1º ano do Ensino Médio
+Carga horária proposta: 8 aulas de 50 minutos (6 horas e 40 minutos)
+Produto educacional: plataforma interativa de ensino de machine learning
+Situação: versão inicial para discussão com o orientador e adequação à escola
+
+
+1. TEMA
+
+Compreensão introdutória de dados, treinamento, previsão, erro e decisão em machine learning por meio de experimentos interativos.
+
+
+2. QUESTÃO ORIENTADORA DA SEQUÊNCIA
+
+Como os computadores podem aprender padrões a partir de dados e utilizar esses padrões para fazer previsões, tomar decisões ou formar grupos?
+
+
+3. OBJETIVO GERAL
+
+Favorecer a compreensão de fundamentos de machine learning por estudantes do 1º ano do Ensino Médio, articulando situações-problema, previsões, experimentos na plataforma, representações visuais, explicações matemáticas graduais e reflexão sobre os resultados.
+
+
+4. OBJETIVOS DE APRENDIZAGEM
+
+Ao final da sequência, espera-se que o estudante consiga:
+
+- diferenciar dados, modelo, treinamento, previsão, erro e decisão;
+- reconhecer as diferenças entre regressão, classificação e agrupamento;
+- prever o efeito da alteração de um dado ou parâmetro simples;
+- observar essa alteração no gráfico ou na decisão do modelo;
+- explicar, com suas próprias palavras, por que determinado resultado ocorreu;
+- relacionar erro, distância, probabilidade, regra ou centróide ao funcionamento do modelo estudado;
+- escolher uma categoria de modelo para um problema simples e justificar a escolha;
+- reconhecer que resultados dependem dos dados, dos parâmetros e das limitações do modelo.
+
+Não se pretende que os estudantes programem os algoritmos nem dominem formalizações matemáticas avançadas nesta sequência.
+
+
+5. ORGANIZAÇÃO PEDAGÓGICA
+
+Cada aula seguirá, sempre que possível, o mesmo ciclo:
+
+    situação-problema → prever → experimentar → observar → explicar → sintetizar
+
+O estudante deverá registrar uma previsão antes de manipular a plataforma. Após o experimento, deverá comparar a previsão com o resultado e elaborar uma explicação. A exploração livre ocorrerá depois da atividade guiada.
+
+Organização sugerida:
+
+- trabalho individual na previsão inicial e no registro final;
+- trabalho em duplas durante a experimentação;
+- discussão coletiva curta ao final de cada aula;
+- mediação do professor por perguntas, evitando fornecer imediatamente a resposta.
+
+
+6. RECURSOS
+
+- plataforma interativa do projeto, executada em navegador;
+- computador ou notebook, preferencialmente um por dupla;
+- projetor para demonstração coletiva;
+- cartilha ou folha de atividades do estudante, ainda a ser produzida;
+- quadro ou recurso equivalente para sínteses coletivas;
+- alternativa impressa ou demonstração compartilhada quando não houver um dispositivo por dupla.
+
+
+7. CONHECIMENTOS PRÉVIOS
+
+- leitura e interpretação básica de tabelas e gráficos;
+- operações aritméticas básicas;
+- noção inicial de média;
+- comparação de valores e localização de pontos em eixos cartesianos.
+
+Os conceitos de função, probabilidade e distância deverão ser retomados de forma intuitiva quando aparecerem. Não se pressupõe conhecimento prévio de programação ou machine learning.
+
+
+8. DESENVOLVIMENTO DAS AULAS
+
+
+AULA 1 — O QUE SIGNIFICA APRENDER COM DADOS?
+
+Objetivo:
+Diferenciar dado, característica, resposta esperada, modelo, treinamento e previsão.
+
+Pergunta inicial:
+Como um computador poderia aprender a fazer uma previsão sem receber todas as respostas prontas para todos os casos possíveis?
+
+Etapas sugeridas:
+
+1. Acolhida e apresentação do problema — 5 minutos.
+2. Atividade diagnóstica individual, sem consulta — 10 minutos.
+3. Discussão de exemplos cotidianos de previsão, classificação e agrupamento — 10 minutos.
+4. Percurso inicial da plataforma e identificação visual de dados, modelo e resultado — 15 minutos.
+5. Construção coletiva de um esquema: dados → treinamento → modelo → previsão — 5 minutos.
+6. Registro de saída: “o que o computador aprende e o que ele não aprende sozinho?” — 5 minutos.
+
+Evidência esperada:
+O estudante distingue exemplos usados para aprender de uma nova situação usada para prever.
+
+
+AULA 2 — REGRESSÃO LINEAR: PREVER UM VALOR
+
+Conceitos:
+Tendência, reta, previsão, resíduo e erro quadrático.
+
+Pergunta inicial:
+Se os pontos mudarem, como deverá mudar a reta que representa a tendência?
+
+Etapas sugeridas:
+
+1. Situação-problema apresentada pelo módulo — 5 minutos.
+2. Previsão individual sobre a posição ou inclinação da reta — 5 minutos.
+3. Aula guiada no módulo de regressão linear — 20 minutos.
+4. Exploração em dupla: alterar pontos, reta, ruído ou valores permitidos — 10 minutos.
+5. Comparação entre previsão inicial e resultado observado — 5 minutos.
+6. Síntese: relação entre distância do ponto à reta, resíduo e erro — 5 minutos.
+
+Evidência esperada:
+O estudante explica que a reta representa uma tendência e que o erro mede a diferença entre valor observado e valor previsto.
+
+
+AULA 3 — REGRESSÃO LOGÍSTICA: PROBABILIDADE E CLASSIFICAÇÃO
+
+Conceitos:
+Probabilidade, função sigmoide, limiar e classe prevista.
+
+Pergunta inicial:
+Uma probabilidade de 60% significa que o modelo tem certeza da resposta?
+
+Etapas sugeridas:
+
+1. Retomada da diferença entre prever um valor e prever uma categoria — 5 minutos.
+2. Previsão individual para dois casos próximos do limite de decisão — 5 minutos.
+3. Aula guiada no módulo de regressão logística — 20 minutos.
+4. Exploração em dupla: alterar limiar ou parâmetros disponíveis — 10 minutos.
+5. Discussão sobre casos próximos de 50% e incerteza — 5 minutos.
+6. Registro de saída: explicar por que mudar o limiar pode mudar a classe — 5 minutos.
+
+Evidência esperada:
+O estudante diferencia probabilidade calculada e categoria escolhida pelo limiar.
+
+
+AULA 4 — K-NN: DECIDIR POR SEMELHANÇA
+
+Conceitos:
+Distância, vizinhos, valor de k, votação e influência dos exemplos armazenados.
+
+Pergunta inicial:
+Para decidir a categoria de um caso novo, é melhor consultar somente o vizinho mais próximo ou vários vizinhos?
+
+Etapas sugeridas:
+
+1. Situação-problema e escolha inicial do valor de k — 5 minutos.
+2. Previsão da classe de um novo ponto — 5 minutos.
+3. Aula guiada no módulo k-NN — 20 minutos.
+4. Comparação entre diferentes valores de k, distâncias ou ponderações — 10 minutos.
+5. Discussão: por que o k-NN não possui uma etapa de treinamento igual à regressão? — 5 minutos.
+6. Registro de saída: justificar uma decisão pela posição dos vizinhos — 5 minutos.
+
+Evidência esperada:
+O estudante explica a classificação por proximidade e reconhece que alterar k pode modificar a votação.
+
+
+AULA 5 — ÁRVORE DE DECISÃO: DECIDIR POR REGRAS
+
+Conceitos:
+Pergunta de divisão, regra, impureza, profundidade e caminho de decisão.
+
+Pergunta inicial:
+Que pergunta dividiria melhor dois grupos de exemplos?
+
+Etapas sugeridas:
+
+1. Apresentação de exemplos que precisam ser separados — 5 minutos.
+2. Formulação individual de uma primeira regra — 5 minutos.
+3. Aula guiada no módulo de árvore de decisão — 20 minutos.
+4. Exploração em dupla: alterar profundidade ou divisões permitidas — 10 minutos.
+5. Comparação entre uma árvore curta e uma árvore mais profunda — 5 minutos.
+6. Registro de saída: descrever o caminho seguido por um caso — 5 minutos.
+
+Evidência esperada:
+O estudante interpreta uma decisão como sequência de regras e reconhece que mais divisões nem sempre significam uma solução melhor para novos casos.
+
+
+AULA 6 — K-MEANS: ENCONTRAR GRUPOS SEM RESPOSTAS PRONTAS
+
+Conceitos:
+Agrupamento, distância, centróide, atribuição e atualização.
+
+Pergunta inicial:
+Como o computador pode formar grupos quando ninguém informou previamente o nome correto de cada grupo?
+
+Etapas sugeridas:
+
+1. Comparação entre dados com rótulos e sem rótulos — 5 minutos.
+2. Previsão de quantos grupos parecem existir em uma distribuição — 5 minutos.
+3. Aula guiada no módulo k-means — 20 minutos.
+4. Execução acompanhada das etapas de atribuição e movimento dos centróides — 10 minutos.
+5. Discussão sobre o efeito da quantidade e da posição inicial dos centróides — 5 minutos.
+6. Registro de saída: explicar por que os centróides se movimentam — 5 minutos.
+
+Evidência esperada:
+O estudante explica que os grupos são formados por proximidade e que os centróides são atualizados a partir dos pontos atribuídos.
+
+
+AULA 7 — COMPARAR MODELOS E RECONHECER LIMITAÇÕES
+
+Conceitos:
+Regressão, classificação, agrupamento, escolha de modelo e dependência dos dados.
+
+Pergunta inicial:
+Qual modelo utilizaríamos para prever um número, escolher uma categoria ou descobrir grupos?
+
+Etapas sugeridas:
+
+1. Organização coletiva dos cinco modelos em três categorias — 10 minutos.
+2. Distribuição de situações-problema curtas às duplas — 10 minutos.
+3. Escolha justificada de um tipo de modelo para cada situação — 10 minutos.
+4. Retorno à plataforma para verificar ou revisar uma escolha — 10 minutos.
+5. Discussão sobre dados insuficientes, dados tendenciosos e limites dos modelos — 5 minutos.
+6. Registro de saída: “um modelo pode errar porque...” — 5 minutos.
+
+Evidência esperada:
+O estudante escolhe entre regressão, classificação e agrupamento e apresenta uma justificativa coerente com o tipo de resposta desejada.
+
+
+AULA 8 — DESAFIO FINAL E SÍNTESE
+
+Objetivo:
+Mobilizar os conceitos estudados e produzir evidências de compreensão.
+
+Etapas sugeridas:
+
+1. Apresentação de uma situação-problema final — 5 minutos.
+2. Resolução individual: identificar dados, tarefa e categoria de modelo — 10 minutos.
+3. Experimento no módulo correspondente — 15 minutos.
+4. Explicação escrita ou oral do resultado — 10 minutos.
+5. Atividade final com questões equivalentes às do diagnóstico inicial — 5 minutos.
+6. Questionário breve de percepção sobre clareza, dificuldade e utilidade — 5 minutos.
+
+Evidência esperada:
+O estudante identifica a tarefa, utiliza conceitos adequados e explica como dados ou parâmetros influenciaram o resultado.
+
+
+9. AVALIAÇÃO DA APRENDIZAGEM
+
+A avaliação será processual e poderá reunir:
+
+- diagnóstico inicial, sem finalidade de nota;
+- previsões registradas antes dos experimentos;
+- respostas às verificações presentes na plataforma;
+- explicações produzidas ao final de cada aula;
+- desafio final de escolha e interpretação de modelo;
+- comparação entre respostas iniciais e finais;
+- observações do professor durante as atividades.
+
+Os critérios preliminares de análise serão:
+
+1. identifica os elementos do problema;
+2. diferencia treinamento de previsão;
+3. prevê uma consequência plausível;
+4. relaciona a mudança ao gráfico ou à decisão;
+5. utiliza o conceito matemático pertinente;
+6. explica limitações ou possibilidade de erro.
+
+Esses critérios ainda precisarão ser transformados em uma rubrica e validados antes da aplicação da pesquisa.
+
+
+10. ACESSIBILIDADE E PARTICIPAÇÃO
+
+- Não depender exclusivamente de cores para distinguir informações.
+- Disponibilizar explicações textuais para gráficos e estados importantes.
+- Permitir navegação por teclado e pausa das animações decorativas.
+- Formar duplas de maneira que dificuldades de acesso ao dispositivo não excluam estudantes.
+- Usar linguagem direta e explicar termos técnicos quando surgirem.
+- Oferecer tempo adicional ou formas alternativas de resposta quando necessário.
+
+A plataforma ainda precisa passar por avaliação formal de acessibilidade.
+
+
+11. RELAÇÃO COM A PESQUISA
+
+A sequência didática integra o produto educacional, mas sua aplicação como pesquisa dependerá da definição metodológica, da autorização institucional e dos procedimentos éticos aplicáveis. Nenhum dado identificável deverá ser registrado na plataforma.
+
+Antes de uma aplicação investigativa, deverão ser definidos:
+
+- turma, escola e nome oficial do componente PPA;
+- participantes e critérios de inclusão;
+- instrumentos de produção de dados;
+- termos de consentimento e assentimento, quando exigidos;
+- forma de análise das respostas;
+- papel do pesquisador e do professor da turma;
+- procedimentos para estudantes que não participarem da pesquisa.
+
+
+12. PENDÊNCIAS PARA A PRÓXIMA VERSÃO
+
+- Confirmar a duração real das aulas de PPA.
+- Confirmar o número de estudantes e a disponibilidade de computadores e internet.
+- Definir se todos os cinco módulos serão analisados na pesquisa ou apenas utilizados na sequência.
+- Produzir a cartilha do estudante e o guia do professor.
+- Construir o diagnóstico, a atividade final e a rubrica de análise.
+- Revisar a adequação matemática das atividades ao 1º ano.
+- Validar a sequência com o professor Marcos Braga e, se possível, com outro professor da Educação Básica.

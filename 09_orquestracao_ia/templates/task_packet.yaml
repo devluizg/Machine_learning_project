@@ -1,0 +1,30 @@
+task_id: ""
+route: "executor_economico"
+
+goal: ""
+context_minimum: ""
+
+inputs:
+  paths: []
+  urls: []
+  excerpts: []
+
+allowed_actions: []
+forbidden_actions:
+  - "ampliar_escopo"
+  - "alterar_arquitetura"
+  - "modificar_arquivos_fora_do_alvo"
+
+acceptance_criteria: []
+
+limits:
+  max_output_words: 500
+  max_web_sources: 5
+  max_retry: 1
+
+return_format:
+  - "status"
+  - "resultado_ou_alteracoes"
+  - "verificacao"
+  - "bloqueio_ou_incerteza"
+

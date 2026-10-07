@@ -1,0 +1,8 @@
+id,massa_g,alongamento_cm,tipo,visivel_inicialmente,observacao
+P01,10,1.08,base,sim,medição sintética base
+P02,20,1.91,base,sim,medição sintética base
+P03,30,3.12,base,sim,medição sintética base
+P04,40,3.87,base,sim,medição sintética base
+P05,50,5.09,base,sim,medição sintética base
+P06,60,5.94,base,sim,medição sintética base
+P07,30,8.50,atipico,não,medição sintética a investigar; não presumir erro
