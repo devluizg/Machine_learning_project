@@ -44,49 +44,49 @@ describe('contratos do módulo de regressão linear', () => {
     });
   });
   it('03 — publica unidades, controles e eixos definidos', () => {
-    expect(unidades).toMatchObject({ x: 'g', y: 'cm', slope: 'cm/g', squaredError: 'cm²' });
-    expect(controles.intercept).toMatchObject({ min: -0.5, max: 1, step: 0.1, initial: 0.5 });
-    expect(controles.slope).toMatchObject({ min: 0.04, max: 0.14, step: 0.01, initial: 0.06 });
-    expect(eixos).toMatchObject({ x: { min: 0, max: 70, step: 10 }, y: { min: -0.5, max: 10, step: 1 } });
+    expect(unidades).toMatchObject({ x: 'passos', y: 'm', slope: 'm/passo', squaredError: 'm²' });
+    expect(controles.intercept).toMatchObject({ min: -1, max: 2, step: 0.1, initial: 0.5 });
+    expect(controles.slope).toMatchObject({ min: 0.3, max: 0.9, step: 0.05, initial: 0.45 });
+    expect(eixos).toMatchObject({ x: { min: 0, max: 28, step: 4 }, y: { min: -1, max: 18, step: 3 } });
   });
-  it('04 — prevê y=a+bx sem arredondar', () => expect(prever(0.5, 0.06, 35)).toBe(2.6));
+  it('04 — prevê y=a+bx sem arredondar', () => expect(prever(0.5, 0.45, 20)).toBe(9.5));
   it('05 — rejeita entrada não finita na previsão', () => expect(() => prever(Infinity, 1, 1)).toThrow(/finito/));
   it('06 — resíduos mantêm id e calculam erro e quadrado', () => {
-    expect(calcularResiduos(base.slice(0, 1), { a: 0.5, b: 0.06 })[0]).toMatchObject({
-      id: 'P01', yPredicted: 1.1, residual: -0.020000000000000018,
+    expect(calcularResiduos(base.slice(0, 1), { a: 0.5, b: 0.45 })[0]).toMatchObject({
+      id: 'P01', yPredicted: 2.3, residual: 0.20000000000000018,
     });
   });
   it('07 — resíduos rejeitam valores não finitos e não mutam os dados', () => {
     const before = structuredClone(base);
     expect(() => calcularResiduos([{ x: NaN, y: 1 }], { a: 0, b: 1 })).toThrow(/finito/);
-    calcularResiduos(base, { a: 0.5, b: 0.06 });
+    calcularResiduos(base, { a: 0.5, b: 0.45 });
     expect(base).toEqual(before);
   });
   it('08 — SSE e MSE implementam soma e média dos quadrados', () => {
-    const residuals = calcularResiduos(base, { a: 0.5, b: 0.06 });
-    close(calcularSSE(residuals), 7.5715);
-    close(calcularMSE(residuals), 1.2619166666666667);
+    const residuals = calcularResiduos(base, { a: 0.5, b: 0.45 });
+    close(calcularSSE(residuals), 25.27);
+    close(calcularMSE(residuals), 4.211666666666665);
   });
   it('09 — MSE de lista vazia gera erro explicativo', () => expect(() => calcularMSE([])).toThrow(/ao menos um ponto/));
-  it('10 — N01: reta inicial prevê 2,6 em x=35', () => close(prever(0.5, 0.06, 35), 2.6));
-  it('11 — N02: inclinação 0,10 dá MSE 0,257917', () => {
-    close(calcularMSE(calcularResiduos(base, { a: 0.5, b: 0.1 })), 0.2579166666666667);
+  it('10 — N01: reta inicial prevê 9,5 em x=20', () => close(prever(0.5, 0.45, 20), 9.5));
+  it('11 — N02: inclinação 0,65 dá MSE 1,198333', () => {
+    close(calcularMSE(calcularResiduos(base, { a: 0.5, b: 0.65 })), 1.1983333333333346);
   });
-  it('12 — N03: intercepto 0 dá MSE 2,413583', () => {
-    close(calcularMSE(calcularResiduos(base, { a: 0, b: 0.06 })), 2.4135833333333335);
+  it('12 — N03: intercepto 0 dá MSE 6,211667', () => {
+    close(calcularMSE(calcularResiduos(base, { a: 0, b: 0.45 })), 6.211666666666665);
   });
   it('13 — N04: reta manual próxima dá SSE e MSE esperados', () => {
-    const residuals = calcularResiduos(base, { a: 0, b: 0.1 });
-    close(calcularSSE(residuals), 0.0575);
-    close(calcularMSE(residuals), 0.009583333333333334);
+    const residuals = calcularResiduos(base, { a: 0, b: 0.6 });
+    close(calcularSSE(residuals), 0.19);
+    close(calcularMSE(residuals), 0.03166666666666681);
   });
   it('14 — N05: OLS-base devolve parâmetros e métricas esperados', () => {
     const result = regressaoOLS(base);
-    close(result.parameters.a, 0.042666666666666714);
-    close(result.parameters.b, 0.09882857142857142);
-    close(result.sse, 0.05508190476190478);
-    close(result.mse, 0.009180317460317463);
-    close(prever(result.parameters.a, result.parameters.b, 35), 3.5016666666666665);
+    close(result.parameters.a, 0.0600000000000005);
+    close(result.parameters.b, 0.6064285714285713);
+    close(result.sse, 0.04342857142857138);
+    close(result.mse, 0.00723809523809523);
+    close(prever(result.parameters.a, result.parameters.b, 20), 12.188571428571427);
   });
   it('15 — OLS devolve resíduos identificados e não altera entrada', () => {
     const before = structuredClone(base);
@@ -94,19 +94,18 @@ describe('contratos do módulo de regressão linear', () => {
     expect(result.residuals.map(({ id }) => id)).toEqual(['P01', 'P02', 'P03', 'P04', 'P05', 'P06']);
     expect(base).toEqual(before);
   });
-  it('16 — N06: OLS com P07 tem intercepto acima do limite manual e métricas corretas', () => {
+  it('16 — N06: OLS com P07 altera o ajuste e conserva métricas corretas', () => {
     const result = regressaoOLS(all);
-    expect(result.parameters.a).toBeGreaterThan(controles.intercept.max);
-    close(result.parameters.a, 1.282903225806452);
-    close(result.parameters.b, 0.08554032258064516);
-    close(result.sse, 25.599969354838708);
-    close(result.mse, 3.6571384792626725);
+    close(result.parameters.a, 1.564516129032258);
+    close(result.parameters.b, 0.5661290322580644);
+    close(result.sse, 37.63483870967742);
+    close(result.mse, 5.376405529953916);
     expect(result.residuals.map(({ id }) => id)).toContain('P07');
   });
-  it('17 — N07 e N08: resíduo P03 positivo e P04 negativo', () => {
+  it('17 — N07 e N08: resíduo P03 negativo e P04 positivo', () => {
     const result = regressaoOLS(base);
-    expect(result.residuals.find(({ id }) => id === 'P03')!.residual).toBeGreaterThan(0);
-    expect(result.residuals.find(({ id }) => id === 'P04')!.residual).toBeLessThan(0);
+    expect(result.residuals.find(({ id }) => id === 'P03')!.residual).toBeLessThan(0);
+    expect(result.residuals.find(({ id }) => id === 'P04')!.residual).toBeGreaterThan(0);
   });
   it('18 — OLS rejeita entradas insuficientes, constantes ou não finitas', () => {
     expect(() => regressaoOLS([{ x: 1, y: 2 }])).toThrow(/dois pontos/);
@@ -133,7 +132,7 @@ describe('contratos do módulo de regressão linear', () => {
   });
   it('20 — formatação usa vírgula, unidade, precisão e normaliza -0,000', () => {
     expect(formatarNumero(-0.0001)).toBe('0,000');
-    expect(formatarComUnidade(0.098828571, 'cm/g')).toBe('0,099 cm/g');
+    expect(formatarComUnidade(0.606428571, 'm/passo')).toBe('0,606 m/passo');
     expect(formatarNumero(2.5, 1)).toBe('2,5');
   });
 });

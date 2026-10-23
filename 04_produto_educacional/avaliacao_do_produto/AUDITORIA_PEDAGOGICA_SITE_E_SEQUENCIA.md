@@ -11,7 +11,7 @@ O protótipo já oferece a estrutura central necessária à sequência: introdu�
 A revisão técnica também foi executada no estado atual do site:
 
 - npm run lint: aprovado;
-- npm run test:run: aprovado, com 31 testes;
+- npm run test:run: aprovado, com 34 testes;
 - npm run build: aprovado.
 
 A auditoria registra aderência pedagógica a partir da inspeção do protótipo e dos documentos. Essa inspeção não constitui validação com estudantes. Os cenários da sequência foram alinhados aos conjuntos sintéticos atualmente exibidos no site. O núcleo final comparável seguirá a matriz de correspondência com o diagnóstico, enquanto o desafio de transferência utilizará situações diferentes das aulas.
@@ -20,7 +20,7 @@ A auditoria registra aderência pedagógica a partir da inspeção do protótipo
 
 | Módulo | Ação essencial da sequência | Recurso já implementado | Situação | Ajuste pedagógico necessário |
 | --- | --- | --- | --- | --- |
-| Regressão linear | Alterar inclinação e interpretar previsão, resíduo e erro na relação entre massa e alongamento de mola. | Inclinação, reta manual ou treinada, previsão em 50 g, resíduos, MSE e aula guiada. | Aderente após alinhamento documental. | Usar na sequência o mesmo cenário do site: massa e alongamento de mola. |
+| Regressão linear | Alterar inclinação e interpretar previsão, resíduo e erro na relação entre passos e distância. | Inclinação, reta manual ou treinada, previsão para 20 passos, resíduos, MSE e aula guiada. | Aderente após alinhamento documental. | Usar na sequência o mesmo cenário do site: passos e distância percorrida. |
 | Regressão logística | Alterar limiar e distinguir probabilidade de classificação. | Limiar, curva, dados separados ou sobrepostos, treino e questão guiada. | Aderente. | Tornar o cenário do sensor mais concreto e manter o mesmo vocabulário no instrumento final. |
 | k-vizinhos mais próximos (k-NN) | Alterar k e explicar decisão por proximidade e votação em amostras descritas por doçura e acidez. | Número de vizinhos, distância, vizinhos destacados, votos e questão guiada. | Aderente após alinhamento documental. | Usar na sequência o mesmo cenário do site: amostras por doçura e acidez. |
 | Árvore de decisão | Alterar profundidade e explicar regras e caminhos com objetos descritos por largura e altura. | Profundidade, regra inicial, caminho destacado, regiões e questão guiada. | Aderente após alinhamento documental. | Usar na sequência o mesmo cenário do site: objetos por largura e altura. |
@@ -32,7 +32,7 @@ A auditoria registra aderência pedagógica a partir da inspeção do protótipo
 ### Prioridade 0: necessários antes da aplicação em campo
 
 1. **Escolher e padronizar os cinco cenários.**  
-   Os roteiros dos encontros 2, 4, 5 e 6 foram alinhados aos cenários atuais do site: massa e alongamento de mola; amostras por doçura e acidez; objetos por largura e altura; e amostras sem rótulos por doçura e acidez. O núcleo final comparável seguirá a matriz definida com o diagnóstico. O desafio de transferência manterá situações diferentes das aulas. Essa decisão documental não declara validação com estudantes.
+   Os roteiros dos encontros 2, 4, 5 e 6 foram alinhados aos cenários atuais do site: passos e distância percorrida; amostras por doçura e acidez; objetos por largura e altura; e amostras sem rótulos por doçura e acidez. O núcleo final comparável seguirá a matriz definida com o diagnóstico. O desafio de transferência manterá situações diferentes das aulas. Essa decisão documental não declara validação com estudantes.
 
 2. **Revisar acessibilidade e infraestrutura em uso real.**  
    O site possui alternativas textuais, controles nativos, descrições e preferência por redução de movimento. Ainda assim, faltam teste manual por teclado, leitor de tela, contraste, navegação em tela menor e projeção em laboratório. Isso deve ocorrer antes de levar o protótipo à turma.
@@ -62,7 +62,7 @@ A auditoria registra aderência pedagógica a partir da inspeção do protótipo
 | Aula | Elemento que deve ser usado no site | Elemento que não deve ser obrigatório |
 | --- | --- | --- |
 | 1 | Introdução inicial: dados, modelo, treino ou consulta, teste, classificação e agrupamento. | Exploração livre, vista 3D e fórmulas. |
-| 2 | Massa e alongamento da mola, inclinação, previsão em ponto fixo, resíduo e gráfico de reta. | Superfície 3D, taxa de aprendizagem, ponto atípico. |
+| 2 | Passos e distância percorrida, inclinação, previsão em ponto fixo, resíduo e gráfico de reta. | Superfície 3D, taxa de aprendizagem, ponto atípico. |
 | 3 | Limiar, probabilidade e classe resultante. | Treino por perda logarítmica e superfície 3D. |
 | 4 | Amostras por doçura e acidez, valor de k, distâncias, vizinhos destacados e votos. | Métrica Manhattan, voto ponderado, regiões e vista 3D. |
 | 5 | Objetos por largura e altura, profundidade pequena, regra e caminho da decisão. | Cálculo formal de Gini, regiões completas e vista 3D. |

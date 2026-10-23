@@ -123,14 +123,16 @@ export function regressaoOLS(points: readonly DataPoint[]): RegressionResult {
 
 export function trainLinearGradient(points: readonly DataPoint[], steps: number, learningRate: number) {
   if (!points.length || !Number.isInteger(steps) || steps < 0 || !Number.isFinite(learningRate) || learningRate <= 0 || learningRate > 1) throw new Error('Treino inválido');
+  assertDataPoints(points);
+  const scale = Math.max(1, ...points.map((point) => Math.abs(point.x)));
   let a = 0;
   let scaledSlope = 0;
   const history = [];
   for (let step = 0; step <= steps; step++) {
-    const parameters = { a, b: scaledSlope / 50 };
+    const parameters = { a, b: scaledSlope / scale };
     history.push({ step, parameters, mse: calcularMSE(calcularResiduos(points, parameters)) });
-    const gradientA = points.reduce((sum, point) => sum + 2 * (a + scaledSlope * point.x / 50 - point.y), 0) / points.length;
-    const gradientB = points.reduce((sum, point) => sum + 2 * (a + scaledSlope * point.x / 50 - point.y) * point.x / 50, 0) / points.length;
+    const gradientA = points.reduce((sum, point) => sum + 2 * (a + scaledSlope * point.x / scale - point.y), 0) / points.length;
+    const gradientB = points.reduce((sum, point) => sum + 2 * (a + scaledSlope * point.x / scale - point.y) * point.x / scale, 0) / points.length;
     a -= learningRate * gradientA;
     scaledSlope -= learningRate * gradientB;
   }

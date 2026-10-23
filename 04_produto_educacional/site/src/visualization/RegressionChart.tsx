@@ -47,7 +47,7 @@ export function RegressionChart({
         viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
       >
         <desc id="chart-summary">
-          Seis pontos-base de massa e alongamento. A reta manual inicial usa intercepto de 0,500 centímetros e inclinação de 0,060 centímetros por grama.
+          Seis pontos-base de passos e distância. A reta manual inicial usa intercepto de 0,500 metro e inclinação de 0,450 metro por passo.
         </desc>
         <rect className="plot-background" height={plotBottom - plotTop} width={plotRight - plotLeft} x={plotLeft} y={plotTop} />
         {xTicks.map((tick) => (
@@ -76,7 +76,7 @@ export function RegressionChart({
           const isSelected = pointId === selectedPointId;
           return (
             <circle
-              aria-label={`${pointId}: massa ${row.x} gramas, alongamento ${row.y} centímetros`}
+              aria-label={`${pointId}: ${row.x} passos, distância de ${row.y} metros`}
               className={isSelected ? 'data-point data-point-selected' : 'data-point'}
               cx={xToPixel(row.x)}
               cy={yToPixel(row.y)}
@@ -95,10 +95,10 @@ export function RegressionChart({
             />
           );
         })}
-        <text className="axis-title" textAnchor="middle" x={(plotLeft + plotRight) / 2} y={HEIGHT - 12}>Massa (g)</text>
-        <text className="axis-title" textAnchor="middle" transform={`rotate(-90 18 ${(plotTop + plotBottom) / 2})`} x={18} y={(plotTop + plotBottom) / 2}>Alongamento (cm)</text>
+        <text className="axis-title" textAnchor="middle" x={(plotLeft + plotRight) / 2} y={HEIGHT - 12}>Número de passos</text>
+        <text className="axis-title" textAnchor="middle" transform={`rotate(-90 18 ${(plotTop + plotBottom) / 2})`} x={18} y={(plotTop + plotBottom) / 2}>Distância (m)</text>
       </svg>
-      <p className="chart-legend"><span className="legend-line" /> Reta manual inicial: ŷ = 0,500 + 0,060x</p>
+      <p className="chart-legend"><span className="legend-line" /> Reta manual inicial: ŷ = 0,500 + 0,450x</p>
     </figure>
   );
 }

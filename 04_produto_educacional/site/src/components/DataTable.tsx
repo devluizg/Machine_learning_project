@@ -18,7 +18,7 @@ export function DataTable({ rows, sse, mse, selectedPointId, onSelectPoint }: Da
         <table>
           <caption>Conjunto-base e valores derivados da reta manual inicial.</caption>
           <thead>
-            <tr><th scope="col">Ponto</th><th scope="col">Massa (g)</th><th scope="col">Observado (cm)</th><th scope="col">Previsto (cm)</th><th scope="col">Resíduo (cm)</th><th scope="col">Resíduo² (cm²)</th><th scope="col">Ação</th></tr>
+            <tr><th scope="col">Ponto</th><th scope="col">Passos</th><th scope="col">Observado (m)</th><th scope="col">Previsto (m)</th><th scope="col">Resíduo (m)</th><th scope="col">Resíduo² (m²)</th><th scope="col">Ação</th></tr>
           </thead>
           <tbody>
             {rows.map((row) => {
@@ -38,7 +38,7 @@ export function DataTable({ rows, sse, mse, selectedPointId, onSelectPoint }: Da
           </tbody>
         </table>
       </div>
-      <p className="metrics">SSE: {formatarNumero(sse, 3)} cm² · MSE: {formatarNumero(mse, 3)} cm²</p>
+      <p className="metrics">SSE: {formatarNumero(sse, 3)} m² · MSE: {formatarNumero(mse, 3)} m²</p>
     </section>
   );
 }

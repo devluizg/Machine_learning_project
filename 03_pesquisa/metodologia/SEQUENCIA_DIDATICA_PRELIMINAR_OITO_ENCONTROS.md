@@ -32,7 +32,7 @@ Somente dados sintéticos serão usados. Nenhum exemplo utilizará notas, frequ�
 | Encontro | Questão orientadora | Modelo ou foco | Produto formativo |
 | --- | --- | --- | --- |
 | 1 | Como um sistema pode usar exemplos para produzir uma resposta? | Dados, características, modelos e tipos de tarefa | Diagnóstico individual e classificação oral de situações. |
-| 2 | Como prever o alongamento de uma mola a partir da massa? | Regressão linear | Explicação sobre massa, inclinação, previsão do alongamento e erro. |
+| 2 | Como estimar a distância percorrida a partir do número de passos? | Regressão linear | Explicação sobre passos, inclinação, previsão da distância e erro. |
 | 3 | Como uma chance pode virar uma decisão? | Regressão logística | Explicação da diferença entre probabilidade e limiar. |
 | 4 | O que as amostras próximas dizem sobre uma nova amostra? | k-vizinhos mais próximos (k-NN) | Justificativa baseada em doçura, acidez, distância, vizinhos e votação. |
 | 5 | Como perguntas sobre largura e altura levam a uma decisão? | Árvore de decisão | Explicação de caminho de decisão e regra aplicada a objetos. |
@@ -58,7 +58,7 @@ Somente dados sintéticos serão usados. Nenhum exemplo utilizará notas, frequ�
 
 **Ponto de atenção:** não permanecer em debate genérico sobre IA. Chegar aos dados e à finalidade de cada situação.
 
-### Encontro 2: Regressão linear: massa, alongamento da mola, previsão e erro
+### Encontro 2: Regressão linear: passos, distância percorrida, previsão e erro
 
 **Objetivos:** reconhecer previsão de valor numérico; interpretar tendência em gráfico de dispersão; relacionar inclinação ou mudança nos dados à alteração de previsão e erro.
 
@@ -66,12 +66,12 @@ Somente dados sintéticos serão usados. Nenhum exemplo utilizará notas, frequ�
 
 | Tempo | Ação | Mediação |
 | --- | --- | --- |
-| 0–7 min | Retomar dado, saída e previsão numérica. | Perguntar se prever valor é o mesmo que escolher categoria. |
-| 7–12 min | Apresentar a relação entre massa aplicada e alongamento de uma mola; identificar eixos, pontos e valor a estimar. | Ligar cada eixo à massa e ao alongamento antes de mostrar fórmula. |
-| 12–18 min | Cada estudante antecipa o efeito de alterar a inclinação. | Solicitar previsão específica: aumenta, diminui ou não muda? |
-| 18–33 min | Explorar aula guiada: inclinação, reta, previsão, resíduo e MSE; se houver tempo, um passo de treino. | Comparar valor observado, previsto e diferença entre eles. |
-| 33–43 min | Confrontar previsões com o gráfico. | Explicar resíduo como diferença, sem exigir cálculo geral. |
-| 43–50 min | Síntese. | Retomar como a inclinação ou um dado atípico altera a reta e a previsão do alongamento. |
+| 0–8 min | Apresentar o problema de estimar a distância percorrida a partir do número de passos. | Destacar que o tamanho do passo varia e que a previsão não será exata para todas as pessoas. |
+| 8–15 min | Fazer uma demonstração breve e ler a tabela de seis casos sintéticos. | Ligar o eixo horizontal ao número de passos e o vertical à distância em metros. |
+| 15–20 min | Cada estudante prevê uma distância para 28 passos. | Solicitar uma estimativa e a justificativa antes de abrir o gráfico. |
+| 20–35 min | Explorar a aula guiada: inclinação, reta, previsão para 20 passos, resíduo e MSE. | Alterar um controle por vez e comparar valor observado com valor previsto. |
+| 35–43 min | Calcular e interpretar um resíduo. | Usar 12,1 m observados e 11,6 m previstos para discutir a diferença de 0,5 m. |
+| 43–50 min | Fazer o registro individual e a síntese. | Retomar como a inclinação modifica a previsão sem alterar os pontos observados. |
 
 **Questão formativa:** “Se a inclinação aumentar, o que tende a ocorrer com a previsão de um ponto à direita do gráfico? Explique com o desenho.”
 

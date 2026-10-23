@@ -18,7 +18,7 @@ Permitir que um estudante do Ensino Médio sem contato prévio com *machine lear
 
 | Modelo | Ação inicial | Evidência de funcionamento | Questão de compreensão |
 | --- | --- | --- | --- |
-| Regressão linear | Mudar inclinação; depois avançar um passo do treino | Previsão, resíduo, quadrado do erro e MSE variam | Por que aumentar a inclinação aumenta a previsão em 50 g? |
+| Regressão linear | Mudar inclinação; depois avançar um passo do treino | Previsão, resíduo, quadrado do erro e MSE variam | Por que aumentar a inclinação aumenta a distância prevista para 20 passos? |
 | Regressão logística | Mudar limiar; depois avançar um passo do treino | Classe pode mudar sem mudar a curva; perda muda no treino | O que o limiar altera? |
 | k-NN | Mudar o número de vizinhos | Distâncias, vizinhos destacados e votos | O que acontece quando chega um exemplo novo? |
 | Árvore | Mudar profundidade | Regra inicial, impureza, caminho destacado e regiões | O que permite uma árvore mais profunda? |

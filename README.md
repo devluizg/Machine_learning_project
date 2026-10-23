@@ -19,7 +19,7 @@ A proposta atual é uma intervenção pedagógica em uma turma, com abordagem pr
 A sequência terá oito encontros de aproximadamente cinquenta minutos:
 
 1. dados, modelos e tipos de tarefa, com diagnóstico individual;
-2. regressão linear, massa, alongamento, previsão e erro;
+2. regressão linear, passos, distância, previsão e erro;
 3. regressão logística, probabilidade, limiar e classificação;
 4. k-vizinhos mais próximos, proximidade e votação;
 5. árvore de decisão, regras e caminhos;

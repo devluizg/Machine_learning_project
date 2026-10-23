@@ -55,6 +55,9 @@ export default function App() {
   const active = models.find((model) => model.id === route) ?? null;
   const ActiveModule = active?.component;
   const ActiveIcon = active?.icon;
+  const activeIndex = active ? models.findIndex((model) => model.id === active.id) : -1;
+  const prevModel = activeIndex > 0 ? models[activeIndex - 1] : null;
+  const nextModel = activeIndex >= 0 && activeIndex < models.length - 1 ? models[activeIndex + 1] : null;
 
   return (
     <div className="site-shell">
@@ -258,6 +261,25 @@ export default function App() {
             <section className="module-hero">
               <div className="module-topline">
                 <a className="back-link" href="#/">← Voltar ao início</a>
+                <div className="module-stepper">
+                  {prevModel ? (
+                    <a className="stepper-pill prev" href={`#/${prevModel.id}`} title={`Modelo anterior: ${prevModel.name}`}>
+                      <span>← {prevModel.number} {prevModel.name}</span>
+                    </a>
+                  ) : (
+                    <span className="stepper-pill is-disabled">Início dos modelos</span>
+                  )}
+                  <span className="stepper-badge">{active.number} / 05</span>
+                  {nextModel ? (
+                    <a className="stepper-pill next" href={`#/${nextModel.id}`} title={`Próximo modelo: ${nextModel.name}`}>
+                      <span>{nextModel.number} {nextModel.name} →</span>
+                    </a>
+                  ) : (
+                    <a className="stepper-pill next" href="#/sintese" title="Síntese comparativa">
+                      <span>07 Síntese →</span>
+                    </a>
+                  )}
+                </div>
               </div>
               <div className="module-hero-body">
                 <div>
@@ -278,33 +300,21 @@ export default function App() {
                 )}
               </div>
             </section>
-            <nav aria-label="Escolher outro modelo" className="module-tabs">
-              <span className="tabs-hint" aria-hidden="true">Deslize para ver mais →</span>
-              {models.map((model) => (
-                <a
-                  aria-current={active.id === model.id ? 'page' : undefined}
-                  href={`#/${model.id}`}
-                  key={model.id}
-                >
-                  <span>{model.number}</span> {model.name}
-                </a>
-              ))}
-              <a href="#/sintese">
-                <span>07</span> Síntese
-              </a>
-            </nav>
             <div className="module-content" key={active.id}>
               <LessonContext modelId={active.id} />
               {ActiveModule && <ActiveModule />}
             </div>
-            <section className="next-model">
-              <span className="tiny-label">CONTINUE EXPLORANDO</span>
-              <h2>
-                {active.id === 'kmeans'
-                  ? 'Agora compare os cinco modelos.'
-                  : 'O próximo modelo conta outra história.'}
-              </h2>
+            <section className="next-model" aria-label="Avançar na sequência de modelos">
+              <div>
+                <span className="tiny-label">CONTINUE EXPLORANDO</span>
+                <h2>
+                  {active.id === 'kmeans'
+                    ? 'Agora compare os cinco modelos.'
+                    : 'O próximo modelo conta outra história.'}
+                </h2>
+              </div>
               <a
+                className="next-model-cta"
                 href={
                   active.id === 'kmeans'
                     ? '#/sintese'

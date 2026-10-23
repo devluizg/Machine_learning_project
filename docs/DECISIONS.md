@@ -178,6 +178,29 @@ Este documento registra decisões confirmadas e evita que sugestões sejam trata
   - *k-means:* centróides realizam translação orbital suave enquanto os halos pontilhados dos clusters giram lentamente.
 - Os blocos inferiores de apoio ("Encontro 7" e "Sequência completa"), que estavam empilhados e colados ao grid dos modelos, foram reestruturados em uma grade de apoio de duas colunas (`.home-support-strip`) com espaçamento generoso (`margin-top: 54px`, linha divisória sutil), cartões arredondados com badges temáticas e botões pílula independentes, eliminando a sensação de embolamento.
 
+### 2026-10-23 — Eliminação da barra de abas redundante e arredondamento dos componentes internos dos módulos
+
+- A pedido de Luiz, a barra horizontal de abas (`.module-tabs`) que dividia a tela entre o cabeçalho do modelo e o conteúdo da aula ("01 Regressão linear | 02 Regressão logística...") foi completamente removida por ser redundante em relação à barra de navegação superior e quebrar a fluidez visual do céu noturno.
+- Em substituição, foi integrado um navegador sequencial moderno e compacto em pílula (`.module-stepper`) na barra de topo do modelo (`module-topline`), permitindo transitar diretamente para o modelo anterior ou seguinte com identificação da aula (`MODELO 01 / 05`) sem ocupar espaço vertical no layout.
+- Todos os componentes internos com formato quadrado ou de bordas retas foram modernizados para o padrão arredondado e acolhedor do projeto:
+  - O seletor "Modo aula | Aprofundamento opcional" (`.learning-mode`) foi transformado em um controle segmentado em pílula (`border-radius: 9999px`) com vidro fosco e destaque luminoso em gradiente coral no botão ativo;
+  - O cartão de contexto pedagógico da aula (`.lesson-context`) e os seus três blocos de passos (`.lesson-context-steps p`: Antes, Experimente, Explique) ganharam cantos arredondados (`border-radius: 24px` e `16px`).
+
+### 2026-10-23 — Destaque em laranja vibrante para avançar ao próximo modelo
+
+- A pedido de Luiz, os botões de avançar para o próximo modelo — que antes ficavam apagados em tom cinza-azulado — foram reprojetados com máximo destaque em **laranja vibrante** (`linear-gradient(135deg, #ff6b3d 0%, #e64a19 100%)`), alto contraste sobre o azul-marinho profundo e formato pílula com sombra luminosa:
+  - **Lá em cima (`.module-stepper .stepper-pill.next`):** O botão para avançar (ex.: `02 Regressão logística →`) agora se destaca em laranja radiante logo no cabeçalho do modelo;
+  - **Lá embaixo (`.next-model a`):** O botão "Próximo experimento ↗" / "Abrir síntese comparativa ↗" foi transformado no botão principal de chamada para ação da página, com tipografia encorpada, brilho suave em hover e alojado em um cartão arredondado com efeito aero-glass (`.next-model`).
+
+### 2026-10-23 — Contraste e legibilidade na seção 'Aplique e questione' dos módulos
+
+- A pedido de Luiz, foi corrigido o contraste do cartão de investigação pedagógica (`.practice-card`), na seção *06 / Aplique e questione*:
+  - O texto "Uma pergunta para levar adiante" e a situação-problema (ex.: inserção do ponto discrepante P07 em regressão linear) tinham cor herdada escura (`var(--ink)` / `#081d3d`), tornando-se invisíveis sobre o fundo azul-noite profundo.
+  - A tipografia foi atualizada para conformidade estrita com padrões de acessibilidade visual (WCAG AAA): título em branco puro (`#ffffff`), texto da questão em tom ardósia claro de alta legibilidade (`#e2e8f0`) com entrelinha 1.65, e destaque das sub-seções "Onde ajuda:" em azul-céu luminoso (`#82c8ee`) e "Onde exige cuidado:" em tom coral suave (`#ff9e7a`).
+  - O bloco foi estruturado como cartão aero-glass arredondado (`border-radius: 24px`, fundo escuro translúcido e borda sutil) com dois cartões internos independentes (`border-radius: 16px`) para as colunas analíticas.
+
+
+
 ## Sugestões em análise
 
 - Organizar cada módulo em intuição, experimento, matemática, interpretação e atividade.

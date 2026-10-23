@@ -1,27 +1,27 @@
-// Fonte: ../../prototipos/modulo_piloto_regressao_linear/DADOS_SINTETICOS.csv
+// Fonte didática: instrumento da Aula 2, cenário de passos e distância.
 export type PointIdentifier = string;
-export type MassGrams = number;
-export type ElongationCentimeters = number;
+export type StepCount = number;
+export type DistanceMeters = number;
 export type PointKind = 'base' | 'atipico';
 export type InitiallyVisible = boolean;
 export type PointObservation = string;
 
 export interface RegressionDataPoint {
   id: PointIdentifier;
-  x: MassGrams;
-  y: ElongationCentimeters;
+  x: StepCount;
+  y: DistanceMeters;
   tipo: PointKind;
   visivelInicialmente: InitiallyVisible;
   observacao: PointObservation;
 }
 
 export interface MeasurementUnits {
-  x: 'g';
-  y: 'cm';
-  intercept: 'cm';
-  slope: 'cm/g';
-  residual: 'cm';
-  squaredError: 'cm²';
+  x: 'passos';
+  y: 'm';
+  intercept: 'm';
+  slope: 'm/passo';
+  residual: 'm';
+  squaredError: 'm²';
 }
 
 export interface ParameterControl {
@@ -40,37 +40,37 @@ export interface AxisDefinition {
 }
 
 export const unidades: MeasurementUnits = {
-  x: 'g',
-  y: 'cm',
-  intercept: 'cm',
-  slope: 'cm/g',
-  residual: 'cm',
-  squaredError: 'cm²',
+  x: 'passos',
+  y: 'm',
+  intercept: 'm',
+  slope: 'm/passo',
+  residual: 'm',
+  squaredError: 'm²',
 };
 
 export const controles = {
-  intercept: { min: -0.5, max: 1, step: 0.1, initial: 0.5, unit: 'cm' },
-  slope: { min: 0.04, max: 0.14, step: 0.01, initial: 0.06, unit: 'cm/g' },
+  intercept: { min: -1, max: 2, step: 0.1, initial: 0.5, unit: 'm' },
+  slope: { min: 0.3, max: 0.9, step: 0.05, initial: 0.45, unit: 'm/passo' },
 } satisfies Record<string, ParameterControl>;
 
 export const eixos = {
-  x: { min: 0, max: 70, step: 10, unit: 'g' },
-  y: { min: -0.5, max: 10, step: 1, unit: 'cm' },
+  x: { min: 0, max: 28, step: 4, unit: 'passos' },
+  y: { min: -1, max: 18, step: 3, unit: 'm' },
 } satisfies Record<'x' | 'y', AxisDefinition>;
 
 export const pontosBase: readonly RegressionDataPoint[] = [
-  { id: 'P01', x: 10, y: 1.08, tipo: 'base', visivelInicialmente: true, observacao: 'medição sintética base' },
-  { id: 'P02', x: 20, y: 1.91, tipo: 'base', visivelInicialmente: true, observacao: 'medição sintética base' },
-  { id: 'P03', x: 30, y: 3.12, tipo: 'base', visivelInicialmente: true, observacao: 'medição sintética base' },
-  { id: 'P04', x: 40, y: 3.87, tipo: 'base', visivelInicialmente: true, observacao: 'medição sintética base' },
-  { id: 'P05', x: 50, y: 5.09, tipo: 'base', visivelInicialmente: true, observacao: 'medição sintética base' },
-  { id: 'P06', x: 60, y: 5.94, tipo: 'base', visivelInicialmente: true, observacao: 'medição sintética base' },
+  { id: 'P01', x: 4, y: 2.5, tipo: 'base', visivelInicialmente: true, observacao: 'medição sintética base' },
+  { id: 'P02', x: 8, y: 5, tipo: 'base', visivelInicialmente: true, observacao: 'medição sintética base' },
+  { id: 'P03', x: 12, y: 7.2, tipo: 'base', visivelInicialmente: true, observacao: 'medição sintética base' },
+  { id: 'P04', x: 16, y: 9.8, tipo: 'base', visivelInicialmente: true, observacao: 'medição sintética base' },
+  { id: 'P05', x: 20, y: 12.1, tipo: 'base', visivelInicialmente: true, observacao: 'medição sintética base' },
+  { id: 'P06', x: 24, y: 14.7, tipo: 'base', visivelInicialmente: true, observacao: 'medição sintética base' },
 ];
 
 export const pontoP07: RegressionDataPoint = {
   id: 'P07',
-  x: 30,
-  y: 8.5,
+  x: 12,
+  y: 14,
   tipo: 'atipico',
   visivelInicialmente: false,
   observacao: 'medição sintética a investigar; não presumir erro',

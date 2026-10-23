@@ -12,15 +12,17 @@
 \usepackage{xcolor}
 \usepackage{fancyhdr}
 \usepackage{amsmath}
+\usepackage{tikz}
 
-\geometry{top=1.7cm,bottom=1.7cm,left=1.8cm,right=1.8cm}
+\geometry{top=1.6cm,bottom=1.6cm,left=1.7cm,right=1.7cm}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{0.45em}
-\setlist[itemize]{leftmargin=*,itemsep=0.25em,topsep=0.2em}
-\setlist[enumerate]{leftmargin=*,itemsep=0.35em,topsep=0.2em}
-\definecolor{azul}{HTML}{173B57}
-\definecolor{cinza}{HTML}{F2F4F7}
-\definecolor{cinzaescuro}{HTML}{5E6670}
+\setlength{\parskip}{0.42em}
+\setlist[itemize]{leftmargin=*,itemsep=0.2em,topsep=0.2em}
+\setlist[enumerate]{leftmargin=*,itemsep=0.25em,topsep=0.2em}
+\definecolor{azul}{HTML}{081D3D}
+\definecolor{laranja}{HTML}{FF6B3D}
+\definecolor{azulclaro}{HTML}{DCEFFA}
+\definecolor{cinza}{HTML}{F3F5F7}
 
 \pagestyle{fancy}
 \setlength{\headheight}{15pt}
@@ -30,134 +32,267 @@
 \cfoot{\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 
-\newcommand{\campo}[1]{\textbf{#1}}
 \newcommand{\linha}{\rule{\linewidth}{0.35pt}}
 \newcommand{\bloco}[1]{%
+  \vspace{0.2em}
+  \noindent\colorbox{azulclaro}{\parbox{0.96\linewidth}{#1}}%
   \vspace{0.25em}
-  \noindent\colorbox{cinza}{\parbox{0.96\linewidth}{#1}}%
-  \vspace{0.3em}
+}
+\newcommand{\fala}[1]{%
+  \noindent\colorbox{cinza}{\parbox{0.96\linewidth}{\textbf{Fala sugerida do professor:} #1}}%
+}
+\newcommand{\espacoresposta}[1]{%
+  \par\vspace{0.2em}
+  \foreach \n in {1,...,#1}{\linha\par\vspace{0.62em}}
 }
 
 \begin{document}
 
 \begin{center}
   {\LARGE\bfseries\color{azul} Aula 2: regressão linear}\par
-  \vspace{0.25em}
-  {\large Massa, alongamento da mola, previsão e erro}\par
-  \vspace{0.35em}
-  {\small Roteiro de aplicação da sequência didática}\par
+  \vspace{0.2em}
+  {\large Passos, distância percorrida, previsão e erro}\par
+  \vspace{0.3em}
+  {\small Recurso didático completo para uma aula de 50 minutos}\par
 \end{center}
 
-\bloco{\textbf{Lugar desta aula na pesquisa.} Este é o segundo encontro da sequência de oito aulas. A atividade introduz a regressão linear como forma de estimar um valor numérico a partir de exemplos. O registro individual ao final integra o conjunto de evidências previsto para os encontros 2, 4 e 6.}
+\bloco{\textbf{Lugar desta aula na pesquisa.} Este é o segundo encontro da sequência de oito aulas. A atividade introduz a regressão linear como forma de estimar um valor numérico a partir de exemplos. A previsão inicial e o registro individual final integram as evidências previstas para a pesquisa.}
 
-\section*{1. Identificação}
+\section*{1. Visão geral da aula}
 
-\begin{tabularx}{\linewidth}{@{}>{\bfseries}p{4.1cm}X@{}}
-Turma: & \rule{8.5cm}{0.35pt} \\
-Data: & \rule{8.5cm}{0.35pt} \\
-Duração: & 50 minutos \\
-Organização: & Exploração individual; registro individual ao final. \\
-Recursos: & Plataforma no módulo de regressão linear, computadores do laboratório ou Chromebooks, quadro e folha de registro. \\
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}p{4.8cm}X@{}}
+Duração: & 50 minutos. \\
+Organização: & Conversa coletiva breve, demonstração prática, exploração individual da plataforma e registro individual. \\
+Problema: & Estimar a distância percorrida a partir do número de passos. \\
+Recursos: & Computadores ou Chromebooks, plataforma no módulo de regressão linear, quadro, fita métrica ou piso com medida conhecida e uma cópia deste material por estudante. \\
+Produto do estudante: & Previsão inicial, anotações da exploração e respostas individuais ao final. \\
 \end{tabularx}
 
-\section*{2. Objetivos da aula}
+\textbf{Objetivo.} Reconhecer uma situação de previsão numérica, interpretar uma tendência em um gráfico de dispersão e relacionar mudanças na inclinação da reta a alterações na previsão e no erro.
 
-Ao final do encontro, espera-se que os estudantes consigam reconhecer uma situação de previsão de valor numérico, interpretar uma tendência em gráfico de dispersão e relacionar uma alteração na inclinação da reta ou nos dados a mudanças na previsão e no erro.
+\textbf{Conceitos em foco.} Dado, variável, previsão, gráfico de dispersão, reta de tendência, inclinação, valor observado, valor previsto, resíduo e erro.
 
-\textbf{Relação curricular:} EM13CO11 e EM13CO12.
+\bloco{\textbf{Cuidado didático.} O número de passos não determina sozinho a distância percorrida. O tamanho do passo varia entre pessoas e até para a mesma pessoa. Essa variação é útil para discutir por que a reta oferece uma estimativa, e não uma resposta exata.}
 
-\textbf{Conceitos em foco:} dado, variável, previsão numérica, gráfico de dispersão, reta de tendência, inclinação, valor observado, valor previsto, resíduo e erro.
-
-\section*{3. Preparação antes da aula}
+\section*{2. Preparação antes da aula}
 
 \begin{itemize}
-  \item Abrir o módulo de regressão linear e confirmar que o cenário de massa e alongamento da mola está disponível.
-  \item Conferir se os eixos, os pontos, a reta e os controles podem ser vistos pela turma.
-  \item Separar uma folha de registro individual para cada estudante e usar o mesmo código anônimo adotado no diagnóstico inicial.
-  \item Confirmar que cada estudante terá acesso individual ao módulo, em computador do laboratório ou Chromebook.
+  \item Abra o módulo de regressão linear e confirme o cenário de passos e distância.
+  \item Teste o controle de inclinação, a exibição dos resíduos e o reinício do experimento.
+  \item Marque no chão um ponto de partida. Use uma fita métrica ou confira previamente a medida das lajotas.
+  \item Entregue uma cópia deste material a cada estudante e peça o mesmo código anônimo usado no diagnóstico.
+  \item Organize o acesso individual à plataforma. Se faltar equipamento, mantenha o registro individual e faça a exploração com projeção.
 \end{itemize}
 
-\bloco{\textbf{Cuidado didático.} A situação da mola é um cenário sintético. A finalidade é observar relações entre valores, dados e modelo, sem tratar o gráfico como previsão exata de um fenômeno real.}
+\newpage
 
-\section*{4. Desenvolvimento da aula}
+\section*{3. Condução do professor}
 
-\renewcommand{\arraystretch}{1.25}
-\begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}p{1.65cm}|p{5.0cm}|X|}
-\hline
-\textbf{Tempo} & \textbf{Ação com a turma} & \textbf{Mediação docente} \\
-\hline
-0--7 min & Retomar a aula anterior: dados entram em um sistema e uma saída é produzida. Apresentar a diferença entre escolher uma categoria e estimar um valor. & Perguntar: ``Se queremos saber o alongamento para uma massa ainda não testada, qual valor queremos prever?'' Registrar no quadro que a saída será um número. \\
-\hline
-7--12 min & Apresentar a tabela e o gráfico de massa aplicada e alongamento da mola. Identificar os eixos, os pontos observados e o valor a estimar. & Nomear cada eixo antes de apresentar a reta. Perguntar qual variável representa a massa e qual representa o alongamento. \\
-\hline
-12--18 min & Pedir que cada estudante antecipe o que acontece com a previsão de um ponto à direita quando a inclinação da reta aumenta. & Solicitar uma resposta específica: aumenta, diminui ou permanece igual? Pedir que indiquem no desenho por que pensam isso. \\
-\hline
-18--33 min & Explorar o módulo de forma guiada. Alterar a inclinação, observar a reta e comparar valores previstos e observados. Se houver tempo, mostrar um passo de ajuste da reta. & Apresentar o resíduo como diferença entre o ponto observado e o valor indicado pela reta. Não exigir cálculo geral de erro nem ajuste manual perfeito. \\
-\hline
-33--43 min & Retomar previsões registradas individualmente e confrontá-las com o gráfico. Explorar um ponto que fique distante da reta. & Perguntar o que muda na previsão quando a reta se move e o que um ponto distante informa sobre a diferença entre observado e previsto. \\
-\hline
-43--50 min & Aplicar e recolher o registro individual. Encerrar com uma síntese oral. & Esclarecer palavras do enunciado sem sugerir respostas. Reforçar que o registro não vale nota e interessa como explicação do estudante. \\
-\hline
-\end{tabularx}
+\subsection*{0--8 minutos: apresentar o problema}
 
-\section*{5. Perguntas para conduzir a conversa}
+\fala{Bom dia. Hoje vamos investigar uma situação comum: caminhar. Queremos estimar a distância percorrida quando conhecemos o número de passos. A resposta que buscamos não é uma categoria. É um número, medido em metros.}
 
-\begin{itemize}
-  \item ``O que os pontos do gráfico representam?''
-  \item ``Qual valor a reta tenta estimar?''
-  \item ``O que tende a acontecer com um ponto à direita quando a inclinação aumenta?''
-  \item ``Onde aparece a diferença entre o valor observado e o valor previsto?''
-  \item ``Uma reta próxima de alguns pontos garante que ela explique todos os casos?''
-\end{itemize}
+Escreva no quadro:
 
-\section*{6. Evidência a observar}
+\begin{center}
+  \fbox{\parbox{0.86\linewidth}{\centering \textbf{Pergunta da aula:} como estimar a distância percorrida usando o número de passos?}}
+\end{center}
 
-O registro individual permite verificar se o estudante relaciona a inclinação da reta a uma mudança na previsão e se interpreta o resíduo como diferença entre valor observado e valor previsto. Também convém registrar, após a aula, dificuldades recorrentes da turma, ajustes de linguagem realizados e condições de infraestrutura que tenham interferido na atividade.
+\fala{Duas pessoas podem dar o mesmo número de passos e percorrer distâncias um pouco diferentes. Isso significa que faremos uma previsão, não uma regra exata. Antes de medir, registre sua hipótese.}
+
+Peça que cada estudante responda ao item 1 da folha do estudante. Não corrija a hipótese neste momento.
+
+\subsection*{8--15 minutos: produzir e ler dados}
+
+Convide um estudante para caminhar a partir da marca inicial. Conte 4 e depois 8 passos. Meça aproximadamente a distância ou use as marcações do piso. Registre os dois resultados no quadro.
+
+\fala{Cada linha da tabela reúne uma entrada e uma saída. A entrada é o número de passos. A saída observada é a distância percorrida. Agora vamos usar um conjunto didático completo para comparar vários casos.}
+
+Apresente a tabela da página 4. Os valores são sintéticos, mas foram escolhidos para representar passos de comprimentos próximos, sem produzir uma relação perfeitamente exata.
+
+\subsection*{15--20 minutos: antecipar a tendência}
+
+\fala{Observem a tabela. Quando o número de passos aumenta, o que tende a acontecer com a distância? Para 28 passos, qual seria uma previsão razoável? Registrem primeiro. Depois vamos comparar com o gráfico.}
+
+Peça os itens 2 e 3 da folha. Ouça duas ou três justificativas. Registre no quadro apenas as ideias recorrentes, sem anunciar uma resposta única.
+
+\subsection*{20--35 minutos: explorar a plataforma}
+
+Oriente cada estudante a abrir o módulo de regressão linear no modo aula.
+
+\begin{enumerate}
+  \item Localize o eixo horizontal: número de passos.
+  \item Localize o eixo vertical: distância percorrida em metros.
+  \item Observe que cada ponto corresponde a uma linha da tabela.
+  \item Registre no item 4 o que você espera que aconteça com a previsão quando a inclinação aumentar.
+  \item Aumente somente a inclinação da reta e observe a previsão para 20 passos.
+  \item Ative as distâncias entre os pontos e a reta. Escolha um ponto acima da reta e examine o valor observado e o previsto.
+  \item Reinicie o experimento antes de passar à exploração livre.
+\end{enumerate}
+
+\fala{Mudem um controle por vez. A inclinação informa quanto a distância prevista varia quando aumentamos o número de passos. A linha vertical entre um ponto e a reta mostra a diferença entre o que foi observado e o que a reta previu.}
+
+Circule pela sala e faça perguntas curtas: 'qual valor permaneceu fixo?', 'o que mudou na reta?', 'o ponto mudou ou apenas a previsão mudou?'.
+
+\subsection*{35--43 minutos: explicar observado, previsto e resíduo}
+
+No quadro, use o exemplo:
+
+\[
+\text{observado}=12{,}1\text{ m},\qquad
+\text{previsto}=11{,}6\text{ m}
+\]
+
+\[
+\text{resíduo}=12{,}1-11{,}6=0{,}5\text{ m}
+\]
+
+\fala{O resíduo é a diferença entre o valor observado e o valor previsto. Resíduo pequeno indica que, naquele ponto, a reta ficou próxima da observação. Isso não prova que a mesma reta fará boas previsões em qualquer situação.}
+
+Peça que os estudantes respondam aos itens 5 e 6.
+
+\subsection*{43--50 minutos: registro individual e síntese}
+
+Solicite os itens 7 a 9 individualmente. Esclareça palavras do enunciado sem sugerir respostas. Recolha apenas a folha do estudante.
+
+\fala{Hoje usamos dados de passos e distância para produzir uma previsão numérica. A reta resume uma tendência. Sua inclinação altera as previsões, e o resíduo compara o valor observado com o valor previsto. Na próxima aula veremos um problema em que a saída será uma classe.}
 
 \newpage
 
 \begin{center}
-  {\LARGE\bfseries\color{azul} Registro individual}\par
-  \vspace{0.2em}
-  {\large Aula 2: massa, alongamento e previsão}\par
-  \vspace{0.35em}
-  {\small Material para recolhimento ao final da aula}\par
+  {\LARGE\bfseries\color{azul} Folha do estudante}\par
+  \vspace{0.15em}
+  {\large Aula 2: passos e distância percorrida}\par
 \end{center}
-
-\bloco{\textbf{Orientação ao estudante.} Esta atividade não vale nota. Responda individualmente e explique como você pensou, mesmo que não tenha certeza. Use o gráfico e o que foi discutido na aula.}
 
 \textbf{Código do participante:} \rule{5cm}{0.4pt}
 \hfill
 \textbf{Data:} \rule{3cm}{0.4pt}
 
-\section*{Situação}
+\bloco{\textbf{Orientação.} Esta atividade não vale nota. Responda individualmente. Registre o que você pensa antes de usar a plataforma e não apague sua previsão inicial depois do experimento.}
 
-Em um experimento fictício, foram colocadas massas diferentes em uma mola. Para cada massa, foi observado quanto a mola aumentou de tamanho. Os pontos do gráfico mostram as observações, e a reta indica uma previsão de alongamento para cada massa.
+\section*{Situação-problema}
 
-\section*{Questão 1}
+Queremos estimar a distância percorrida por uma pessoa usando apenas o número de passos. O comprimento de cada passo pode variar. Por isso, os dados formam uma tendência, mas não uma regra exata para todas as pessoas.
 
-Para uma massa maior, localizada à direita do gráfico, a previsão de alongamento tende a aumentar ou diminuir quando a inclinação da reta aumenta? Explique usando a posição da reta no gráfico.
+\subsection*{1. Previsão antes da medição}
 
-\vspace{0.25em}
-\linha\par\vspace{0.75em}
-\linha
+Quando o número de passos aumenta, o que você espera que aconteça com a distância percorrida? Explique.
+\espacoresposta{2}
 
-\section*{Questão 2}
+\subsection*{2. Leitura das variáveis}
 
-Um ponto observado ficou acima da reta. O que isso indica sobre o alongamento observado e o alongamento previsto pela reta para aquela massa?
+Complete:
 
-\vspace{0.25em}
-\linha\par\vspace{0.75em}
-\linha\par\vspace{0.75em}
-\linha
+\begin{tabularx}{\linewidth}{|p{5cm}|X|}
+\hline
+Valor usado como entrada & \rule{8cm}{0.35pt} \\
+\hline
+Valor que queremos prever & \rule{8cm}{0.35pt} \\
+\hline
+\end{tabularx}
 
-\section*{Questão 3}
+\subsection*{3. Previsão para um caso novo}
 
-Uma nova massa foi colocada na mola e a reta indicou um alongamento de 12 cm. Depois do experimento, foi observado um alongamento de 15 cm. Qual é a diferença entre os dois valores? O que essa diferença mostra sobre a previsão?
+Observe a tabela da próxima página. Sem calcular uma fórmula, estime a distância para 28 passos e explique como chegou ao valor.
+\espacoresposta{2}
 
-\vspace{0.25em}
-\linha\par\vspace{0.75em}
-\linha\par\vspace{0.75em}
-\linha
+\newpage
+
+\section*{Tabela usada na aula}
+
+Os dois primeiros valores podem ser comparados com a demonstração da turma. Os demais formam um conjunto didático comum para todos os estudantes.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Ponto} & \textbf{Número de passos} & \textbf{Distância observada (m)} \\
+\hline
+P01 & 4  & 2,5 \\
+\hline
+P02 & 8  & 5,0 \\
+\hline
+P03 & 12 & 7,2 \\
+\hline
+P04 & 16 & 9,8 \\
+\hline
+P05 & 20 & 12,1 \\
+\hline
+P06 & 24 & 14,7 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{4. Hipótese antes de alterar a reta}
+
+Para 20 passos, a previsão de distância tende a aumentar, diminuir ou permanecer igual quando a inclinação da reta aumenta? Explique.
+\espacoresposta{2}
+
+\subsection*{5. Registro da exploração}
+
+\begin{tabularx}{\linewidth}{|p{4.8cm}|X|X|}
+\hline
+\textbf{Situação} & \textbf{Antes da alteração} & \textbf{Depois da alteração} \\
+\hline
+Inclinação da reta & & \\
+\hline
+Previsão para 20 passos & & \\
+\hline
+Erro médio mostrado & & \\
+\hline
+\end{tabularx}
+
+\subsection*{6. Compare sua hipótese}
+
+O resultado confirmou ou contrariou sua previsão do item 4? Explique o que mudou no gráfico.
+\espacoresposta{2}
+
+\newpage
+
+\section*{Registro individual para recolhimento}
+
+\subsection*{7. Ponto acima da reta}
+
+Um ponto observado ficou acima da reta. O que isso indica sobre a distância observada e a distância prevista para aquele número de passos?
+\espacoresposta{3}
+
+\subsection*{8. Calcule e interprete o resíduo}
+
+Para 20 passos, uma reta indicou 11,6 m, mas o valor observado foi 12,1 m.
+
+\begin{enumerate}[label=\alph*)]
+  \item Qual é a diferença entre o valor observado e o previsto?
+  \item O que essa diferença informa sobre a previsão da reta nesse ponto?
+\end{enumerate}
+\espacoresposta{3}
+
+\subsection*{9. Explique o modelo}
+
+Um colega afirmou: 'Se a reta passa perto dos pontos, ela sempre acertará a distância de qualquer pessoa'. Você concorda? Responda usando o que observou na aula.
+\espacoresposta{4}
+
+\vfill
+\bloco{\textbf{Síntese para completar:} A regressão linear usa uma reta para representar uma \rule{3.8cm}{0.35pt}. A reta produz uma \rule{3.5cm}{0.35pt} numérica. A diferença entre o valor observado e o previsto é chamada de \rule{3.2cm}{0.35pt}.}
+
+\newpage
+
+\section*{4. Apoio ao professor após a aula}
+
+\textbf{Respostas esperadas, sem exigir redação idêntica:}
+
+\begin{itemize}
+  \item Itens 1 e 3: mais passos tendem a produzir maior distância; para 28 passos, uma previsão próxima de 17 m é coerente com a tendência da tabela.
+  \item Item 2: entrada é o número de passos; saída prevista é a distância em metros.
+  \item Itens 4 a 6: ao aumentar apenas a inclinação, a previsão para um valor positivo de passos tende a subir; os pontos observados não mudam.
+  \item Item 7: o observado é maior que o valor previsto pela reta naquele ponto.
+  \item Item 8: o resíduo é $12{,}1-11{,}6=0{,}5$ m; a reta subestimou a observação em 0,5 m.
+  \item Item 9: a reta resume os exemplos, mas diferenças no tamanho dos passos, no modo de caminhar e em casos fora da faixa observada limitam a previsão.
+  \item Síntese: tendência; previsão; resíduo.
+\end{itemize}
+
+\textbf{Evidência a observar.} Verifique se o estudante relaciona a inclinação da reta à mudança na previsão, distingue ponto observado de valor previsto e interpreta o resíduo como diferença entre ambos. Registre dificuldades recorrentes, ajustes de linguagem e condições de infraestrutura que tenham interferido na aula.
+
+\textbf{Evite concluir:} que a atividade mede domínio geral de regressão linear, que uma resposta correta isolada comprova aprendizagem ou que a plataforma produz efeito independente da mediação docente.
 
 \end{document}
