@@ -155,20 +155,26 @@ export default function App() {
             </section>
 
             <section className="principle-strip" aria-label="Como aprender">
-              <div>
-                <span>01</span>
-                <strong>Observe</strong>
-                <small>Leia os dados e imagine o resultado.</small>
+              <div className="principle-card">
+                <span className="principle-num">01</span>
+                <div>
+                  <strong>Observe</strong>
+                  <p>Leia os dados e imagine o resultado antes de testar qualquer hipótese.</p>
+                </div>
               </div>
-              <div>
-                <span>02</span>
-                <strong>Experimente</strong>
-                <small>Altere um controle de cada vez.</small>
+              <div className="principle-card">
+                <span className="principle-num">02</span>
+                <div>
+                  <strong>Experimente</strong>
+                  <p>Altere um controle de cada vez para isolar o efeito de cada parâmetro.</p>
+                </div>
               </div>
-              <div>
-                <span>03</span>
-                <strong>Explique</strong>
-                <small>Conecte gráfico, decisão e fórmula.</small>
+              <div className="principle-card">
+                <span className="principle-num">03</span>
+                <div>
+                  <strong>Explique</strong>
+                  <p>Conecte o que mudou no gráfico à decisão do modelo e à sua fórmula matemática.</p>
+                </div>
               </div>
             </section>
 
@@ -207,26 +213,35 @@ export default function App() {
                   );
                 })}
               </div>
-              <div className="home-support">
-                <div>
-                  <span className="section-number">ENCONTRO 7</span>
+
+              <div className="home-support-strip">
+                <div className="home-support-card">
+                  <div className="support-card-head">
+                    <span className="support-badge">ENCONTRO 07 · SÍNTESE COMPARATIVA</span>
+                  </div>
                   <h3>Compare antes de escolher.</h3>
                   <p>
-                    Veja lado a lado a finalidade, a entrada, a saída, o mecanismo e os limites dos cinco modelos.
+                    Veja lado a lado a finalidade, a entrada, a saída, o mecanismo de cálculo e os limites de aplicação dos cinco modelos.
                   </p>
+                  <a href="#/sintese" className="support-card-btn">
+                    <span>Abrir síntese comparativa</span>
+                    <ArrowUpRightIcon />
+                  </a>
                 </div>
-                <a href="#/sintese">
-                  <span>Abrir síntese comparativa</span>
-                  <ArrowUpRightIcon />
-                </a>
-              </div>
-              <div className="home-support home-journey">
-                <div>
-                  <span className="section-number">SEQUÊNCIA COMPLETA</span>
+
+                <div className="home-support-card">
+                  <div className="support-card-head">
+                    <span className="support-badge accent">ROTEIRO DIDÁTICO · 8 AULAS</span>
+                  </div>
                   <h3>Saiba onde você está.</h3>
-                  <p>Consulte o objetivo, a ação principal e a explicação esperada em cada uma das oito aulas.</p>
+                  <p>
+                    Consulte o objetivo pedagógico, a ação principal do estudante e a explicação esperada em cada uma das oito aulas.
+                  </p>
+                  <a href="#/percurso" className="support-card-btn">
+                    <span>Abrir percurso das aulas</span>
+                    <ArrowUpRightIcon />
+                  </a>
                 </div>
-                <a href="#/percurso"><span>Abrir percurso das aulas</span><ArrowUpRightIcon /></a>
               </div>
             </section>
           </>

@@ -167,6 +167,17 @@ Este documento registra decisões confirmadas e evita que sugestões sejam trata
 
 - A redação informal "Mexa nos dados. Observe o gráfico. Entenda a matemática por trás de cinco modelos, um experimento de cada vez." foi atualizada para "Explore os dados. Observe o gráfico. Compreenda os fundamentos matemáticos de cinco modelos, um experimento por vez.". A alteração eleva o rigor e a precisão pedagógica condizentes com a dissertação de mestrado profissional (ProfComp), substituindo o coloquialismo pelo convite à exploração investigativa e conceitual.
 
+### 2026-10-23 — Refinamento estilístico da página inicial: método em cartões arredondados, ícones animados e desembolamento do rodapé
+
+- A seção "Observe, experimente e explique" (`.principle-strip`), que antes ficava solta em uma moldura retangular com bordas abertas, foi remodelada em três cartões arredondados (`border-radius: 22px`) com efeito aero-glass translúcido, identificadores numéricos pílula (`01`, `02`, `03`) e micro-interação no hover, integrando-se harmoniosamente à linguagem visual do projeto.
+- Os ícones vetoriais dos cinco modelos ([`ModelIcons.tsx`](file:///home/luiz/Machine_learning_project/04_produto_educacional/site/src/components/ModelIcons.tsx)) ganharam animações contínuas, suaves e lentas (ciclos de 4s a 6s) aceleradas na GPU, simulando o funcionamento e a montagem de cada algoritmo em tempo real:
+  - *Regressão linear:* a reta oscila suavemente o ângulo de inclinação enquanto os resíduos pontilhados fluem e os pontos de dados pulsam sutilmente;
+  - *Regressão logística:* a curva sigmoide traça sua probabilidade continuamente enquanto o limiar pontilhado flui e as classes alternam certeza;
+  - *k-NN:* o raio de vizinhança expande e contrai simulando a busca por vizinhos mais próximos com conexões ativas e pulso de radar no ponto de consulta;
+  - *Árvore de decisão:* pulsos luminosos percorrem hierarquicamente os ramos do nó raiz às folhas, simulando a avaliação de caminhos de decisão;
+  - *k-means:* centróides realizam translação orbital suave enquanto os halos pontilhados dos clusters giram lentamente.
+- Os blocos inferiores de apoio ("Encontro 7" e "Sequência completa"), que estavam empilhados e colados ao grid dos modelos, foram reestruturados em uma grade de apoio de duas colunas (`.home-support-strip`) com espaçamento generoso (`margin-top: 54px`, linha divisória sutil), cartões arredondados com badges temáticas e botões pílula independentes, eliminando a sensação de embolamento.
+
 ## Sugestões em análise
 
 - Organizar cada módulo em intuição, experimento, matemática, interpretação e atividade.

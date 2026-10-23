@@ -213,3 +213,27 @@ button,.hero-cta,.primer-link,.hero-mini-cta,.home-support a,.support-actions a,
 .header-motion-dot{width:7px;height:7px;border-radius:50%;background:var(--sky);box-shadow:0 0 8px var(--sky);transition:all .25s ease}
 .header-motion-dot.is-paused{background:#64748b;box-shadow:none}
 @media(max-width:600px){.header-motion-toggle{padding:6px 12px;font-size:10px}}
+
+/* Formatos arredondados e modernos para o método do laboratório */
+.principle-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1380px;margin:42px auto;padding:0 clamp(20px,5vw,70px);border:0}
+.principle-card{background:rgba(10,27,54,.75);border:1px solid rgba(135,175,215,.22);border-radius:22px;padding:26px 28px;display:flex;align-items:flex-start;gap:18px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 14px 34px rgba(2,8,20,.35);transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.principle-card:hover{transform:translateY(-4px);border-color:var(--orange);box-shadow:0 20px 42px rgba(8,25,52,.6)}
+.principle-num{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--orange);background:rgba(255,107,61,.14);border:1px solid rgba(255,107,61,.3);padding:6px 12px;border-radius:9999px;flex-shrink:0}
+.principle-card strong{font-family:Georgia,serif;font-size:23px;font-weight:400;color:#fff;display:block;margin-bottom:6px}
+.principle-card p{font-size:13.5px;line-height:1.6;color:#bcd2e7;margin:0}
+@media(max-width:850px){.principle-strip{grid-template-columns:1fr;gap:12px}}
+
+/* Espaçamento elegante e layout desembolado para o Encontro 7 e Sequência Didática */
+.home-support-strip{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:54px;padding-top:48px;border-top:1px solid rgba(135,175,215,.18)}
+.home-support-card{background:rgba(10,27,54,.78);border:1px solid rgba(135,175,215,.22);border-radius:22px;padding:30px 32px;display:flex;flex-direction:column;justify-content:space-between;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 16px 38px rgba(2,8,20,.4);transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.home-support-card:hover{transform:translateY(-4px);border-color:rgba(255,107,61,.45);box-shadow:0 22px 46px rgba(8,25,52,.6)}
+.support-card-head{margin-bottom:12px}
+.support-badge{display:inline-block;font-size:10px;font-weight:800;letter-spacing:1.2px;color:var(--sky);background:rgba(130,200,238,.12);border:1px solid rgba(130,200,238,.28);padding:5px 12px;border-radius:9999px;text-transform:uppercase}
+.support-badge.accent{color:var(--orange);background:rgba(255,107,61,.12);border-color:rgba(255,107,61,.28)}
+.home-support-card h3{font-family:Georgia,serif;font-size:26px;font-weight:400;color:#fff;margin:0 0 12px;line-height:1.2}
+.home-support-card p{font-size:13.5px;line-height:1.6;color:#bcd2e7;margin:0 0 24px;flex-grow:1}
+.support-card-btn{display:inline-flex;align-items:center;justify-content:space-between;gap:12px;align-self:flex-start;background:rgba(24,68,116,.75);border:1px solid rgba(135,175,215,.3);color:#fff;padding:10px 22px;border-radius:9999px;font-size:13px;font-weight:700;text-decoration:none;transition:all .25s ease}
+.support-card-btn:hover{background:linear-gradient(135deg,#ff6b3d 0%,#e64a19 100%);border-color:rgba(255,255,255,.3);transform:translateY(-2px);box-shadow:0 8px 22px rgba(230,74,25,.4)}
+.support-card-btn .icon-arrow{transition:transform .25s ease}
+.support-card-btn:hover .icon-arrow{transform:translate(3px,-3px)}
+@media(max-width:900px){.home-support-strip{grid-template-columns:1fr;margin-top:40px;padding-top:32px;gap:16px}}
