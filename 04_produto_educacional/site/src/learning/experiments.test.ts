@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { assignClusters, classifyKnn, followTree, logisticProbability, moveCentroids, predictDecisionTree, trainDecisionTree, trainLogistic, withinClusterSumOfSquares } from './experiments';
+import { assignClusters, classifyKnn, classifyLinearSvm, followTree, logisticProbability, moveCentroids, predictDecisionTree, trainDecisionTree, trainLinearSvm, trainLogistic, withinClusterSumOfSquares } from './experiments';
 
 describe('experimentos dos modelos', () => {
   it('sigmoide cruza 50% no ponto central e aumenta com x', () => {
@@ -10,6 +10,21 @@ describe('experimentos dos modelos', () => {
   it('treino logístico reduz perda em dados separáveis', () => {
     const history = trainLogistic([{ x: 2, label: 0 }, { x: 3, label: 0 }, { x: 7, label: 1 }, { x: 8, label: 1 }], 80, 0.5);
     expect(history.at(-1)!.loss).toBeLessThan(history[0]!.loss);
+  });
+
+  it('SVM didática encontra uma fronteira com margem entre duas classes', () => {
+    const points = [
+      { id: 'a1', x: 1, y: 1, label: 'A' as const },
+      { id: 'a2', x: 2, y: 2, label: 'A' as const },
+      { id: 'b1', x: 8, y: 8, label: 'B' as const },
+      { id: 'b2', x: 9, y: 7, label: 'B' as const },
+    ];
+    const fit = trainLinearSvm(points);
+    expect(fit.separable).toBe(true);
+    expect(fit.margin).toBeGreaterThan(0);
+    expect(fit.supportIds).toHaveLength(2);
+    expect(classifyLinearSvm({ id: 'novo-a', x: 1.5, y: 1.5 }, fit).label).toBe('A');
+    expect(classifyLinearSvm({ id: 'novo-b', x: 8.5, y: 7.5 }, fit).label).toBe('B');
   });
 
   it('k-NN vota entre vizinhos realmente mais próximos', () => {

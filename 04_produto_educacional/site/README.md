@@ -1,6 +1,6 @@
 # Protótipo local — cinco modelos de machine learning
 
-Versão simplificada e autoral, em português brasileiro, para estudantes iniciantes do Ensino Médio. Os cinco módulos são regressão linear, regressão logística, k-vizinhos mais próximos, árvore de decisão e k-means. O produto usa o nome visual “Machine Learning Project”; os modelos e conteúdos ainda exigem validação com o professor Marcos Braga.
+Versão simplificada e autoral, em português brasileiro, para estudantes iniciantes do Ensino Médio. Os cinco módulos são regressão linear, SVM linear, k-vizinhos mais próximos, árvore de decisão e k-means. O produto usa o nome visual “Machine Learning Project”; os modelos e conteúdos ainda exigem validação com o professor Marcos Braga.
 
 ## Executar
 
@@ -17,12 +17,12 @@ Cada módulo propõe uma pergunta, hipótese, visualização 2D/3D com alternati
 
 A rota `#/percurso` apresenta ao estudante as oito aulas, com objetivo, ação principal e explicação esperada. Cada módulo identifica o encontro correspondente e abre no **modo aula**, que deixa controles avançados e vistas 3D como aprofundamento opcional. A rota `#/sintese` oferece o quadro comparativo do encontro 7. A rota `#/professor` reúne o roteiro dos oito encontros, materiais didáticos públicos das aulas 2 a 7, conferência de infraestrutura e versão para impressão. Diagnóstico e instrumento final não são publicados no site. A rota `#/ajuda` reúne orientações de teclado, reinício, movimento, leitura dos dados e glossário.
 
-Os dados são sintéticos. Logística e árvore mostram resultados nos exemplos usados para ajuste e em pequenos casos reservados, sem sugerir que esses números comprovem generalização. As respostas digitadas só existem durante a sessão da página; não são enviadas ou salvas.
+Os dados são sintéticos. SVM e árvore mostram como uma regra classifica os exemplos exibidos, sem sugerir que esses números comprovem generalização. As respostas digitadas só existem durante a sessão da página; não são enviadas ou salvas.
 
 A abertura e os cinco módulos usam um ambiente visual autoral de azul-marinho profundo, com campo decorativo de pontos que deriva lentamente e reage à direção do cursor nas proximidades. Ele pode ser pausado, fica estático com preferência por movimento reduzido ou toque e não altera os cálculos dos modelos. Os cartões claros preservam a leitura dos experimentos. O efeito usa Canvas nativo; os gráficos de aprendizagem permanecem em SVG com descrições textuais.
 
 - **Linear:** reta manual ou treinada por descida do gradiente, ponto atípico, resíduos, MSE, ajuste de mínimos quadrados, trajetória do erro e superfície 3D da perda.
-- **Logística:** curva manual ou treinada por perda logarítmica, dois conjuntos de exemplos, limiar de decisão, acertos de treino, trajetória e superfície 3D da perda.
+- **SVM linear:** fronteira manual ou sugerida pelo algoritmo, margem, vetores de suporte, ponto novo e comparação entre classes separadas ou próximas.
 - **k-NN:** duas formas de dados, distância euclidiana/Manhattan, voto simples/ponderado, regiões e superfície 3D da força do voto. O algoritmo não ajusta parâmetros em um treino.
 - **Árvore:** divisões aprendidas por impureza de Gini, limite de profundidade, regras/caminho, regiões e patamares 3D da proporção de cada folha.
 - **k-means:** duas formas de dados e posições iniciais, `k` 2 ou 3, atribuição e atualização por etapas, WSS por rodada e superfície 3D da distância aos centros.

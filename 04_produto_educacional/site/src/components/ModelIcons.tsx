@@ -149,6 +149,25 @@ export function LogisticRegressionIcon({ className = 'model-svg-icon' }: { class
   );
 }
 
+export function SvmIcon({ className = 'model-svg-icon' }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" className={className} fill="none" height="48" viewBox="0 0 64 64" width="48">
+      <defs><style>{`
+        @keyframes svmLine { 0%,100% { transform: translateX(-2px); } 50% { transform: translateX(2px); } }
+        @keyframes svmPoint { 0%,100% { opacity:.65; } 50% { opacity:1; } }
+        .svm-icon-line { animation: svmLine 3.6s ease-in-out infinite; transform-origin:center; }
+        .svm-icon-point { animation: svmPoint 2.6s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) { .svm-icon-line,.svm-icon-point { animation:none!important; } }
+      `}</style></defs>
+      <line stroke="rgba(140,180,220,.35)" strokeLinecap="round" strokeWidth="2" x1="10" x2="54" y1="52" y2="52" />
+      <line stroke="rgba(140,180,220,.35)" strokeLinecap="round" strokeWidth="2" x1="10" x2="10" y1="52" y2="10" />
+      <g className="svm-icon-line"><line stroke="rgba(130,200,238,.55)" strokeDasharray="3 3" strokeWidth="1.5" x1="20" x2="49" y1="48" y2="19" /><line stroke="#ff6b3d" strokeLinecap="round" strokeWidth="3" x1="16" x2="45" y1="48" y2="19" /><line stroke="rgba(130,200,238,.55)" strokeDasharray="3 3" strokeWidth="1.5" x1="12" x2="41" y1="48" y2="19" /></g>
+      <circle className="svm-icon-point" cx="18" cy="39" fill="#82c8ee" r="3.2" /><circle className="svm-icon-point" cx="26" cy="45" fill="#82c8ee" r="3.2" style={{ animationDelay: '.5s' }} /><circle className="svm-icon-point" cx="31" cy="32" fill="#82c8ee" r="3.2" style={{ animationDelay: '1s' }} />
+      <circle className="svm-icon-point" cx="38" cy="27" fill="#ff6b3d" r="3.2" style={{ animationDelay: '.3s' }} /><circle className="svm-icon-point" cx="46" cy="21" fill="#ff6b3d" r="3.2" style={{ animationDelay: '.8s' }} /><circle className="svm-icon-point" cx="47" cy="34" fill="#ff6b3d" r="3.2" style={{ animationDelay: '1.3s' }} />
+    </svg>
+  );
+}
+
 export function KnnIcon({ className = 'model-svg-icon' }: { className?: string }) {
   return (
     <svg

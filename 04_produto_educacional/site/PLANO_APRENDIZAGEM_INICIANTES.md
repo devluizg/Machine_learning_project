@@ -11,7 +11,7 @@ Permitir que um estudante do Ensino Médio sem contato prévio com *machine lear
 3. **Aula guiada como padrão:** o primeiro experimento expõe poucos controles e solicita uma hipótese. O modo livre preserva todos os controles e as vistas 3D já existentes.
 4. **Cálculo ligado ao estado atual:** cada aula mostra pelo menos um número obtido dos dados e parâmetros presentes na tela — resíduo, saída da curva, distância, impureza ou média de um grupo.
 5. **Retorno imediato:** uma questão de escolha oferece confirmação explicada ou pista para tentar novamente. O texto livre continua como rascunho local, sem coleta.
-6. **Limite do resultado:** logística e árvore comparam exemplos de construção e casos sintéticos reservados. Os números ilustram a distinção treino/teste; não demonstram desempenho geral nem aprendizagem dos estudantes.
+6. **Limite do resultado:** SVM e árvore classificam exemplos sintéticos exibidos na tela. Esses resultados ilustram o mecanismo; não demonstram desempenho geral nem aprendizagem dos estudantes.
 7. **Alternativa textual:** tabelas ou regras textuais permitem consultar valores relevantes sem depender apenas de cor, posição ou vista 3D.
 
 ## Experimento essencial por modelo
@@ -19,7 +19,7 @@ Permitir que um estudante do Ensino Médio sem contato prévio com *machine lear
 | Modelo | Ação inicial | Evidência de funcionamento | Questão de compreensão |
 | --- | --- | --- | --- |
 | Regressão linear | Mudar inclinação; depois avançar um passo do treino | Previsão, resíduo, quadrado do erro e MSE variam | Por que aumentar a inclinação aumenta a distância prevista para 20 passos? |
-| Regressão logística | Mudar limiar; depois avançar um passo do treino | Classe pode mudar sem mudar a curva; perda muda no treino | O que o limiar altera? |
+| SVM linear | Posicionar uma fronteira e compará-la com a sugestão do algoritmo | A margem depende dos exemplos mais próximos da linha | Quais pontos delimitam a margem? |
 | k-NN | Mudar o número de vizinhos | Distâncias, vizinhos destacados e votos | O que acontece quando chega um exemplo novo? |
 | Árvore | Mudar profundidade | Regra inicial, impureza, caminho destacado e regiões | O que permite uma árvore mais profunda? |
 | k-means | Alternar atribuição e movimento | Média do centro, WSS e trocas de grupo | Para onde o centróide se move? |
@@ -29,7 +29,7 @@ Permitir que um estudante do Ensino Médio sem contato prévio com *machine lear
 - Os cinco módulos abrem em modo guiado; o modo livre e as vistas 3D continuam acessíveis.
 - Cada controle guiado altera a visualização e a explicação numérica correspondente.
 - Respostas erradas recebem pista; respostas certas recebem justificativa.
-- Os casos reservados da logística e da árvore não participam do ajuste.
+- Os pontos exibidos pela SVM e pela árvore são sintéticos e servem apenas à explicação do mecanismo.
 - É possível consultar os dados de cada gráfico por texto ou tabela; a tabela do k-NN respeita a distância escolhida.
 - `npm run build`, `npm run lint` e `npm run test:run` passam.
 

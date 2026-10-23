@@ -1,0 +1,160 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{microtype}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+
+\geometry{top=1.7cm,bottom=1.7cm,left=1.8cm,right=1.8cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist[itemize]{leftmargin=*,itemsep=0.25em,topsep=0.2em}
+\definecolor{azul}{HTML}{173B57}
+\definecolor{cinza}{HTML}{F2F4F7}
+
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+\fancyhf{}
+\lhead{Sequência didática de \textit{machine learning}}
+\rhead{Aula 3: SVM linear}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newcommand{\linha}{\rule{\linewidth}{0.35pt}}
+\newcommand{\bloco}[1]{%
+  \vspace{0.25em}
+  \noindent\colorbox{cinza}{\parbox{0.96\linewidth}{#1}}%
+  \vspace{0.3em}
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries\color{azul} Aula 3: SVM linear}\par
+  \vspace{0.25em}
+  {\large Fronteira de decisão, margem e vetores de suporte}\par
+  \vspace{0.35em}
+  {\small Roteiro de aplicação da sequência didática}\par
+\end{center}
+
+\bloco{\textbf{Lugar desta aula na pesquisa.} Este é o terceiro encontro da sequência de oito aulas. A atividade apresenta uma forma de classificação supervisionada: exemplos já rotulados ajudam a posicionar uma fronteira entre duas classes. A exploração individual é formativa; o professor registra dificuldades recorrentes da turma.}
+
+\section*{1. Identificação}
+
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}p{4.1cm}X@{}}
+Turma: & \rule{8.5cm}{0.35pt} \\
+Data: & \rule{8.5cm}{0.35pt} \\
+Duração: & 50 minutos \\
+Organização: & Exploração individual e síntese oral coletiva. \\
+Recursos: & Plataforma no módulo SVM, computadores do laboratório ou Chromebooks, quadro e folha de atividade. \\
+\end{tabularx}
+
+\section*{2. Objetivos da aula}
+
+Ao final do encontro, espera-se que os estudantes reconheçam uma fronteira de decisão entre duas classes, expliquem que a margem é o espaço entre a fronteira e os exemplos mais próximos e identifiquem esses exemplos como vetores de suporte.
+
+\textbf{Relação curricular:} EM13CO10, EM13CO11 e EM13CO12.
+
+\textbf{Conceitos em foco:} dado, rótulo, classificação, fronteira de decisão, margem, vetor de suporte e limite do modelo.
+
+\section*{3. Preparação antes da aula}
+
+\begin{itemize}
+  \item Abrir o módulo SVM e confirmar que aparecem duas classes de amostras fictícias de sementes.
+  \item Conferir se a fronteira, as duas linhas da margem e os vetores de suporte estão legíveis no projetor.
+  \item Confirmar que cada estudante terá acesso individual ao módulo, em computador do laboratório ou Chromebook.
+  \item Reservar um espaço no quadro para desenhar duas linhas separadoras e comparar suas margens.
+\end{itemize}
+
+\bloco{\textbf{Cuidado didático.} As classes A e B e as medidas das sementes são sintéticas. A linha não revela uma propriedade natural das sementes: ela é uma regra construída a partir dos exemplos selecionados.}
+
+\section*{4. Desenvolvimento da aula}
+
+\renewcommand{\arraystretch}{1.18}
+\begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}p{1.65cm}|p{5.0cm}|X|}
+\hline
+\textbf{Tempo} & \textbf{Ação com a turma} & \textbf{Mediação docente} \\
+\hline
+0--7 min & Retomar a regressão linear e contrastar previsão numérica com escolha entre duas classes. & Perguntar: ``Na aula anterior, a saída era uma distância. Se agora a saída for A ou B, qual tipo de problema temos?'' \\
+\hline
+7--12 min & Apresentar as sementes fictícias por comprimento e largura. Marcar A e B no plano e desenhar duas possíveis linhas de separação. & Evitar dizer que uma linha é automaticamente melhor. Perguntar qual linha deixa mais espaço até os pontos próximos. \\
+\hline
+12--19 min & Pedir que cada estudante preveja o que acontece com a margem quando uma fronteira se aproxima da classe A. & Solicitar uma justificativa com os pontos mais próximos da linha, antes de abrir o controle. \\
+\hline
+19--34 min & Explorar o módulo de forma guiada. Posicionar a fronteira e depois comparar com a sugestão do algoritmo. & Nomear fronteira, margem e vetores de suporte a partir do que está visível. Manter a atenção em uma alteração de cada vez. \\
+\hline
+34--43 min & Incluir o ponto próximo e comparar o tamanho da margem. Mover o ponto novo para observar em que lado da linha ele fica. & Perguntar como a entrada do novo ponto é ligada à classe pela posição em relação à fronteira. Retomar que a margem pode diminuir. \\
+\hline
+43--50 min & Realizar a atividade individual breve e encerrar com uma síntese oral. & Esclarecer o enunciado sem indicar a resposta. Retomar que a regra depende dos dados, dos rótulos e da forma de separação escolhida. \\
+\hline
+\end{tabularx}
+
+\section*{5. Perguntas para conduzir a conversa}
+
+\begin{itemize}
+  \item ``O que a linha separa neste gráfico?''
+  \item ``Quais exemplos estão mais próximos da fronteira?''
+  \item ``O que acontece com a margem quando a fronteira se aproxima de um ponto?''
+  \item ``Em que lado da fronteira o ponto novo ficou?''
+  \item ``Uma separação boa neste conjunto garante que funcionará em qualquer conjunto?''
+\end{itemize}
+
+\section*{6. Evidência a observar}
+
+Observar se os estudantes distinguem dados, rótulos e fronteira; se reconhecem que os vetores de suporte são os exemplos mais próximos da linha; e se conseguem justificar a classificação de um ponto novo pelo lado em que ele se encontra. No registro docente, anotar confusões entre margem e distância entre quaisquer pontos, justificativas formuladas individualmente e condições de uso da plataforma que tenham afetado a aula.
+
+\newpage
+
+\begin{center}
+  {\LARGE\bfseries\color{azul} Atividade individual breve}\par
+  \vspace{0.2em}
+  {\large Aula 3: fronteira, margem e classificação}\par
+  \vspace{0.35em}
+  {\small Material formativo para o final da aula}\par
+\end{center}
+
+\bloco{\textbf{Orientação ao estudante.} Esta atividade não vale nota. Responda individualmente e explique como você pensou. Use o que foi observado na plataforma e o que foi discutido na aula.}
+
+\textbf{Código do participante:} \rule{5cm}{0.4pt}
+\hfill
+\textbf{Data:} \rule{3cm}{0.4pt}
+
+\section*{Situação}
+
+Em um gráfico, exemplos da classe A ficam no lado inferior esquerdo e exemplos da classe B ficam no lado superior direito. Uma linha foi desenhada para separar as duas classes. Os pontos A4 e B1 são os mais próximos da linha.
+
+\section*{Questão 1}
+
+Por que A4 e B1 podem ser chamados de vetores de suporte? Explique a relação deles com a margem.
+
+\vspace{0.25em}
+\linha\par\vspace{0.5em}
+\linha\par\vspace{0.5em}
+\linha
+
+\section*{Questão 2}
+
+Imagine que a linha seja deslocada para mais perto de A4, mantendo a mesma inclinação. O que tende a acontecer com a margem? Explique.
+
+\vspace{0.25em}
+\linha\par\vspace{0.5em}
+\linha\par\vspace{0.5em}
+\linha
+
+\section*{Questão 3}
+
+Um novo ponto fica no mesmo lado da fronteira que os exemplos B. Qual classe a SVM indicará para ele? O que poderia dificultar essa classificação em outro conjunto de dados?
+
+\vspace{0.25em}
+\linha\par\vspace{0.5em}
+\linha\par\vspace{0.5em}
+\linha
+
+\end{document}

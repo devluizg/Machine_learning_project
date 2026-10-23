@@ -4,20 +4,20 @@ import { HeroDemo } from './components/HeroDemo';
 import {
   ArrowUpRightIcon,
   LinearRegressionIcon,
-  LogisticRegressionIcon,
+  SvmIcon,
   KnnIcon,
   DecisionTreeIcon,
   KmeansIcon,
 } from './components/ModelIcons';
 import { ComparisonPage, TeacherGuidePage } from './learning/CourseSupport';
 import { HelpPage, LessonContext, StudentJourneyPage } from './learning/LearningSupport';
-import { KmeansModule, KnnModule, LinearModule, LogisticModule, TreeModule } from './learning/Modules';
+import { KmeansModule, KnnModule, LinearModule, SvmModule, TreeModule } from './learning/Modules';
 
 const PRODUCT_VERSION = '0.2.0-campo';
 
 const models = [
   { id: 'regressao-linear', number: '01', name: 'Regressão linear', family: 'REGRESSÃO', question: 'Como prever um valor?', summary: 'Tendência, reta, resíduos e erro quadrático.', icon: LinearRegressionIcon, component: LinearModule },
-  { id: 'regressao-logistica', number: '02', name: 'Regressão logística', family: 'CLASSIFICAÇÃO', question: 'Como estimar uma chance?', summary: 'Probabilidade, sigmoide e decisão.', icon: LogisticRegressionIcon, component: LogisticModule },
+  { id: 'svm', number: '02', name: 'SVM', family: 'CLASSIFICAÇÃO', question: 'Como separar duas classes?', summary: 'Fronteira, margem e vetores de suporte.', icon: SvmIcon, component: SvmModule },
   { id: 'knn', number: '03', name: 'k-vizinhos mais próximos', family: 'CLASSIFICAÇÃO', question: 'O que dizem os vizinhos?', summary: 'Distância, vizinhança e votação.', icon: KnnIcon, component: KnnModule },
   { id: 'arvore', number: '04', name: 'Árvore de decisão', family: 'CLASSIFICAÇÃO', question: 'Que caminho seguir?', summary: 'Regras, divisões e caminhos.', icon: DecisionTreeIcon, component: TreeModule },
   { id: 'kmeans', number: '05', name: 'k-means', family: 'AGRUPAMENTO', question: 'Como encontrar grupos?', summary: 'Atribuições, centróides e atualização.', icon: KmeansIcon, component: KmeansModule },
@@ -28,6 +28,7 @@ type RouteId = ModelId | 'sintese' | 'percurso' | 'professor' | 'ajuda';
 
 function routeFromHash(): RouteId | null {
   const id = window.location.hash.replace(/^#\/?/, '');
+  if (id === 'regressao-logistica') return 'svm';
   if (id === 'sintese' || id === 'percurso' || id === 'professor' || id === 'ajuda') return id;
   return models.find((model) => model.id === id)?.id ?? null;
 }
@@ -35,6 +36,12 @@ function routeFromHash(): RouteId | null {
 export default function App() {
   const [route, setRoute] = useState<RouteId | null>(routeFromHash);
   const [motionPaused, setMotionPaused] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  useEffect(() => {
+    if (window.location.hash === '#/regressao-logistica') {
+      window.location.hash = '#/svm';
+    }
+  }, []);
 
   useEffect(() => {
     const update = () => setRoute(routeFromHash());

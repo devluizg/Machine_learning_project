@@ -5,7 +5,7 @@ O protótipo local tem cinco laboratórios autorais, com pergunta, hipótese, gr
 A página inicial e o cabeçalho dos módulos têm agora um fundo de pontos com reação ao cursor, controle de pausa e alternativa estática para movimento reduzido/toque. É uma camada decorativa em Canvas nativo, separada das visualizações didáticas.
 
 - Linear: comparação manual/treinada, mínimos quadrados, outlier, resíduos e curva de MSE.
-- Logística: dados separados/sobrepostos, ajuste por perda logarítmica, limiar e curva de perda.
+- SVM linear: fronteira manual ou sugerida, margem, vetores de suporte e classificação de ponto novo.
 - k-NN: distância, k, voto ponderado e regiões; sem treino de parâmetros por definição.
 - Árvore: divisões treinadas por Gini e caminho de decisão.
 - k-means: atribuição, movimento dos centróides e WSS.

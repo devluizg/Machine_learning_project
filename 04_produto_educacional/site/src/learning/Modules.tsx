@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 import { controles, pontoP07, pontosBase } from '../data/regressao-linear';
 import { calcularMSE, calcularResiduos, formatarNumero, prever, regressaoOLS, trainLinearGradient } from '../domain/regression';
-import { assignClusters, classifyKnn, logisticFromWeights, logisticProbability, moveCentroids, pointDistance, predictDecisionTree, trainDecisionTree, trainLogistic, withinClusterSumOfSquares } from './experiments';
-import type { BinaryObservation, DistanceMetric, LabeledPoint, PlanePoint, TreeNode } from './experiments';
+import { assignClusters, classifyKnn, classifyLinearSvm, logisticFromWeights, logisticProbability, moveCentroids, pointDistance, predictDecisionTree, trainDecisionTree, trainLinearSvm, trainLogistic, withinClusterSumOfSquares } from './experiments';
+import type { BinaryObservation, DistanceMetric, LabeledPoint, LinearSvmFit, PlanePoint, TreeNode } from './experiments';
 import { QuickCheck } from './GuidedLearning';
 import type { QuickCheckSpec } from './GuidedLearning';
 import { LearningCurve, LossSurface3D, Plot, RangeControl } from './Visuals';
@@ -10,6 +10,7 @@ import { LearningCurve, LossSurface3D, Plot, RangeControl } from './Visuals';
 const practiceByQuestion: Record<string, { task: string; use: string; limit: string }> = {
   'Como uma reta resume uma tendência?': { task: 'Na exploração livre, inclua P07. A reta de menor erro muda? Explique por que um único ponto distante pode ter tanta influência.', use: 'Estimar uma tendência aproximadamente linear dentro da faixa observada.', limit: 'Valores atípicos e extrapolação podem distorcer previsões.' },
   'Como uma curva vira uma decisão?': { task: 'Na exploração livre, compare as classes separadas e sobrepostas. Mude só o limiar: a porcentagem mudou ou apenas a decisão?', use: 'Estimar chances de duas categorias quando existem exemplos rotulados.', limit: 'A probabilidade estimada pode estar mal calibrada; acerto no treino não garante generalização.' },
+  'Como uma fronteira separa duas classes?': { task: 'Compare a fronteira escolhida por você com a sugerida pelo algoritmo. Depois inclua o ponto próximo: o que acontece com a margem?', use: 'Classificar dois conjuntos quando uma fronteira aproximadamente reta faz sentido.', limit: 'Classes sobrepostas, pontos atípicos e fronteiras curvas podem exigir outra estratégia.' },
   'Quem decide a classe de um ponto novo?': { task: 'Na exploração livre, escolha centro e borda; compare k = 1 e k = 7. Onde a decisão passa a ignorar detalhes locais?', use: 'Classificar conjuntos pequenos, quando proximidade tem significado.', limit: 'Escalas diferentes e muitos atributos podem tornar distância pouco informativa.' },
   'Como a árvore aprende perguntas a partir dos exemplos?': { task: 'Compare profundidades 0, 2 e 4. O acerto nos exemplos aumenta? Isso prova que acertará casos novos?', use: 'Explicar uma decisão por perguntas em sequência.', limit: 'Árvores profundas podem decorar os dados usados para construí-las.' },
   'Como surgem grupos sem rótulos prévios?': { task: 'Na exploração livre, comece com centros próximos e depois espalhados. Compare o caminho da WSS e os grupos finais.', use: 'Explorar padrões em dados sem categorias conhecidas.', limit: 'O número de grupos deve ser escolhido; faixas alongadas podem não combinar com centros redondos.' },
@@ -266,5 +267,77 @@ export function KmeansModule() {
     <button className="primary-button" onClick={nextStep} type="button">{phase === 'assigned' ? 'Mover centróides' : 'Atribuir pontos'} <span aria-hidden="true">→</span></button>
     <button className="reset-button" onClick={() => reset()} type="button">Reiniciar agrupamento</button>
     <p className="control-hint">Rodadas completas: {round}. Cada rodada tem duas etapas: atribuir e mover.</p>
+  </Lab>;
+}
+
+const svmBasePoints: readonly LabeledPoint[] = [
+  { id: 'A1', x: 1.4, y: 2.0, label: 'A' }, { id: 'A2', x: 2.4, y: 3.7, label: 'A' },
+  { id: 'A3', x: 3.3, y: 1.8, label: 'A' }, { id: 'A4', x: 3.8, y: 4.2, label: 'A' },
+  { id: 'B1', x: 6.2, y: 6.1, label: 'B' }, { id: 'B2', x: 7.0, y: 7.7, label: 'B' },
+  { id: 'B3', x: 8.3, y: 5.8, label: 'B' }, { id: 'B4', x: 8.7, y: 8.2, label: 'B' },
+];
+
+const svmNearPoint: LabeledPoint = { id: 'A5', x: 5.0, y: 5.4, label: 'A' };
+
+function svmNormal(degrees: number) {
+  const radians = degrees * Math.PI / 180;
+  return { x: Math.cos(radians), y: Math.sin(radians) };
+}
+
+function boundarySegment(normal: { x: number; y: number }, cutoff: number) {
+  const candidates: PlanePoint[] = [];
+  if (Math.abs(normal.y) > 1e-6) {
+    [0, 10].forEach((x) => { const y = (cutoff - normal.x * x) / normal.y; if (y >= 0 && y <= 10) candidates.push({ id: `x${x}`, x, y }); });
+  }
+  if (Math.abs(normal.x) > 1e-6) {
+    [0, 10].forEach((y) => { const x = (cutoff - normal.y * y) / normal.x; if (x >= 0 && x <= 10) candidates.push({ id: `y${y}`, x, y }); });
+  }
+  const unique = candidates.filter((point, index, list) => list.findIndex((other) => Math.hypot(other.x - point.x, other.y - point.y) < 1e-5) === index);
+  return unique.slice(0, 2);
+}
+
+export function SvmModule() {
+  const [dataset, setDataset] = useState<'separadas' | 'proxima'>('separadas');
+  const [mode, setMode] = useState<'manual' | 'sugerida'>('manual');
+  const [angle, setAngle] = useState(45);
+  const [cutoff, setCutoff] = useState(6.4);
+  const [targetX, setTargetX] = useState(5);
+  const [targetY, setTargetY] = useState(5);
+  const [showMargin, setShowMargin] = useState(true);
+  const points = dataset === 'separadas' ? svmBasePoints : [...svmBasePoints, svmNearPoint];
+  const suggested = useMemo(() => trainLinearSvm(points), [points]);
+  const normal = svmNormal(angle);
+  const manualDistances = points.map((point) => Math.abs(normal.x * point.x + normal.y * point.y - cutoff));
+  const manualFit: LinearSvmFit = {
+    normal,
+    bias: -cutoff,
+    margin: Math.min(...manualDistances),
+    supportIds: points.filter((_, index) => manualDistances[index]! <= Math.min(...manualDistances) + .08).map((point) => point.id),
+    separable: points.every((point) => classifyLinearSvm(point, { normal, bias: -cutoff }).label === point.label),
+  };
+  const fit = mode === 'sugerida' ? suggested : manualFit;
+  const activeCutoff = -fit.bias;
+  const target = { id: 'novo', x: targetX, y: targetY };
+  const outcome = classifyLinearSvm(target, fit);
+  const correct = points.filter((point) => classifyLinearSvm(point, fit).label === point.label).length;
+  const supportIds = new Set(fit.supportIds);
+  const line = boundarySegment(fit.normal, activeCutoff);
+  const upperMargin = boundarySegment(fit.normal, activeCutoff + fit.margin);
+  const lowerMargin = boundarySegment(fit.normal, activeCutoff - fit.margin);
+  const score = outcome.score;
+  return <Lab onEnterGuided={() => { setDataset('separadas'); setMode('manual'); setAngle(45); setCutoff(6.4); setTargetX(5); setTargetY(5); setShowMargin(true); }} question="Como uma fronteira separa duas classes?" scenario="Amostras fictícias de sementes têm comprimento e largura entre 0 e 10. Algumas já receberam rótulo A ou B. A SVM procura uma linha que separe as duas classes com espaço entre elas." concept="A fronteira divide as classes; a margem mede a distância até os exemplos que ficaram mais próximos da linha." predictionQuestion="se a fronteira se aproximar de uma classe, a margem aumenta ou diminui?" guidedAction={<><p className="guide-instruction">Primeiro, mova somente a posição da fronteira. Depois, peça ao algoritmo uma sugestão e compare as duas margens.</p><RangeControl id="svm-guide-cutoff" label="Posição da fronteira" value={cutoff} min={4} max={10} step={.1} explanation="Mantenha a inclinação fixa e veja quais pontos ficam mais perto da linha." onChange={setCutoff} /><div className="segmented-control"><span>Quem posiciona a fronteira?</span><div><button aria-pressed={mode === 'manual'} onClick={() => setMode('manual')} type="button">Eu posiciono</button><button aria-pressed={mode === 'sugerida'} onClick={() => setMode('sugerida')} type="button">Algoritmo sugere</button></div></div></>} workedExample={<><h3>Leia a fronteira e a margem</h3><p>A linha atual usa a regra {formatarNumero(fit.normal.x, 2)} × comprimento + {formatarNumero(fit.normal.y, 2)} × largura = {formatarNumero(activeCutoff, 2)}. Os exemplos mais próximos são {fit.supportIds.join(' e ') || 'os pontos marcados'}.</p><p>A margem é {formatarNumero(fit.margin, 2)} unidade(s). {fit.separable ? 'Nenhum exemplo exibido ficou no lado da outra classe.' : 'Há exemplos no lado oposto da fronteira; neste caso, a linha não separa perfeitamente as classes.'} Para o ponto novo, o valor calculado é {formatarNumero(score, 2)}: como ele é {score >= 0 ? 'maior ou igual a zero, a classe indicada é B' : 'menor que zero, a classe indicada é A'}.</p></>} quickCheck={{ question: 'O que indica uma margem maior entre duas classes separadas?', options: ['A fronteira está mais distante dos exemplos mais próximos das classes.', 'Os rótulos dos exemplos foram apagados.', 'A SVM passou a formar grupos sem rótulos.'], correct: 0, explanation: 'A margem é o espaço entre a fronteira e os exemplos que a limitam.', retryHint: 'Observe as duas linhas tracejadas paralelas à fronteira.' }} formula="w₁x + w₂y + b = 0   •   margem = distância até os exemplos mais próximos" note="A SVM linear escolhe uma fronteira para duas classes rotuladas. Os vetores de suporte são os exemplos mais próximos da fronteira; eles delimitam a margem. A regra funciona bem neste conjunto sintético separado, mas dados sobrepostos ou uma divisão curva podem exigir outra estratégia." result={<><strong>Classe {outcome.label}</strong><p>Ponto novo: ({formatarNumero(targetX, 1)}; {formatarNumero(targetY, 1)}). Está no lado {outcome.label} da fronteira.</p><p>Margem: {formatarNumero(fit.margin, 2)}. Acertos nos exemplos exibidos: {correct}/{points.length}. {fit.separable ? 'Separação completa neste cenário.' : 'Separação incompleta neste cenário.'}</p></>} visual={<><Plot title="Fronteira de decisão da SVM" description={`Amostras de sementes em duas classes. Fronteira ${mode === 'sugerida' ? 'sugerida pelo algoritmo' : 'posicionada manualmente'}. Margem ${formatarNumero(fit.margin, 2)}.`} xLabel="Comprimento (0–10)" yLabel="Largura (0–10)" xMax={10} yMax={10}>{(x, y) => <>
+    {showMargin && upperMargin.length === 2 && <line className="svm-margin-line" x1={x(upperMargin[0]!.x)} y1={y(upperMargin[0]!.y)} x2={x(upperMargin[1]!.x)} y2={y(upperMargin[1]!.y)} />}
+    {showMargin && lowerMargin.length === 2 && <line className="svm-margin-line" x1={x(lowerMargin[0]!.x)} y1={y(lowerMargin[0]!.y)} x2={x(lowerMargin[1]!.x)} y2={y(lowerMargin[1]!.y)} />}
+    {line.length === 2 && <line className="svm-boundary-line" x1={x(line[0]!.x)} y1={y(line[0]!.y)} x2={x(line[1]!.x)} y2={y(line[1]!.y)} />}
+    {points.map((point) => <g key={point.id}><circle className={`class-dot ${point.label === 'A' ? 'class-a' : 'class-b'} ${supportIds.has(point.id) ? 'svm-support-point' : ''}`} cx={x(point.x)} cy={y(point.y)} r={supportIds.has(point.id) ? 10 : 8} /><text className="point-label" x={x(point.x) + 12} y={y(point.y) - 8}>{point.id}</text></g>)}
+    <circle className="query-dot" cx={x(targetX)} cy={y(targetY)} r={11} /><text className="query-label" textAnchor="middle" x={x(targetX)} y={y(targetY) + 5}>?</text>
+  </>}</Plot><p className="visual-caption"><span className="legend-dot class-a" /> classe A <span className="legend-dot class-b" /> classe B <span className="legend-svm-line" /> fronteira <span className="legend-dash" /> margem <span className="legend-ring" /> ponto novo</p><details className="chart-data"><summary>Consultar pontos e classificação por texto</summary><div className="table-scroll"><table><thead><tr><th>Exemplo</th><th>Comprimento</th><th>Largura</th><th>Classe</th><th>Resultado da SVM</th><th>Vetores de suporte</th></tr></thead><tbody>{points.map((point) => <tr key={point.id}><td>{point.id}</td><td>{formatarNumero(point.x, 1)}</td><td>{formatarNumero(point.y, 1)}</td><td>{point.label}</td><td>{classifyLinearSvm(point, fit).label}</td><td>{supportIds.has(point.id) ? 'sim' : 'não'}</td></tr>)}</tbody></table></div></details></>}>
+    <div className="segmented-control"><span>Distribuição das classes</span><div><button aria-pressed={dataset === 'separadas'} onClick={() => setDataset('separadas')} type="button">Classes separadas</button><button aria-pressed={dataset === 'proxima'} onClick={() => setDataset('proxima')} type="button">Ponto próximo</button></div></div>
+    <div className="segmented-control"><span>Fronteira de decisão</span><div><button aria-pressed={mode === 'manual'} onClick={() => setMode('manual')} type="button">Posicionar linha</button><button aria-pressed={mode === 'sugerida'} onClick={() => setMode('sugerida')} type="button">Ver sugestão</button></div></div>
+    {mode === 'manual' && <><RangeControl id="svm-angle" label="Orientação da fronteira" value={angle} min={20} max={70} step={1} unit="°" explanation="Gire a linha para comparar quais pontos ficam próximos dela." onChange={setAngle} /><RangeControl id="svm-cutoff" label="Posição da fronteira" value={cutoff} min={4} max={10} step={.1} explanation="Desloque a linha sem mudar sua orientação." onChange={setCutoff} /></>}
+    <RangeControl id="svm-x" label="Comprimento do ponto novo" value={targetX} min={0} max={10} step={.5} explanation="Mova o ponto novo e veja em qual lado da fronteira ele fica." onChange={setTargetX} />
+    <RangeControl id="svm-y" label="Largura do ponto novo" value={targetY} min={0} max={10} step={.5} explanation="As duas medidas participam da classificação." onChange={setTargetY} />
+    <label className="check-row"><input checked={showMargin} onChange={(event) => setShowMargin(event.target.checked)} type="checkbox" /> Mostrar margem e vetores de suporte</label>
+    <button className="reset-button" onClick={() => { setDataset('separadas'); setMode('manual'); setAngle(45); setCutoff(6.4); setTargetX(5); setTargetY(5); setShowMargin(true); }} type="button">Recomeçar experimento</button>
   </Lab>;
 }

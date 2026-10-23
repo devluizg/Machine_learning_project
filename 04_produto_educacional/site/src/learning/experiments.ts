@@ -8,6 +8,47 @@ export interface LabeledPoint extends PlanePoint {
   label: 'A' | 'B';
 }
 
+export interface LinearSvmFit {
+  normal: { x: number; y: number };
+  bias: number;
+  margin: number;
+  supportIds: string[];
+  separable: boolean;
+}
+
+/**
+ * Procura uma fronteira linear didática. O algoritmo testa orientações possíveis,
+ * posiciona a reta entre as duas classes e escolhe a maior margem encontrada.
+ * Não tenta reproduzir todos os detalhes de uma implementação industrial de SVM.
+ */
+export function trainLinearSvm(points: readonly LabeledPoint[]): LinearSvmFit {
+  if (points.length < 2 || !points.some((point) => point.label === 'A') || !points.some((point) => point.label === 'B')) {
+    throw new Error('São necessários exemplos das duas classes');
+  }
+  let best: { normal: { x: number; y: number }; bias: number; margin: number } | null = null;
+  for (let degree = 0; degree < 360; degree += 1) {
+    const radians = degree * Math.PI / 180;
+    const normal = { x: Math.cos(radians), y: Math.sin(radians) };
+    const projectionsA = points.filter((point) => point.label === 'A').map((point) => normal.x * point.x + normal.y * point.y);
+    const projectionsB = points.filter((point) => point.label === 'B').map((point) => normal.x * point.x + normal.y * point.y);
+    const highestA = Math.max(...projectionsA);
+    const lowestB = Math.min(...projectionsB);
+    const margin = (lowestB - highestA) / 2;
+    const bias = -(lowestB + highestA) / 2;
+    if (!best || margin > best.margin) best = { normal, bias, margin };
+  }
+  const fit = best!;
+  const distances = points.map((point) => ({ id: point.id, distance: Math.abs(fit.normal.x * point.x + fit.normal.y * point.y + fit.bias) }));
+  const nearestA = distances.filter((_, index) => points[index]!.label === 'A').sort((a, b) => a.distance - b.distance)[0];
+  const nearestB = distances.filter((_, index) => points[index]!.label === 'B').sort((a, b) => a.distance - b.distance)[0];
+  return { ...fit, supportIds: [nearestA, nearestB].filter(Boolean).map((point) => point!.id), separable: fit.margin > 0 };
+}
+
+export function classifyLinearSvm(point: PlanePoint, fit: Pick<LinearSvmFit, 'normal' | 'bias'>) {
+  const score = fit.normal.x * point.x + fit.normal.y * point.y + fit.bias;
+  return { score, label: score >= 0 ? 'B' as const : 'A' as const };
+}
+
 export function logisticProbability(x: number, midpoint: number, steepness: number): number {
   return 1 / (1 + Math.exp(-steepness * (x - midpoint)));
 }

@@ -153,6 +153,7 @@ html,body{overflow-x:hidden}
 
 /* Placar de métricas interativo do HeroDemo */
 .demo-metrics-strip{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 12px;margin-bottom:6px;background:rgba(6,18,38,.72);border:1px solid rgba(135,175,215,.18);border-radius:12px;flex-wrap:wrap}
+.svm-boundary-line{stroke:#126e8f;stroke-width:4;stroke-linecap:round}.svm-margin-line{stroke:#e6603c;stroke-width:2;stroke-dasharray:7 5}.svm-support-point{stroke:#19313b;stroke-width:4}.legend-svm-line{display:inline-block;width:28px;height:3px;background:#126e8f;margin-left:10px}
 .metric-chip{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.4px;padding:4px 10px;border-radius:9999px;background:rgba(14,38,72,.6);border:1px solid rgba(135,175,215,.22);color:#93c5fd;transition:all .25s ease}
 .metric-chip.is-optimal{background:rgba(16,68,48,.6);border-color:rgba(74,222,128,.45);color:#4ade80;box-shadow:0 0 14px rgba(74,222,128,.22)}
 .metric-chip.is-evaluating{background:rgba(58,25,20,.55);border-color:rgba(255,107,61,.35);color:#ffb499}

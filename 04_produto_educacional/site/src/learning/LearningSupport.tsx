@@ -73,7 +73,7 @@ export function HelpPage() {
       <dl>
         <div><dt>Dado</dt><dd>Informação usada para descrever um exemplo.</dd></div>
         <div><dt>Parâmetro</dt><dd>Número que altera o comportamento do modelo.</dd></div>
-        <div><dt>Limiar</dt><dd>Regra usada para transformar um valor calculado em uma decisão.</dd></div>
+        <div><dt>Margem</dt><dd>Espaço entre a fronteira e os exemplos mais próximos das duas classes.</dd></div>
         <div><dt>Rótulo</dt><dd>Categoria conhecida atribuída a um exemplo.</dd></div>
         <div><dt>Centróide</dt><dd>Centro calculado a partir dos pontos de um grupo.</dd></div>
         <div><dt>Erro</dt><dd>Diferença entre uma referência observada e o valor previsto.</dd></div>

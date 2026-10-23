@@ -7,7 +7,7 @@ Comparação clean room de fluxos públicos do [NEURON](https://kw1fpt-ahmet-duy
 | Modelo | Interações implementadas | Aprendizagem observável | Ainda não incluído |
 | --- | --- | --- | --- |
 | Regressão linear | Reta manual, outlier, resíduos, OLS, treino por etapas/taxa, MSE, curva e perda 3D | Comparar ajuste, erro e influência de ponto atípico | Aleatorização, R², quadrados desenhados, contornos de perda |
-| Regressão logística | Dois conjuntos, curva manual, limiar, treino por log-loss, casos sintéticos reservados, perda 3D | Separar chance, decisão, ajuste dos pesos e resultado fora do treino | Duas características, fronteira planar, validação externa, regularização |
+| SVM linear | Duas classes, fronteira manual ou sugerida, margem e vetores de suporte | Separar classes pela fronteira, identificar os exemplos que delimitam a margem e ler a classe de um ponto novo | Dados sobrepostos, fronteiras curvas e validação externa |
 | k-NN | Dois conjuntos, k, duas distâncias, voto ponderado, regiões, força do voto 3D | Ver efeito da vizinhança e da definição de proximidade | Curva de acurácia por k, teste independente, mais formas de dados |
 | Árvore de decisão | Divisões aprendidas por Gini, profundidade, regiões, regras, caminho, casos sintéticos reservados e proporção da folha 3D | Relacionar perguntas, regiões e diferença entre treino e teste | Critério entropia, validação externa, amostras/ruído ajustáveis |
 | k-means | k, forma, inicialização, atribuir/mover, WSS por rodada e distância 3D | Observar a atualização dos centros e queda da WSS | Curva do cotovelo, k-means++, mais conjuntos e animação automática |
@@ -23,6 +23,6 @@ As vistas 3D são projeções rotacionáveis em SVG de valores calculados. A alt
 ## Pendências pedagógicas e técnicas
 
 1. Validar exemplos, matemática em camadas e volume de controles com professor e estudantes. Mais recursos podem aumentar carga cognitiva.
-2. Os casos reservados de logística e árvore são somente ilustrações sintéticas. Antes de qualquer afirmação sobre generalização serão necessários dados e desenho de avaliação apropriados; os demais modelos ainda não exibem teste independente.
+2. Os exemplos da SVM e da árvore são somente ilustrações sintéticas. Antes de qualquer afirmação sobre generalização serão necessários dados e desenho de avaliação apropriados; os demais modelos ainda não exibem teste independente.
 3. Auditar acessibilidade das superfícies 3D, das cores e das interações móveis com participantes reais.
 4. A lista final de modelos, a identidade e a metodologia da pesquisa ainda aguardam decisões acadêmicas.
