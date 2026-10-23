@@ -2,6 +2,10 @@
 
 Esta pasta reunirá o planejamento acadêmico do produto educacional e da pesquisa que o sustenta.
 
+## Versão principal atual
+
+A referência de edição é a [versão 5 do projeto de qualificação](texto/projeto_qualificacao_v5_20261018/main.pdf). As versões anteriores foram preservadas em `../99_arquivo/versoes_antigas/qualificacao/`.
+
 ## Estrutura preliminar do texto
 
 A ordem final deverá seguir o modelo oficial e as orientações do professor Marcos Braga. Como ponto de partida, o projeto poderá contemplar:
@@ -33,4 +37,3 @@ A ordem final deverá seguir o modelo oficial e as orientações do professor Ma
 - `versoes_submetidas/`: versões congeladas efetivamente enviadas.
 
 O material antigo existente em `/home/luiz/escrita_academica` pertence à proposta anterior. Ele pode servir como referência de formatação, mas não deve ser movido, renomeado ou sobrescrito, e seu conteúdo não deve ser reaproveitado automaticamente no novo tema.
-

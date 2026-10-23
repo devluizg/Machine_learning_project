@@ -63,7 +63,7 @@ Data da busca inicial e do acesso aos links: **4 de outubro de 2026**.
 
 As revisões apontam explicitamente a necessidade de avaliações mais rigorosas, instrumentos de aprendizagem consistentes, integração ao currículo, materiais em idiomas e contextos locais e maior diversidade de tarefas de ML. Também indicam predominância de atividades de classificação de imagens e de oficinas extracurriculares curtas.
 
-Uma hipótese de lacuna para este projeto é a investigação, no 1º ano do Ensino Médio brasileiro, de uma sequência didática que utilize modelos tabulares de regressão, classificação e agrupamento para tornar visíveis dados, treinamento, previsão, erro e decisão por meio do ciclo:
+Uma hipótese de lacuna para este projeto é a investigação, com estudantes do Ensino Médio brasileiro, de uma sequência didática que utilize modelos tabulares de regressão, classificação e agrupamento para tornar visíveis dados, treinamento, previsão, erro e decisão por meio do ciclo:
 
 > prever → experimentar → observar → explicar
 

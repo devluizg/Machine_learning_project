@@ -1,0 +1,159 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{microtype}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+
+\geometry{top=1.7cm,bottom=1.7cm,left=1.8cm,right=1.8cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist[itemize]{leftmargin=*,itemsep=0.25em,topsep=0.2em}
+\definecolor{azul}{HTML}{173B57}
+\definecolor{cinza}{HTML}{F2F4F7}
+
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+\fancyhf{}
+\lhead{Sequência didática de \textit{machine learning}}
+\rhead{Aula 7: comparação entre modelos}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newcommand{\linha}{\rule{\linewidth}{0.35pt}}
+\newcommand{\bloco}[1]{%
+  \vspace{0.25em}
+  \noindent\colorbox{cinza}{\parbox{0.96\linewidth}{#1}}%
+  \vspace{0.3em}
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries\color{azul} Aula 7: comparação entre modelos}\par
+  \vspace{0.25em}
+  {\large Finalidades, dados, resultados e limites}\par
+  \vspace{0.35em}
+  {\small Roteiro de aplicação da sequência didática}\par
+\end{center}
+
+\bloco{\textbf{Lugar desta aula na pesquisa.} Este é o sétimo encontro da sequência de oito aulas. A atividade retoma regressão linear, regressão logística, k-vizinhos mais próximos, árvore de decisão e k-means para comparar finalidades e modos de produzir resultados. As produções individuais são formativas e não integram o corpus principal de pesquisa.}
+
+\section*{1. Identificação}
+
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}p{4.1cm}X@{}}
+Turma: & \rule{8.5cm}{0.35pt} \\
+Data: & \rule{8.5cm}{0.35pt} \\
+Duração: & 50 minutos \\
+Organização: & Exploração individual, quadro coletivo e ficha de comparação. \\
+Recursos: & Plataforma com os cinco módulos, computadores do laboratório ou Chromebooks, quadro e uma ficha por estudante. \\
+\end{tabularx}
+
+\section*{2. Objetivos da aula}
+
+Ao final do encontro, espera-se que os estudantes comparem previsão numérica, classificação e agrupamento; relacionem dados e tipo de saída à escolha de um modelo; reconheçam que parâmetros e regras podem alterar resultados; justifiquem uma escolha sem depender apenas do nome do algoritmo.
+
+\textbf{Relação curricular:} EM13CO10, EM13CO11 e EM13CO12.
+
+\textbf{Conceitos em foco:} dado, finalidade, entrada, saída, previsão, classificação, agrupamento, parâmetro, regra e limite.
+
+\section*{3. Preparação antes da aula}
+
+\begin{itemize}
+  \item Abrir os cinco módulos da plataforma e conferir o funcionamento local dos cenários.
+  \item Preparar no quadro três colunas: prever um número, escolher uma categoria e formar grupos.
+  \item Confirmar que cada estudante terá acesso individual à plataforma, em computador do laboratório ou Chromebook.
+  \item Imprimir uma ficha de comparação por estudante, sem código de participante e sem recolhimento como instrumento de pesquisa.
+  \item Separar duas situações inéditas breves para discussão coletiva, sem repetir os enunciados reservados ao instrumento final.
+\end{itemize}
+
+\bloco{\textbf{Cuidado didático.} A finalidade da tarefa vem antes do nome do modelo. A turma deve começar perguntando qual saída se deseja produzir e quais dados estão disponíveis, evitando associações decoradas entre uma palavra e um algoritmo.}
+
+\section*{4. Desenvolvimento da aula}
+
+\renewcommand{\arraystretch}{1.18}
+\begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}p{1.65cm}|p{5.0cm}|X|}
+\hline
+\textbf{Tempo} & \textbf{Ação com a turma} & \textbf{Mediação docente} \\
+\hline
+0--8 min & Retomar os cinco modelos em um quadro comparativo. Nomear a finalidade principal de cada atividade anterior. & Organizar a conversa a partir de três saídas: número previsto, categoria e grupo. Evitar revisão baseada apenas em definições decoradas. \\
+\hline
+8--18 min & Apresentar situações inéditas breves para cada estudante. Pedir que indiquem qual saída desejam em cada situação. & Perguntar primeiro ``qual resultado queremos?'' e depois ``quais dados podem ajudar?''. Só então discutir um modelo possível. \\
+\hline
+18--33 min & Confirmar duas situações na plataforma, em projeção ou exploração livre orientada. Retomar controles como inclinação, limiar, valor de $k$, profundidade e centróides. & Comparar o papel de cada controle: alguns mudam uma previsão, outros mudam uma regra de decisão ou a organização dos grupos. \\
+\hline
+33--43 min & Estudantes preenchem a ficha de comparação e explicam uma escolha para a turma. & Pedir justificativas relacionadas a dados e tipo de saída. Corrigir associações como ``dois grupos sempre exigem regressão logística''. \\
+\hline
+43--50 min & Síntese oral e preparação para o encontro final. & Informar que o instrumento final pedirá explicações sobre situações novas, sem exigir memorização de definições. \\
+\hline
+\end{tabularx}
+
+\section*{5. Perguntas para conduzir a conversa}
+
+\begin{itemize}
+  \item ``Qual saída essa situação pede?''
+  \item ``Quais dados seriam usados?''
+  \item ``Há categorias já conhecidas?''
+  \item ``Qual regra ou parâmetro pode mudar o resultado?''
+  \item ``Que limite aparece nessa escolha?''
+\end{itemize}
+
+\section*{6. Evidência a observar}
+
+Observar se os estudantes começam pela finalidade da tarefa, relacionam dados e saída à escolha de um modelo e reconhecem que diferentes modelos podem lidar com classificações de formas distintas. No registro docente, anotar confusões recorrentes, justificativas produtivas e condições de infraestrutura que possam ajudar a interpretar a aula.
+
+\newpage
+
+\begin{center}
+  {\LARGE\bfseries\color{azul} Ficha de comparação individual}\par
+  \vspace{0.2em}
+  {\large Aula 7: escolher pela finalidade da tarefa}\par
+  \vspace{0.35em}
+  {\small Material formativo para discussão durante a aula}\par
+\end{center}
+
+\bloco{\textbf{Orientação.} Preencha a ficha individualmente. Ela serve para organizar a discussão e não será usada como instrumento de pesquisa. Em cada situação, indique primeiro a saída desejada e depois o modelo que parece mais adequado.}
+
+\textbf{Nome do estudante:} \rule{8.5cm}{0.4pt}
+
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\linewidth}{|p{3.7cm}|p{2.3cm}|X|}
+\hline
+\textbf{Modelo} & \textbf{Saída principal} & \textbf{Como produz ou organiza o resultado} \\
+\hline
+Regressão linear & & \\
+\hline
+Regressão logística & & \\
+\hline
+k-vizinhos mais próximos & & \\
+\hline
+Árvore de decisão & & \\
+\hline
+k-means & & \\
+\hline
+\end{tabularx}
+
+\section*{Situação A}
+
+Uma escola quer estimar quanto de energia uma sala pode consumir amanhã a partir de temperatura e quantidade de pessoas. Qual saída é desejada? Qual modelo parece adequado? Justifique.
+
+\vspace{0.25em}
+\linha\par\vspace{0.75em}
+\linha
+
+\section*{Situação B}
+
+Uma equipe possui pontos de coleta em um mapa, mas ainda não definiu categorias para esses locais. Qual saída é desejada? Qual modelo parece adequado? Justifique.
+
+\vspace{0.25em}
+\linha\par\vspace{0.75em}
+\linha
+
+\end{document}

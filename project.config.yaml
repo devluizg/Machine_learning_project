@@ -1,7 +1,7 @@
 project:
   working_name: "Plataforma Interativa para Ensino de Machine Learning"
-  status: "concepcao_inicial"
-  academic_milestone: "pre_defesa_do_mestrado"
+  status: "proposta_metodologica_pronta_para_orientacao"
+  academic_milestone: "qualificacao_e_validacao_com_orientador"
   language: "pt-BR"
 
 academic_context:
@@ -10,10 +10,14 @@ academic_context:
   official_program_name: "Programa de Pos-Graduacao em Ensino de Computacao para a Educacao Basica"
   area: "ensino_de_computacao_e_docencia"
   advisor: "Professor Marcos Braga"
+  qualification_writing_goal: "12000_a_18000_palavras_de_texto_corrido; meta_de_planejamento_nao_institucional"
 
 product:
   type: "plataforma_educacional_interativa"
   subject: "machine_learning"
+  curricular_positioning: "ensino_introdutorio_de_computacao_por_meio_de_fundamentos_de_machine_learning"
+  platform_role: "recurso_didatico_mediado; nao_substitui_a_docencia_nem_e_o_objeto_central_de_aprendizagem"
+  intended_depth: "conceitual_e_interpretativa; sem_formacao_tecnica_avancada_ou_programacao_previa"
   primary_audience:
     - "estudantes_do_ensino_medio"
     - "iniciantes_em_machine_learning"
@@ -25,7 +29,7 @@ product:
     - "acessibilidade"
   scope: "poucos_modelos_selecionados"
   final_models: []
-  prototype_models:
+  proposal_models:
     - "regressao_linear"
     - "regressao_logistica"
     - "k_vizinhos_mais_proximos"
@@ -33,6 +37,19 @@ product:
     - "k_means"
   technology_stack: "Vite + React + TypeScript; SVG para gráficos didáticos e Canvas nativo decorativo; execução local no navegador; sem backend"
   audience_alignment_status: "alinhado_a_educacao_basica"
+
+research:
+  methodology_status: "proposta_sujeita_a_validacao_do_orientador"
+  design: "intervencao_pedagogica_em_grupo_unico; abordagem_predominantemente_qualitativa; apoio_quantitativo_descritivo"
+  duration: "oito_encontros_de_cinquenta_minutos"
+  causal_claims: false
+  evidence:
+    - "diagnostico_inicial_individual"
+    - "registros_individuais_nos_encontros_2_4_e_6"
+    - "nucleo_final_comparavel"
+    - "desafio_de_transferencia"
+    - "questionario_de_percepcao"
+    - "registro_docente"
 
 reference:
   name: "NEURON — Machine Learning, Made Visible"

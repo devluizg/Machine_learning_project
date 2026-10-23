@@ -1,210 +1,496 @@
 import { useEffect, useRef } from 'react';
 
-type Dot = { x: number; y: number; depth: number; size: number; phase: number; family: number };
+// Shaders GLSL para renderização estelar acelerada por WebGL na GPU
+const VERTEX_SHADER_SOURCE = `
+  attribute vec3 aPosition;
+  attribute float aPhase;
+  attribute float aSize;
+  attribute vec3 aColor;
 
-const centers: [number, number][] = [[0.08, 0.18], [0.34, 0.82], [0.52, 0.14], [0.79, 0.26], [0.91, 0.81]];
+  uniform mat4 uProjection;
+  uniform mat4 uView;
+  uniform mat4 uModel;
+  uniform float uTime;
+  uniform vec3 uMouse;
+  uniform float uScroll;
+  uniform float uPixelRatio;
 
-function makeDots(): Dot[] {
-  // Sequência fixa: a composição não muda a cada visita nem depende de dados do estudante.
-  let seed = 2077;
-  const random = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
-  return Array.from({ length: 85 }, (_, index) => {
-    const family = index % centers.length;
-    const [cx, cy] = centers[family]!;
-    return {
-      x: Math.max(0.02, Math.min(0.98, cx + (random() - 0.5) * 0.28)),
-      y: Math.max(0.04, Math.min(0.96, cy + (random() - 0.5) * 0.35)),
-      depth: 0.18 + random() * 0.82,
-      size: 1.1 + random() * 1.8,
-      phase: random() * Math.PI * 2,
-      family,
-    };
-  });
+  varying vec3 vColor;
+  varying float vAlpha;
+
+  void main() {
+    vec3 pos = aPosition;
+
+    // Deriva lenta e orgânica celestial
+    float t = uTime * 0.35 + aPhase * 6.28318;
+    pos.x += sin(t * 0.7) * 0.12;
+    pos.y += cos(t * 0.8) * 0.12;
+    pos.z += sin(t * 0.5) * 0.09;
+
+    // Dispersão suave conforme o scroll da página (mergulho no cosmos)
+    pos.z -= uScroll * 1.8;
+    pos.x *= 1.0 + uScroll * 0.22;
+    pos.y *= 1.0 + uScroll * 0.22;
+
+    // Transformação para coordenadas do modelo
+    vec4 worldPos = uModel * vec4(pos, 1.0);
+
+    // Interação física suave com o mouse (repulsão cósmica)
+    vec3 mouseDiff = worldPos.xyz - uMouse;
+    float mouseDist = length(mouseDiff);
+    float repulsionRadius = 2.4;
+    if (mouseDist < repulsionRadius) {
+      float force = smoothstep(repulsionRadius, 0.0, mouseDist) * 0.75;
+      worldPos.xyz += normalize(mouseDiff + vec3(0.0001)) * force;
+    }
+
+    vec4 viewPos = uView * worldPos;
+    gl_Position = uProjection * viewPos;
+
+    // Tamanho do ponto com atenuação de perspectiva realista
+    float depthFactor = clamp(8.0 / max(0.5, -viewPos.z), 0.4, 3.2);
+    gl_PointSize = aSize * uPixelRatio * depthFactor;
+
+    // Cintilação suave e atenuação de profundidade
+    float twinkle = 0.75 + 0.25 * sin(uTime * 1.4 + aPhase * 12.0);
+    float depthAlpha = smoothstep(-18.0, -3.0, viewPos.z);
+    vColor = aColor;
+    vAlpha = twinkle * depthAlpha;
+  }
+`;
+
+const FRAGMENT_SHADER_SOURCE = `
+  precision mediump float;
+  varying vec3 vColor;
+  varying float vAlpha;
+
+  void main() {
+    // Coordenada do centro do ponto: -0.5 a +0.5
+    vec2 coord = gl_PointCoord - vec2(0.5);
+    float dist = length(coord);
+    if (dist > 0.5) {
+      discard;
+    }
+
+    // Núcleo estelar brilhante com halo gradiente suave
+    float core = smoothstep(0.5, 0.08, dist);
+    float halo = exp(-dist * 5.0);
+    float alpha = (core * 0.65 + halo * 0.35) * vAlpha;
+
+    gl_FragColor = vec4(vColor, alpha);
+  }
+`;
+
+// Shaders para os anéis de órbitas astronômicas
+const RING_VERT_SOURCE = `
+  attribute vec3 aPosition;
+  uniform mat4 uProjection;
+  uniform mat4 uView;
+  uniform mat4 uModel;
+  void main() {
+    gl_Position = uProjection * uView * uModel * vec4(aPosition, 1.0);
+  }
+`;
+
+const RING_FRAG_SOURCE = `
+  precision mediump float;
+  uniform vec4 uRingColor;
+  void main() {
+    gl_FragColor = uRingColor;
+  }
+`;
+
+function createShader(gl: WebGLRenderingContext, type: number, source: string): WebGLShader | null {
+  const shader = gl.createShader(type);
+  if (!shader) return null;
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    gl.deleteShader(shader);
+    return null;
+  }
+  return shader;
 }
 
-const dots = makeDots();
-const links = dots.flatMap((dot, index) => dots.slice(index + 1).map((other, offset) => ({ a: index, b: index + offset + 1, distance: Math.hypot(dot.x - other.x, dot.y - other.y), sameFamily: dot.family === other.family }))).filter((link) => link.sameFamily && link.distance < 0.12).slice(0, 110);
+function createProgram(
+  gl: WebGLRenderingContext,
+  vertexShader: WebGLShader,
+  fragmentShader: WebGLShader
+): WebGLProgram | null {
+  const program = gl.createProgram();
+  if (!program) return null;
+  gl.attachShader(program, vertexShader);
+  gl.attachShader(program, fragmentShader);
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    gl.deleteProgram(program);
+    return null;
+  }
+  return program;
+}
 
-export function AmbientParticles({ paused, viewport = false }: { paused: boolean; viewport?: boolean }) {
+// Cria matriz de projeção em perspectiva 4x4
+function mat4Perspective(out: Float32Array, fovy: number, aspect: number, near: number, far: number) {
+  const f = 1.0 / Math.tan(fovy / 2);
+  const nf = 1 / (near - far);
+  out.fill(0);
+  out[0] = f / aspect;
+  out[5] = f;
+  out[10] = (far + near) * nf;
+  out[11] = -1;
+  out[14] = 2 * far * near * nf;
+}
+
+// Cria matriz de translação 4x4
+function mat4Translation(out: Float32Array, x: number, y: number, z: number) {
+  out.fill(0);
+  out[0] = 1;
+  out[5] = 1;
+  out[10] = 1;
+  out[15] = 1;
+  out[12] = x;
+  out[13] = y;
+  out[14] = z;
+}
+
+export function AmbientParticles({ paused = false }: { paused?: boolean; viewport?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const parent = canvas?.parentElement;
-    const ctx = canvas?.getContext('2d', { alpha: true });
-    if (!canvas || !parent || !ctx) return;
+    if (!canvas) return;
 
-    let width = 1;
-    let height = 1;
-    let frame = 0;
-    let visible = true;
-    const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
-    let reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches || coarsePointer;
-    let pointerActive = false;
-    let pointerX = 0;
-    let pointerY = 0;
-    let previousPointerX = 0;
-    let previousPointerY = 0;
-    let previousPointerTime = 0;
-    let pointerVelocityX = 0;
-    let pointerVelocityY = 0;
-    let easedVelocityX = 0;
-    let easedVelocityY = 0;
-    let pointerEnergy = 0;
-    let easedX = 0;
-    let easedY = 0;
-    let previousFrameTime = 0;
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const gl = canvas.getContext('webgl', {
+      alpha: true,
+      antialias: true,
+      depth: false,
+      powerPreference: 'high-performance',
+    });
+
+    if (!gl) return;
+
+    // Compilação dos shaders de partículas
+    const vs = createShader(gl, gl.VERTEX_SHADER, VERTEX_SHADER_SOURCE);
+    const fs = createShader(gl, gl.FRAGMENT_SHADER, FRAGMENT_SHADER_SOURCE);
+    if (!vs || !fs) return;
+
+    const program = createProgram(gl, vs, fs);
+    if (!program) return;
+
+    // Compilação dos shaders de anéis orbitais
+    const ringVs = createShader(gl, gl.VERTEX_SHADER, RING_VERT_SOURCE);
+    const ringFs = createShader(gl, gl.FRAGMENT_SHADER, RING_FRAG_SOURCE);
+    const ringProgram = ringVs && ringFs ? createProgram(gl, ringVs, ringFs) : null;
+
+    // Localização de atributos e uniformes do programa de partículas
+    const aPosition = gl.getAttribLocation(program, 'aPosition');
+    const aPhase = gl.getAttribLocation(program, 'aPhase');
+    const aSize = gl.getAttribLocation(program, 'aSize');
+    const aColor = gl.getAttribLocation(program, 'aColor');
+
+    const uProjection = gl.getUniformLocation(program, 'uProjection');
+    const uView = gl.getUniformLocation(program, 'uView');
+    const uModel = gl.getUniformLocation(program, 'uModel');
+    const uTime = gl.getUniformLocation(program, 'uTime');
+    const uMouse = gl.getUniformLocation(program, 'uMouse');
+    const uScroll = gl.getUniformLocation(program, 'uScroll');
+    const uPixelRatio = gl.getUniformLocation(program, 'uPixelRatio');
+
+    // Localização para anéis orbitais
+    const ringPos = ringProgram ? gl.getAttribLocation(ringProgram, 'aPosition') : -1;
+    const ringProj = ringProgram ? gl.getUniformLocation(ringProgram, 'uProjection') : null;
+    const ringView = ringProgram ? gl.getUniformLocation(ringProgram, 'uView') : null;
+    const ringModel = ringProgram ? gl.getUniformLocation(ringProgram, 'uModel') : null;
+    const ringColor = ringProgram ? gl.getUniformLocation(ringProgram, 'uRingColor') : null;
+
+    // Geração determinística do campo estelar de constelações (+50%: 5.700 partículas no desktop e 3.300 no mobile)
+    const PARTICLE_COUNT = window.innerWidth < 800 ? 3300 : 5700;
+    const positions = new Float32Array(PARTICLE_COUNT * 3);
+    const phases = new Float32Array(PARTICLE_COUNT);
+    const sizes = new Float32Array(PARTICLE_COUNT);
+    const colors = new Float32Array(PARTICLE_COUNT * 3);
+
+    let seed = 42;
+    const pseudoRandom = () => {
+      seed = (seed * 1664525 + 1013904223) >>> 0;
+      return seed / 4294967296;
+    };
+
+    // Paleta de constelação noturna:
+    // - Azul gelo / ciano celestial
+    // - Branco pérola estelar
+    // - Âmbar dourado sutil (representando pontos de dados / estrelas quentes)
+    const STAR_PALETTES = [
+      [0.65, 0.84, 0.98], // Azul celestial
+      [0.85, 0.93, 1.0],  // Branco estelar
+      [0.45, 0.72, 0.95], // Ciano profundo
+      [0.98, 0.76, 0.52], // Âmbar sutil de dados ML
+      [0.55, 0.88, 0.92], // Turquesa estelar
+    ];
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      // Distribuição elipsoidal ampla com concentração na faixa da visão
+      const radius = 2.0 + Math.pow(pseudoRandom(), 0.6) * 11.5;
+      const theta = pseudoRandom() * Math.PI * 2;
+      const phi = Math.acos(2 * pseudoRandom() - 1);
+
+      positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta) * 1.55;
+      positions[i * 3 + 1] = radius * Math.cos(phi) * 0.95;
+      positions[i * 3 + 2] = (radius * Math.sin(phi) * Math.sin(theta) * 0.8) - 1.5;
+
+      phases[i] = pseudoRandom();
+      sizes[i] = 1.4 + Math.pow(pseudoRandom(), 2) * 3.4;
+
+      const paletteIndex = Math.floor(pseudoRandom() * STAR_PALETTES.length);
+      const color = STAR_PALETTES[paletteIndex]!;
+      colors[i * 3] = color[0]!;
+      colors[i * 3 + 1] = color[1]!;
+      colors[i * 3 + 2] = color[2]!;
+    }
+
+    // Buffers de GPU
+    const posBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+
+    const phaseBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, phaseBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, phases, gl.STATIC_DRAW);
+
+    const sizeBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, sizeBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, sizes, gl.STATIC_DRAW);
+
+    const colorBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, colors, gl.STATIC_DRAW);
+
+    // Buffers para os anéis de órbitas astronômicas
+    const RING_SEGMENTS = 140;
+    const ringVertices = new Float32Array((RING_SEGMENTS + 1) * 3);
+    const ringRadius = 5.8;
+    for (let i = 0; i <= RING_SEGMENTS; i++) {
+      const angle = (i / RING_SEGMENTS) * Math.PI * 2;
+      ringVertices[i * 3] = Math.cos(angle) * ringRadius;
+      ringVertices[i * 3 + 1] = Math.sin(angle) * (ringRadius * 0.88);
+      ringVertices[i * 3 + 2] = 0;
+    }
+    const ringBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, ringBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, ringVertices, gl.STATIC_DRAW);
+
+    // Estado da animação e interatividade
+    let animationFrameId = 0;
+    let isVisible = true;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isPaused = paused || prefersReducedMotion;
+
+    let targetMouseX = 0;
+    let targetMouseY = 0;
+    let currentMouseX = 0;
+    let currentMouseY = 0;
+    let mouseWorldX = 999.0;
+    let mouseWorldY = 999.0;
+    let currentScroll = 0;
+    let targetScroll = 0;
+
+    const projMatrix = new Float32Array(16);
+    const viewMatrix = new Float32Array(16);
+    const modelMatrix = new Float32Array(16);
+
+    mat4Translation(viewMatrix, 0, 0, -8.5);
 
     function resize() {
-      const rect = parent!.getBoundingClientRect();
-      width = Math.max(1, viewport ? window.innerWidth : rect.width);
-      height = Math.max(1, viewport ? window.innerHeight : rect.height);
-      if (easedX === 0 && easedY === 0) { easedX = width * 0.62; easedY = height * 0.48; }
-      const density = Math.min(2, window.devicePixelRatio || 1);
-      canvas!.width = Math.round(width * density);
-      canvas!.height = Math.round(height * density);
-      ctx!.setTransform(density, 0, 0, density, 0, 0);
-      if (paused || reduced) draw(0);
-    }
+      if (!canvas || !gl) return;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
 
-    function onPointerMove(event: PointerEvent) {
-      if (event.pointerType === 'touch' || paused || reduced) return;
-      const rect = parent!.getBoundingClientRect();
-      pointerX = viewport ? event.clientX : event.clientX - rect.left;
-      pointerY = viewport ? event.clientY : event.clientY - rect.top;
-      const now = performance.now();
-      if (pointerActive) {
-        const elapsed = Math.max(16, now - previousPointerTime);
-        const rawX = (pointerX - previousPointerX) / elapsed;
-        const rawY = (pointerY - previousPointerY) / elapsed;
-        const magnitude = Math.hypot(rawX, rawY);
-        const capped = magnitude > 0.48 ? 0.48 / magnitude : 1;
-        pointerVelocityX = pointerVelocityX * 0.8 + rawX * capped * 0.2;
-        pointerVelocityY = pointerVelocityY * 0.8 + rawY * capped * 0.2;
-      }
-      previousPointerX = pointerX;
-      previousPointerY = pointerY;
-      previousPointerTime = now;
-      pointerEnergy = 1;
-      pointerActive = true;
-    }
-
-    function onPointerLeave() { pointerActive = false; }
-    function onMotionChange(event: MediaQueryListEvent) { reduced = event.matches || coarsePointer; if (reduced) draw(0); else start(); }
-
-    function draw(time: number) {
-      ctx!.clearRect(0, 0, width, height);
-      const moving = !paused && !reduced;
-      const elapsed = previousFrameTime ? Math.min(40, Math.max(0, time - previousFrameTime)) : 16;
-      previousFrameTime = time;
-      pointerEnergy *= Math.pow(0.86, elapsed / 16);
-      // Amortecimento por quadro: mudanças bruscas no cursor não deslocam as
-      // constelações instantaneamente, evitando o aspecto de tremida.
-      const velocitySmoothing = 1 - Math.exp(-elapsed / 150);
-      const targetVelocityX = pointerActive ? pointerVelocityX * pointerEnergy : 0;
-      const targetVelocityY = pointerActive ? pointerVelocityY * pointerEnergy : 0;
-      easedVelocityX += (targetVelocityX - easedVelocityX) * velocitySmoothing;
-      easedVelocityY += (targetVelocityY - easedVelocityY) * velocitySmoothing;
-      const restingX = width * 0.62;
-      const restingY = height * 0.48;
-      easedX += ((pointerActive ? pointerX : restingX) - easedX) * (moving ? 0.065 : 1);
-      easedY += ((pointerActive ? pointerY : restingY) - easedY) * (moving ? 0.065 : 1);
-
-      const positions = dots.map((dot) => {
-        const depthScale = 0.82 + dot.depth * 0.28;
-        // A deriva precisa ser perceptível sem competir com a leitura: cada
-        // constelação percorre uma órbita ampla e lenta, em fases diferentes.
-        const driftX = moving ? Math.sin(time * 0.00062 + dot.phase) * 17 * dot.depth : 0;
-        const driftY = moving ? Math.cos(time * 0.00051 + dot.phase * 1.13) * 19 * dot.depth : 0;
-        const parallaxX = moving ? (easedX - width / 2) * dot.depth * 0.045 : 0;
-        const parallaxY = moving ? (easedY - height / 2) * dot.depth * 0.04 : 0;
-        const baseX = width / 2 + (dot.x - 0.5) * width * depthScale + driftX + parallaxX;
-        const baseY = height / 2 + (dot.y - 0.5) * height * depthScale + driftY + parallaxY;
-        const distance = Math.hypot(easedX - baseX, easedY - baseY);
-        const proximity = pointerActive && moving ? Math.exp(-distance * distance / 48000) : 0;
-        const attraction = proximity * (0.03 + dot.depth * 0.06);
-        // A perturbação acompanha a direção do cursor: perto do mouse, os pontos
-        // ganham velocidade no mesmo sentido e voltam suavemente à deriva lenta.
-        const directionalX = easedVelocityX * 28 * proximity * (0.72 + dot.depth * 0.35);
-        const directionalY = easedVelocityY * 28 * proximity * (0.72 + dot.depth * 0.35);
-        return { x: baseX + (easedX - baseX) * attraction + directionalX, y: baseY + (easedY - baseY) * attraction + directionalY, distance, size: dot.size * (0.7 + dot.depth * 0.6), depth: dot.depth };
-      });
-
-      for (const link of links) {
-        const a = positions[link.a]!;
-        const b = positions[link.b]!;
-        ctx!.beginPath();
-        ctx!.moveTo(a.x, a.y);
-        ctx!.lineTo(b.x, b.y);
-        ctx!.strokeStyle = `rgba(154, 204, 205, ${0.035 + Math.min(a.depth, b.depth) * 0.085})`;
-        ctx!.lineWidth = 1;
-        ctx!.stroke();
+      if (canvas.width !== Math.round(width * dpr) || canvas.height !== Math.round(height * dpr)) {
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        gl.viewport(0, 0, canvas.width, canvas.height);
       }
 
-      positions.forEach((position, index) => {
-        const near = pointerActive && moving ? Math.max(0, 1 - position.distance / 190) : 0;
-        const accent = index % 11 === 0;
-        ctx!.beginPath();
-        ctx!.arc(position.x, position.y, position.size + near * 1.8, 0, Math.PI * 2);
-        ctx!.fillStyle = accent ? `rgba(255, 155, 111, ${0.3 + position.depth * 0.42 + near * 0.18})` : `rgba(195, 226, 219, ${0.16 + position.depth * 0.45 + near * 0.25})`;
-        ctx!.fill();
-      });
+      mat4Perspective(projMatrix, (48 * Math.PI) / 180, width / height, 0.1, 100.0);
+    }
 
-      if (pointerActive && moving) {
-        const nearest = positions.map((position, index) => ({ index, distance: position.distance })).sort((a, b) => a.distance - b.distance).slice(0, 5);
-        nearest.forEach(({ index, distance }) => {
-          if (distance > 175) return;
-          const point = positions[index]!;
-          ctx!.beginPath();
-          ctx!.moveTo(easedX, easedY);
-          ctx!.lineTo(point.x, point.y);
-          ctx!.strokeStyle = `rgba(255, 164, 124, ${0.29 * (1 - distance / 175)})`;
-          ctx!.stroke();
-        });
-        ctx!.beginPath();
-        ctx!.arc(easedX, easedY, 6, 0, Math.PI * 2);
-        ctx!.strokeStyle = 'rgba(255, 170, 132, 0.6)';
-        ctx!.lineWidth = 1.5;
-        ctx!.stroke();
+    function onPointerMove(e: PointerEvent) {
+      const nx = (e.clientX / window.innerWidth) * 2 - 1;
+      const ny = -(e.clientY / window.innerHeight) * 2 + 1;
+      targetMouseX = nx;
+      targetMouseY = ny;
+
+      // Converte para coordenadas mundiais estimadas no plano Z central
+      mouseWorldX = nx * 5.2;
+      mouseWorldY = ny * 3.4;
+    }
+
+    function onPointerLeave() {
+      targetMouseX = 0;
+      targetMouseY = 0;
+      mouseWorldX = 999.0;
+      mouseWorldY = 999.0;
+    }
+
+    function onScroll() {
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      targetScroll = Math.min(1.5, window.scrollY / maxScroll);
+    }
+
+    const startTime = performance.now();
+
+    function render(currentTime: number) {
+      if (!gl) return;
+
+      const elapsed = (currentTime - startTime) / 1000;
+
+      // Interpolação inercial suave do mouse e do scroll (lerp)
+      currentMouseX += (targetMouseX - currentMouseX) * 0.045;
+      currentMouseY += (targetMouseY - currentMouseY) * 0.045;
+      currentScroll += (targetScroll - currentScroll) * 0.06;
+
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.SRC_ALPHA, gl.ONE); // Blend aditivo para brilho estelar translúcido
+
+      // Matriz de modelo com rotação cósmica lenta + inclinação pelo mouse
+      const rotY = elapsed * 0.05 + currentMouseX * 0.28;
+      const rotX = -currentMouseY * 0.18 + 0.12;
+      const cy = Math.cos(rotY), sy = Math.sin(rotY);
+      const cx = Math.cos(rotX), sx = Math.sin(rotX);
+
+      modelMatrix.fill(0);
+      modelMatrix[0] = cy;
+      modelMatrix[1] = sy * sx;
+      modelMatrix[2] = -sy * cx;
+      modelMatrix[4] = 0;
+      modelMatrix[5] = cx;
+      modelMatrix[6] = sx;
+      modelMatrix[8] = sy;
+      modelMatrix[9] = -cy * sx;
+      modelMatrix[10] = cy * cx;
+      modelMatrix[15] = 1;
+
+      // 1. Renderização dos pontos da constelação
+      gl.useProgram(program);
+
+      gl.uniformMatrix4fv(uProjection, false, projMatrix);
+      gl.uniformMatrix4fv(uView, false, viewMatrix);
+      gl.uniformMatrix4fv(uModel, false, modelMatrix);
+      gl.uniform1f(uTime, elapsed);
+      gl.uniform3f(uMouse, mouseWorldX, mouseWorldY, 0.0);
+      gl.uniform1f(uScroll, currentScroll);
+      gl.uniform1f(uPixelRatio, Math.min(2, window.devicePixelRatio || 1));
+
+      gl.enableVertexAttribArray(aPosition);
+      gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
+      gl.vertexAttribPointer(aPosition, 3, gl.FLOAT, false, 0, 0);
+
+      gl.enableVertexAttribArray(aPhase);
+      gl.bindBuffer(gl.ARRAY_BUFFER, phaseBuffer);
+      gl.vertexAttribPointer(aPhase, 1, gl.FLOAT, false, 0, 0);
+
+      gl.enableVertexAttribArray(aSize);
+      gl.bindBuffer(gl.ARRAY_BUFFER, sizeBuffer);
+      gl.vertexAttribPointer(aSize, 1, gl.FLOAT, false, 0, 0);
+
+      gl.enableVertexAttribArray(aColor);
+      gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+      gl.vertexAttribPointer(aColor, 3, gl.FLOAT, false, 0, 0);
+
+      gl.drawArrays(gl.POINTS, 0, PARTICLE_COUNT);
+
+      // 2. Renderização de anéis de órbitas astronômicas sutis
+      if (ringProgram && ringPos !== -1) {
+        gl.useProgram(ringProgram);
+        gl.uniformMatrix4fv(ringProj, false, projMatrix);
+        gl.uniformMatrix4fv(ringView, false, viewMatrix);
+        gl.uniformMatrix4fv(ringModel, false, modelMatrix);
+        gl.uniform4f(ringColor, 0.45, 0.72, 0.95, 0.08); // Anel tênue celeste
+
+        gl.enableVertexAttribArray(ringPos);
+        gl.bindBuffer(gl.ARRAY_BUFFER, ringBuffer);
+        gl.vertexAttribPointer(ringPos, 3, gl.FLOAT, false, 0, 0);
+
+        gl.drawArrays(gl.LINE_STRIP, 0, RING_SEGMENTS + 1);
+      }
+
+      if (!isPaused && isVisible) {
+        animationFrameId = requestAnimationFrame(render);
       }
     }
 
-    function tick(time: number) {
-      if (!visible || paused || reduced || document.hidden) { frame = 0; return; }
-      draw(time);
-      frame = window.requestAnimationFrame(tick);
+    function startLoop() {
+      if (!animationFrameId && !isPaused && isVisible && !document.hidden) {
+        animationFrameId = requestAnimationFrame(render);
+      }
     }
 
-    function start() {
-      if (!frame && visible && !paused && !reduced && !document.hidden) frame = window.requestAnimationFrame(tick);
+    function stopLoop() {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = 0;
+      }
     }
 
-    const resizeObserver = new ResizeObserver(resize);
-    const intersectionObserver = new IntersectionObserver(([entry]) => { visible = entry?.isIntersecting ?? false; if (visible) start(); else if (frame) { window.cancelAnimationFrame(frame); frame = 0; } });
-    const onVisibility = () => { if (document.hidden && frame) { window.cancelAnimationFrame(frame); frame = 0; } else start(); };
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        stopLoop();
+      } else {
+        startLoop();
+      }
+    };
 
-    resizeObserver.observe(parent);
-    intersectionObserver.observe(parent);
-    if (viewport) window.addEventListener('resize', resize);
-    parent.addEventListener('pointermove', onPointerMove);
-    parent.addEventListener('pointerleave', onPointerLeave);
-    motionQuery.addEventListener('change', onMotionChange);
-    document.addEventListener('visibilitychange', onVisibility);
+    const intersectionObserver = new IntersectionObserver(([entry]) => {
+      isVisible = entry?.isIntersecting ?? false;
+      if (isVisible) {
+        startLoop();
+      } else {
+        stopLoop();
+      }
+    });
+
+    intersectionObserver.observe(canvas);
+    window.addEventListener('resize', resize);
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('pointerleave', onPointerLeave);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
     resize();
-    start();
+    render(performance.now());
+    if (!isPaused) {
+      startLoop();
+    }
 
     return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      resizeObserver.disconnect();
+      stopLoop();
       intersectionObserver.disconnect();
-      if (viewport) window.removeEventListener('resize', resize);
-      parent.removeEventListener('pointermove', onPointerMove);
-      parent.removeEventListener('pointerleave', onPointerLeave);
-      motionQuery.removeEventListener('change', onMotionChange);
-      document.removeEventListener('visibilitychange', onVisibility);
-    };
-  }, [paused, viewport]);
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerleave', onPointerLeave);
+      window.removeEventListener('scroll', onScroll);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
 
-  return <canvas ref={canvasRef} className="ambient-particles" aria-hidden="true" />;
+      // Liberação de memória WebGL na desmontagem
+      gl.deleteBuffer(posBuffer);
+      gl.deleteBuffer(phaseBuffer);
+      gl.deleteBuffer(sizeBuffer);
+      gl.deleteBuffer(colorBuffer);
+      gl.deleteBuffer(ringBuffer);
+      gl.deleteProgram(program);
+      if (ringProgram) gl.deleteProgram(ringProgram);
+    };
+  }, [paused]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="ambient-particles-canvas"
+      aria-hidden="true"
+    />
+  );
 }

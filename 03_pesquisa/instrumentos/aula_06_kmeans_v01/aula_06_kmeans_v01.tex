@@ -1,0 +1,159 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{microtype}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+
+\geometry{top=1.7cm,bottom=1.7cm,left=1.8cm,right=1.8cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist[itemize]{leftmargin=*,itemsep=0.25em,topsep=0.2em}
+\definecolor{azul}{HTML}{173B57}
+\definecolor{cinza}{HTML}{F2F4F7}
+
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+\fancyhf{}
+\lhead{Sequência didática de \textit{machine learning}}
+\rhead{Aula 6: k-means}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newcommand{\linha}{\rule{\linewidth}{0.35pt}}
+\newcommand{\bloco}[1]{%
+  \vspace{0.25em}
+  \noindent\colorbox{cinza}{\parbox{0.96\linewidth}{#1}}%
+  \vspace{0.3em}
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries\color{azul} Aula 6: k-means}\par
+  \vspace{0.25em}
+  {\large Agrupamento, centróides e atualização}\par
+  \vspace{0.35em}
+  {\small Roteiro de aplicação da sequência didática}\par
+\end{center}
+
+\bloco{\textbf{Lugar desta aula na pesquisa.} Este é o sexto encontro da sequência de oito aulas. A atividade apresenta agrupamento de amostras sem categorias prontas. O registro individual ao final integra o conjunto de evidências previsto para os encontros 2, 4 e 6.}
+
+\section*{1. Identificação}
+
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}p{4.1cm}X@{}}
+Turma: & \rule{8.5cm}{0.35pt} \\
+Data: & \rule{8.5cm}{0.35pt} \\
+Duração: & 50 minutos \\
+Organização: & Exploração individual; registro individual ao final. \\
+Recursos: & Plataforma no módulo de k-means, computadores do laboratório ou Chromebooks, quadro e folha de registro. \\
+\end{tabularx}
+
+\section*{2. Objetivos da aula}
+
+Ao final do encontro, espera-se que os estudantes diferenciem agrupamento de classificação, reconheçam que o agrupamento pode começar sem rótulos prévios e interpretem o centróide como um centro calculado que pode se deslocar quando os pontos atribuídos ao grupo mudam.
+
+\textbf{Relação curricular:} EM13CO11 e EM13CO12.
+
+\textbf{Conceitos em foco:} amostra, característica, rótulo, agrupamento, centróide, proximidade, atribuição e dispersão.
+
+\section*{3. Preparação antes da aula}
+
+\begin{itemize}
+  \item Abrir o módulo de k-means e confirmar o cenário de amostras descritas por doçura e acidez, sem categorias iniciais.
+  \item Conferir se os pontos, os centróides, os grupos e as mudanças de atribuição podem ser vistos pela turma.
+  \item Confirmar que cada estudante terá acesso individual ao módulo, em computador do laboratório ou Chromebook.
+  \item Separar uma folha de registro individual para cada estudante e usar o mesmo código anônimo do diagnóstico inicial.
+\end{itemize}
+
+\bloco{\textbf{Cuidado didático.} Os grupos encontrados pelo modelo são uma forma de organizar os dados usados na atividade. Eles não revelam categorias naturais ou definitivas, pois dependem das características consideradas, do número de grupos escolhido e da posição inicial dos centróides.}
+
+\section*{4. Desenvolvimento da aula}
+
+\renewcommand{\arraystretch}{1.22}
+\begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}p{1.65cm}|p{5.0cm}|X|}
+\hline
+\textbf{Tempo} & \textbf{Ação com a turma} & \textbf{Mediação docente} \\
+\hline
+0--7 min & Perguntar o que pode ser feito quando há exemplos, mas não existem categorias prontas para cada um deles. & Retomar a diferença entre a classificação da aula anterior, que usa rótulos, e o agrupamento, que procura organizar pontos por proximidade. \\
+\hline
+7--13 min & Apresentar as amostras sintéticas em um plano de doçura e acidez, sem nomes de categoria. & Solicitar que cada estudante indique grupos possíveis e explique quais pontos parecem próximos pelas características mostradas. \\
+\hline
+13--18 min & Pedir que cada estudante antecipe para onde um centróide pode se mover quando novos pontos são atribuídos a um grupo. & Retomar a ideia de centro de um conjunto, sem exigir cálculo de média das coordenadas. Pedir uma previsão baseada na posição dos pontos. \\
+\hline
+18--33 min & Explorar o módulo guiado: atribuição de pontos, movimento dos centróides e nova organização dos grupos. & Explicar que o centróide representa um centro calculado para o grupo. Apresentar a dispersão interna apenas como indicação de quão espalhados estão os pontos. \\
+\hline
+33--43 min & Comparar a posição inicial e a posição atualizada dos centróides. & Solicitar explicação sobre por que um centróide se deslocou e quais pontos passaram a fazer parte de cada grupo. \\
+\hline
+43--50 min & Aplicar e recolher o registro individual. Encerrar com uma síntese oral. & Esclarecer palavras do enunciado sem indicar respostas. Retomar que agrupamento não começa com categorias já conhecidas. \\
+\hline
+\end{tabularx}
+
+\section*{5. Perguntas para conduzir a conversa}
+
+\begin{itemize}
+  \item ``Há rótulos prontos para essas amostras?''
+  \item ``Quais pontos parecem formar um grupo?''
+  \item ``O que representa o centróide?''
+  \item ``Por que ele pode se deslocar?''
+  \item ``Os grupos encontrados são definitivos?''
+\end{itemize}
+
+\section*{6. Evidência a observar}
+
+O registro individual permite verificar se o estudante distingue agrupamento de classificação e se relaciona a entrada de pontos próximos com o deslocamento de um centróide. No registro docente, anotar se a turma atribui rótulos aos grupos antes da atividade, como interpreta a proximidade e quais dificuldades surgem ao acompanhar as atualizações.
+
+\newpage
+
+\begin{center}
+  {\LARGE\bfseries\color{azul} Registro individual}\par
+  \vspace{0.2em}
+  {\large Aula 6: grupos e centróides}\par
+  \vspace{0.35em}
+  {\small Material para recolhimento ao final da aula}\par
+\end{center}
+
+\bloco{\textbf{Orientação ao estudante.} Esta atividade não vale nota. Responda individualmente e explique como você pensou, mesmo que não tenha certeza. Use o que foi observado na plataforma e o que foi discutido na aula.}
+
+\textbf{Código do participante:} \rule{5cm}{0.4pt}
+\hfill
+\textbf{Data:} \rule{3cm}{0.4pt}
+
+\section*{Situação}
+
+Um gráfico apresenta alimentos fictícios em dois eixos: doçura e acidez. Nenhum alimento tem uma categoria pronta. O sistema organiza pontos próximos em grupos e calcula um centróide para cada grupo.
+
+\section*{Questão 1}
+
+Qual é a diferença entre classificar uma amostra e formar grupos sem categorias prontas? Explique com base na situação apresentada.
+
+\vspace{0.25em}
+\linha\par\vspace{0.75em}
+\linha\par\vspace{0.75em}
+\linha
+
+\section*{Questão 2}
+
+Se novos pontos entram próximos de um grupo, por que o centróide desse grupo pode se deslocar? Explique usando a posição dos pontos.
+
+\vspace{0.25em}
+\linha\par\vspace{0.75em}
+\linha\par\vspace{0.75em}
+\linha
+
+\section*{Questão 3}
+
+Os grupos encontrados pelo sistema são categorias verdadeiras e definitivas dos alimentos? Explique o que pode influenciar a organização dos grupos.
+
+\vspace{0.25em}
+\linha\par\vspace{0.75em}
+\linha
+
+\end{document}

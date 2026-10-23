@@ -1,0 +1,95 @@
+1.3 Pergunta de pesquisa
+
+Como uma sequência didática apoiada por uma plataforma interativa pode contribuir para a compreensão de dados, treinamento, previsão, erro e decisão em machine learning por estudantes do 1º ano do Ensino Médio?
+
+
+4. PRODUTO EDUCACIONAL
+
+
+4.1 Concepção do produto
+
+O produto educacional será composto por uma plataforma interativa em português brasileiro, uma sequência didática, uma cartilha do estudante e um guia de aplicação para o professor. Sua finalidade será apoiar o ensino introdutório de machine learning no 1º ano do Ensino Médio, tornando visíveis as relações entre dados, parâmetros, representações matemáticas e resultados produzidos pelos modelos.
+
+A organização pedagógica seguirá o movimento de prever, experimentar, observar e explicar. A previsão será registrada antes da manipulação, o experimento permitirá alterar dados ou parâmetros, a observação será apoiada por gráficos e valores calculados, e a explicação solicitará que o estudante relacione o resultado ao conceito estudado. Esse movimento será repetido nos diferentes módulos para que os alunos reconheçam uma forma comum de investigar os modelos.
+
+O rompimento com uma atividade baseada apenas na execução aparece na exigência de que cada interação seja acompanhada por uma previsão e por uma explicação. Alterar um controle não será tratado como evidência suficiente de aprendizagem, pois o estudante deverá comparar o resultado com aquilo que esperava e justificar a mudança observada.
+
+
+4.2 Plataforma interativa
+
+A plataforma possui módulos de regressão linear, regressão logística, k-vizinhos mais próximos, árvore de decisão e k-means. O acesso ocorre pelo navegador e não exige cadastro, instalação de programas ou envio de informações pessoais. Os dados utilizados nos experimentos são sintéticos, permitindo controlar situações adequadas aos objetivos de cada aula.
+
+Cada módulo começa com uma situação-problema e apresenta uma atividade guiada antes da exploração livre. O estudante encontra controles relacionados ao funcionamento do modelo, visualizações em duas e três dimensões, explicações matemáticas graduais e questões de verificação. As vistas tridimensionais funcionam como recurso complementar, enquanto os conceitos principais permanecem disponíveis em gráficos bidimensionais e descrições textuais.
+
+Na regressão linear, a plataforma relaciona tendência, reta, resíduos e erro quadrático. O módulo de regressão logística apresenta probabilidade, função sigmoide, limiar e classificação; o k-NN trabalha distância, vizinhos e votação; a árvore de decisão mostra regras, divisões e caminhos de decisão; o k-means permite acompanhar a atribuição de pontos, o movimento dos centróides e a atualização dos grupos.
+
+Os cinco módulos permitem trabalhar três tipos de tarefa, que são regressão, classificação e agrupamento, sem transformar a plataforma em um catálogo extenso de algoritmos. Os controles foram selecionados para que cada ação produza uma consequência visível e passível de explicação, mantendo a quantidade de opções compatível com estudantes que terão o primeiro contato com machine learning.
+
+O protótipo funciona localmente no navegador e realiza os cálculos necessários aos experimentos sem depender de cadastro, banco de dados ou serviço externo. A plataforma não coleta respostas dos estudantes, uma vez que os registros utilizados na sequência serão realizados na cartilha e nos instrumentos definidos para a pesquisa.
+
+
+4.3 Sequência didática
+
+A sequência será desenvolvida em oito aulas de 50 minutos durante a disciplina PPA do tempo integral. A primeira aula apresentará dados, treinamento, modelo e previsão; as cinco aulas seguintes utilizarão os módulos da plataforma; a sétima organizará a comparação entre regressão, classificação e agrupamento; a última reunirá um desafio de escolha de modelo, uma explicação final e uma atividade de avaliação.
+
+Cada encontro começará com uma situação-problema e uma previsão individual. A experimentação será realizada em duplas para favorecer a discussão, enquanto a explicação final será registrada individualmente na cartilha. Ao término da aula, uma síntese conduzida pelo professor relacionará as observações produzidas pelos estudantes aos conceitos do módulo.
+
+A cartilha reunirá as perguntas iniciais, os espaços para previsão, os registros do experimento e as explicações finais. O guia do professor apresentará os objetivos de aprendizagem, o tempo de cada etapa, as perguntas de mediação, as dificuldades esperadas e alternativas de aplicação para situações em que não houver um computador disponível para cada dupla.
+
+Na primeira aula, os estudantes serão apresentados à relação entre dados, treinamento, modelo e previsão. A regressão linear será trabalhada na segunda aula, com ênfase na tendência, nos resíduos e no erro; a terceira utilizará a regressão logística para discutir probabilidade e limiar de classificação; a quarta abordará distância e votação por meio do k-NN; a quinta apresentará regras e caminhos de decisão com a árvore; a sexta acompanhará agrupamentos e centróides no k-means.
+
+A sétima aula será destinada à comparação dos modelos, permitindo que os estudantes diferenciem problemas de regressão, classificação e agrupamento. Na oitava aula, um desafio solicitará a escolha de uma categoria de modelo para uma nova situação, acompanhada pela identificação dos dados necessários e pela explicação do resultado observado.
+
+
+4.4 Acessibilidade e condições de uso
+
+As informações principais não dependerão exclusivamente de cores ou animações, e os gráficos deverão possuir descrições textuais que permitam acompanhar os estados relevantes. Os controles deverão ser acessíveis por teclado, as animações decorativas poderão ser interrompidas e a preferência do usuário por redução de movimento será respeitada.
+
+A sequência prevê o trabalho em duplas, mas também deverá oferecer alternativas para escolas com quantidade reduzida de computadores. Nessas situações, o professor poderá conduzir parte do experimento de forma coletiva, utilizando projeção e registros individuais na cartilha. O uso do produto não exigirá que os estudantes possuam dispositivos próprios.
+
+
+5. PERCURSO METODOLÓGICO
+
+
+5.1 Natureza e abordagem da pesquisa
+
+A pesquisa será de natureza aplicada e utilizará uma abordagem predominantemente qualitativa, com apoio de dados quantitativos descritivos. A intervenção educacional constituirá o espaço de utilização e análise do produto, permitindo acompanhar como os estudantes mobilizam os conceitos durante as previsões, os experimentos e as explicações.
+
+A opção pela abordagem qualitativa decorre do interesse em examinar o conteúdo das respostas, e não apenas a quantidade de acertos. Resultados de questões fechadas poderão indicar mudanças entre o início e o final da sequência, mas serão interpretados em conjunto com os registros escritos e as observações realizadas durante as aulas.
+
+
+5.2 Contexto e participantes
+
+A intervenção será realizada com uma turma do 1º ano do Ensino Médio em tempo integral, durante a disciplina PPA. Os participantes serão estudantes iniciantes em machine learning, sem exigência de experiência com programação, e terão contato com os conceitos por meio das atividades planejadas na sequência.
+
+A caracterização do campo apresentará a escola, o número de participantes, a duração efetiva das aulas, a disponibilidade de computadores e as condições de acesso à internet. Também serão descritos os conhecimentos escolares mobilizados nas atividades, especialmente leitura de gráficos, média, comparação de valores, distância e probabilidade.
+
+
+5.3 Etapas da pesquisa
+
+O desenvolvimento será organizado em cinco etapas. A primeira corresponderá ao estudo da literatura e à delimitação dos objetivos de aprendizagem; a segunda reunirá o aperfeiçoamento da plataforma e a produção dos materiais; a terceira será destinada à validação dos instrumentos e da sequência; a quarta compreenderá a aplicação com a turma; a quinta reunirá a organização e a análise das evidências produzidas.
+
+A plataforma continuará sendo revisada durante as etapas de preparação e validação, mas suas alterações deverão responder a necessidades pedagógicas, de acessibilidade ou de funcionamento. Recursos meramente decorativos não serão utilizados como evidência de aprendizagem.
+
+
+5.4 Instrumentos de produção de dados
+
+Uma atividade diagnóstica será utilizada para registrar as ideias iniciais dos estudantes sobre dados, treinamento, previsão, erro e decisão. Durante as aulas, a cartilha reunirá previsões, observações e explicações, enquanto o pesquisador manterá um diário de campo com acontecimentos relevantes, dificuldades recorrentes e formas de participação.
+
+Ao final da sequência, os estudantes realizarão um desafio que exigirá reconhecer o tipo de tarefa, escolher uma categoria de modelo e explicar como os dados influenciam o resultado. Uma atividade com questões equivalentes às utilizadas no diagnóstico permitirá comparar respostas iniciais e finais, e um questionário breve registrará a percepção dos participantes sobre clareza, dificuldade e utilidade do produto.
+
+
+5.5 Procedimentos de análise
+
+As produções serão examinadas por meio de uma rubrica construída a partir dos objetivos de aprendizagem. A análise observará se o estudante diferencia treinamento de previsão, antecipa uma consequência, relaciona alterações ao gráfico ou à decisão, utiliza o conceito matemático pertinente e reconhece limitações do modelo.
+
+As respostas iniciais e finais serão comparadas para identificar mudanças no uso dos conceitos e na qualidade das justificativas. Frequências de respostas poderão ser apresentadas de maneira descritiva, sem substituir a análise das explicações escritas e dos registros realizados durante a intervenção.
+
+Os dados do questionário de percepção serão utilizados para complementar a avaliação do produto, permitindo identificar dificuldades de navegação, clareza das instruções e utilidade atribuída pelos estudantes. Essas respostas não serão tratadas como comprovação de aprendizagem, pois a análise conceitual dependerá das atividades e explicações produzidas ao longo da sequência.
+
+
+5.6 Aspectos éticos
+
+A produção de dados somente será iniciada depois das autorizações institucionais e dos procedimentos éticos aplicáveis. Como a intervenção envolverá estudantes que poderão ser menores de idade, serão previstos consentimento dos responsáveis, assentimento dos participantes, anonimização dos registros, participação voluntária e atividade pedagógica equivalente para quem não participar da pesquisa.
+
+A plataforma não registrará nomes, respostas ou informações pessoais. Os materiais utilizados na pesquisa serão armazenados de forma protegida e permanecerão separados do código público do produto educacional.

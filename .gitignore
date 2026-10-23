@@ -6,3 +6,27 @@ dist/
 coverage/
 *.log
 .DS_Store
+
+# Arquivos temporários gerados pelo LaTeX
+*.aux
+*.bbl
+*.blg
+*.brf
+*.idx
+*.lof
+*.lot
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.stdout
+
+# Pré-visualizações e inspeções locais
+tmp/
+
+# Instrumentos reservados até a conclusão da produção de dados
+03_pesquisa/instrumentos/diagnostico_inicial_v01/
+03_pesquisa/instrumentos/instrumento_final_aula_08_v01/
+03_pesquisa/metodologia/DIAGNOSTICO_INICIAL_INDIVIDUAL_V01.pdf
+03_pesquisa/metodologia/00_documentos_principais/02_diagnostico_inicial_individual_v01.pdf

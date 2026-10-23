@@ -1,48 +1,51 @@
-# Plataforma Interativa para Ensino de Machine Learning
+# Ensino introdutório de machine learning no Ensino Médio
 
-Projeto acadêmico de uma plataforma interativa para apoiar o ensino de fundamentos de *machine learning* a estudantes do Ensino Médio, com atenção especial a alunos iniciantes.
+Projeto de mestrado profissional do PROFCOMP/UFPA, desenvolvido por Luiz Gabriel Bezerra da Conceição sob orientação do professor Marcos Braga. O projeto articula uma plataforma interativa e uma sequência didática para o ensino introdutório de fundamentos de *machine learning* como conteúdo de Computação no Ensino Médio.
 
-Este projeto será utilizado na **pré-defesa do mestrado profissional ProfComp de Luiz Gabriel**, desenvolvido sob orientação do **professor Marcos Braga**. O trabalho está situado no contexto da educação e da docência e busca articular conteúdo matemático, visualização e experimentação interativa.
+## Referência principal
 
-## Ideia central
+O documento acadêmico de referência é o [Projeto de Qualificação, versão 5](01_qualificacao/texto/QUALIFICACAO_PRINCIPAL_V5.pdf). A fonte correspondente está em [main.tex](01_qualificacao/texto/QUALIFICACAO_PRINCIPAL_V5.tex). As versões anteriores estão preservadas em [99_arquivo/versoes_antigas](99_arquivo/versoes_antigas/README.md) e não devem orientar a aplicação.
 
-A plataforma deverá ajudar o estudante a compreender o que acontece por trás de alguns modelos selecionados de *machine learning*. Cada módulo deverá relacionar:
+## Questão e objetivo da pesquisa
 
-1. uma explicação intuitiva;
-2. a matemática do modelo, apresentada de maneira gradual;
-3. gráficos e visualizações interativas;
-4. controles para experimentar parâmetros e observar seus efeitos;
-5. atividades voltadas à compreensão, e não somente à execução de código.
+A pesquisa pergunta como estudantes do Ensino Médio explicam relações entre dados, regras, parâmetros e resultados ao participarem de uma sequência didática apoiada por uma plataforma interativa.
 
-O objetivo não é cobrir todos os algoritmos existentes. O conjunto de modelos será deliberadamente limitado e escolhido conforme sua relevância pedagógica, seu potencial de visualização e a viabilidade da pesquisa.
+O objetivo geral é desenvolver e analisar uma sequência didática apoiada por uma plataforma interativa para o ensino introdutório de fundamentos de *machine learning*, como conteúdo de Computação, a estudantes do Ensino Médio.
 
-## Público-alvo
+## Proposta de aplicação
 
-- Estudantes do Ensino Médio;
-- alunos iniciantes em *machine learning* e conceitos de inteligência artificial;
-- alunos que precisam compreender a relação entre conceitos, matemática e comportamento dos modelos;
-- professores da Educação Básica interessados em utilizar recursos visuais e interativos em suas aulas.
+A proposta atual é uma intervenção pedagógica em uma turma, com abordagem predominantemente qualitativa e apoio quantitativo descritivo. Ela não prevê grupo controle nem pretende atribuir um efeito causal isolado à plataforma.
 
-## Referência de inspiração
+A sequência terá oito encontros de aproximadamente cinquenta minutos:
 
-O projeto tem como referência conceitual e visual a plataforma [NEURON — Machine Learning, Made Visible](https://kw1fpt-ahmet-duyar.shinyapps.io/Neuron/).
+1. dados, modelos e tipos de tarefa, com diagnóstico individual;
+2. regressão linear, massa, alongamento, previsão e erro;
+3. regressão logística, probabilidade, limiar e classificação;
+4. k-vizinhos mais próximos, proximidade e votação;
+5. árvore de decisão, regras e caminhos;
+6. k-means, agrupamento e centróides;
+7. comparação entre finalidades, modelos e limites;
+8. instrumento final individual, sem consulta à plataforma.
 
-A referência deve servir como inspiração para a organização pedagógica e para a integração entre intuição, fórmulas e visualizações. Este projeto deverá possuir identidade, conteúdo, implementação e proposta de pesquisa próprios, adequados ao público brasileiro e ao contexto do ProfComp.
+Cada estudante explorará a plataforma individualmente, usando os computadores do laboratório e, conforme a disponibilidade confirmada no campo, Chromebooks. As respostas digitadas no site não serão armazenadas. Os materiais que formarão o corpus principal são o diagnóstico inicial, os registros individuais dos encontros 2, 4 e 6, o instrumento final e o registro docente.
 
-## Estado atual
+O instrumento final reúne questões comparáveis ao diagnóstico, um desafio de transferência e um questionário breve de percepção. A percepção dos estudantes será descrita separadamente das evidências de aprendizagem.
 
-O projeto segue em definição acadêmica. Há agora um [protótipo local do site](04_produto_educacional/site/) com cinco laboratórios didáticos: regressão linear, regressão logística, k-NN, árvore de decisão e k-means. Eles incluem um percurso inicial guiado para iniciantes, variação de dados e parâmetros, acompanhamento de treinamento quando o algoritmo realmente o possui e vistas 3D de grandezas derivadas. Essa seleção foi feita para explorar a experiência educacional e **não representa aprovação final** dos modelos pelo orientador.
+## Produto educacional
 
-Ainda precisam ser acordados com o orientador:
+O site possui cinco módulos didáticos: regressão linear, regressão logística, k-vizinhos mais próximos, árvore de decisão e k-means. A plataforma apresenta situações sintéticas, visualizações, controles e explicações para que o estudante percorra o ciclo prever, experimentar, observar e explicar.
 
-- problema e pergunta de pesquisa;
-- objetivos geral e específicos;
-- modelos de *machine learning* que farão parte da plataforma;
-- tecnologias de implementação;
-- desenho da avaliação com os estudantes;
-- critérios de aprendizagem, usabilidade e análise dos resultados.
+O código está em [04_produto_educacional/site](04_produto_educacional/site/). A seleção final dos modelos, a turma e as condições do campo ainda serão validadas com o orientador.
 
-Consulte [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) para conhecer a organização completa, [docs/PROJECT_CONTEXT.md](docs/PROJECT_CONTEXT.md) para o contexto acadêmico e pedagógico e [docs/DECISIONS.md](docs/DECISIONS.md) para acompanhar as decisões do projeto.
+## Documentos de trabalho
 
-O uso de modelos de IA no projeto segue a [arquitetura econômica de orquestração](09_orquestracao_ia/README.md), que separa planejamento e validação avançados de tarefas executivas de menor custo.
-# Machine_learning_project
+- [Proposta de aplicação para orientação](03_pesquisa/metodologia/proposta_aplicacao_orientador_v01.pdf)
+- [Sequência didática de oito encontros](03_pesquisa/metodologia/SEQUENCIA_DIDATICA_PRELIMINAR_OITO_ENCONTROS.md)
+- [Guia metodológico da dissertação](03_pesquisa/metodologia/GUIA_METODOLOGICO_DISSERTACAO.md)
+- [Documentos metodológicos principais](03_pesquisa/metodologia/00_documentos_principais/LEIA_PRIMEIRO.md)
+- [Instrumentos de aplicação](03_pesquisa/instrumentos/)
+- [Matriz de alinhamento curricular](03_pesquisa/MATRIZ_BNCC_OBJETIVOS_ATIVIDADES_E_EVIDENCIAS.md)
+
+## Condições antes da aplicação
+
+Antes da produção de dados, será necessário validar com o orientador a turma, a série, o componente curricular, a adequação dos instrumentos e os procedimentos éticos e institucionais. Também será preciso confirmar a infraestrutura do campo, incluindo computadores do laboratório, Chromebooks, acesso local ao site e plano de contingência para falhas técnicas.

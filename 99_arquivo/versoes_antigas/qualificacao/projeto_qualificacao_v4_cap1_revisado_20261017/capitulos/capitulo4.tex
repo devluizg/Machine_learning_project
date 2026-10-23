@@ -1,0 +1,83 @@
+\chapter{Produto Educacional e Sequência Didática}
+
+\section{Concepção do produto educacional}
+
+O produto educacional tem duas partes: uma plataforma interativa em português brasileiro e uma sequência didática para o Ensino Médio. A plataforma funciona no navegador, trabalha com cenários sintéticos e faz os cálculos no próprio computador. Não exige cadastro nem conta de usuário, e não envia respostas nem coleta informações pessoais. Isso facilita o acesso e permite o uso com conectividade limitada, desde que o recurso esteja no computador ou na projeção da aula.
+
+A plataforma apoia a mediação do professor no ensino de Computação. Não substitui a explicação, a conversa nem a intervenção dele.
+
+A proposta tem cinco módulos introdutórios de \textit{machine learning}: regressão linear, regressão logística, \textit{k}-vizinhos mais próximos, árvore de decisão e \textit{k}-means. Eles não formam um catálogo de comandos nem conteúdos soltos. Cada módulo mostra uma tarefa diferente com dados (prever um valor, classificar um caso, formar grupos), e a turma compara o que muda de um para outro. Todos têm lugar central na sequência, ainda que cada um mobilize uma camada matemática própria. A regressão linear traz tendência, função, previsão, resíduo e erro. A logística traz probabilidade e limiar de decisão. No \textit{k}-NN pesa a distância entre pontos; no \textit{k}-means, a média e a posição dos centroides; na árvore, as condições encadeadas.
+
+A diferença de formalização não diminui nenhum módulo. Ela decorre do repertório de estudantes iniciantes e da necessidade de tornar visível, no gráfico ou na regra, uma relação que a turma consiga discutir durante a aula.
+
+Perguntas que voltam em todos os módulos ligam os modelos, mais do que a presença na mesma plataforma. A turma pergunta qual é o dado disponível, de onde ele vem, que saída se espera e qual alteração pode modificá-la. A resposta muda conforme o modelo. Uma reta produz uma previsão numérica; a regressão logística leva a uma probabilidade, que se compara com um limiar; o \textit{k}-NN depende dos exemplos próximos; a árvore percorre condições; o \textit{k}-means reorganiza pontos sem categorias dadas de antemão.
+
+Com as mesmas perguntas em cada módulo, os estudantes comparam os modelos sem reduzi-los a uma lista de nomes. O professor percebe se a dificuldade está em um conceito específico ou na leitura de dados e gráficos, que atravessa todos os módulos.
+
+\section{Organização pedagógica da plataforma}
+
+Cada módulo começa por uma situação-problema, pela origem dos dados e por uma pergunta sobre o que o modelo tenta aprender. Antes de mexer nos controles, o estudante prevê uma consequência. Depois altera um dado, um parâmetro ou uma regra definidos para o experimento, observa o que muda no gráfico, na classificação ou no agrupamento e explica o que aconteceu.
+
+O ciclo prever, experimentar, observar e explicar se repete em todos os módulos e expõe o raciocínio que acompanha cada manipulação.
+
+Mover a inclinação da reta leva o estudante a comparar a previsão com o valor observado. A troca de um limiar leva a perguntar por que a classe muda mesmo quando a porcentagem calculada continua a mesma. Com o número de vizinhos, as divisões da árvore e a posição dos centroides, a lógica é a mesma.
+
+A sequência abre com recursos de inteligência artificial que os estudantes já usam e chega logo a um problema concreto com dados. A Matemática entra quando a situação, o gráfico ou a decisão do modelo a exige.
+
+Toda representação visual vem com descrição em texto, tabela ou regra, para que a compreensão não dependa só da imagem. As visualizações em 3D do protótipo são um recurso complementar e não são necessárias para entender o conceito central. A interface deve preservar o controle por teclado e respeitar a preferência por redução de movimento.
+
+\section{Cenários e dados dos experimentos}
+
+Os dados das atividades serão quase todos sintéticos. No encontro 2, a turma poderá organizar uma pequena tabela com dados simples, voluntários e sem nome, ou com medidas de objetos da sala. Essa tabela servirá ao ensino e ficará fora do corpus da pesquisa. Os demais cenários evitarão notas, comportamentos, trajetórias e qualquer informação pessoal dos estudantes.
+
+Os cenários são uma primeira proposta e podem mudar depois que a turma e a escola forem definidas. Na regressão linear, a ideia é relacionar temperatura e consumo fictício de energia em uma sala. Na regressão logística, a leitura de um sensor fictício permite discutir probabilidade e alerta. O \textit{k}-NN poderá classificar objetos ou situações simuladas por duas características mensuráveis, e a árvore de decisão trabalhará uma irrigação simulada, com umidade e temperatura. No \textit{k}-means, pontos de coleta fictícios em um mapa de bairro servem para explorar proximidade, centroides e agrupamentos sem rótulos prévios. Nenhum cenário entra só pelo apelo visual. Cada um precisa fazer a mudança de um dado ou parâmetro produzir uma consequência observável, que a turma consiga discutir com a Matemática da série.
+
+Antes da aplicação, os exemplos serão revistos quanto à clareza da linguagem, ao tempo que a atividade toma e à pertinência para a turma.
+
+\section{Sequência didática provisória}
+
+A sequência foi planejada, por ora, para oito encontros de cerca de cinquenta minutos. No campo inicialmente previsto, o laboratório de informática da escola, com 20 computadores e acesso à internet, já está confirmado; se a aplicação ocorrer em outra escola, suas condições de infraestrutura precisarão ser verificadas. O número de aulas, a turma e o componente curricular dependem ainda da viabilidade do campo. O cenário preferencial é uma turma de Ensino Médio em que o pesquisador é o professor, possivelmente na disciplina Projeto Permanente por Afinidade; a proposta pode migrar para outro componente, inclusive Matemática, se a lotação e o calendário escolar exigirem.
+
+Todo encontro mantém a mesma estrutura, mesmo quando o modelo muda. A aula abre com uma situação ou pergunta que delimita o problema. Cada estudante faz uma previsão individual breve, explora um controle ou uma representação com o colega, a turma discute o que observou e o professor fecha com uma síntese. Isso dá continuidade às aulas e deixa claro que a plataforma não é um intervalo entre explicações, mas parte do trabalho de construir e revisar hipóteses.
+
+O primeiro encontro serve para nivelar conceitos. Antes de qualquer modelo, a turma discute aplicações cotidianas de inteligência artificial. Depois distingue os dados e a regra do modelo, até apontar o que seria entregue ao sistema e o que se espera dele. O diagnóstico inicial é individual e acontece no começo desse encontro, antes da discussão, ou na aula anterior, conforme o tempo. Registra ideias de partida, sem antecipar os nomes técnicos que aparecem depois.
+
+Do segundo ao sexto encontro entram os módulos de regressão linear, regressão logística, \textit{k}-NN, árvore de decisão e \textit{k}-means. No segundo, a coleta e a organização da tabela da turma vêm antes da regressão linear. Cada aula retoma elementos das anteriores, para que nenhum modelo seja deixado de lado depois de uma única experiência.
+
+A regressão linear e a regressão logística abrem a parte dos modelos supervisionados. Na linear, a turma reconhece uma tendência, produz uma previsão e a compara com o valor observado, o que traz o gráfico cartesiano, a reta e uma noção inicial de erro. A logística retoma a ideia de prever a partir de exemplos e leva a discussão para a probabilidade e a classificação por limiar. Como as duas aparecem em sequência, a turma compara duas saídas, um valor numérico e uma categoria, e vê que ambas dependem dos dados e das escolhas que estruturam o modelo.
+
+O \textit{k}-NN e a árvore de decisão são duas maneiras de chegar a uma classificação. No \textit{k}-NN, os estudantes observam o papel da distância e do número de vizinhos na votação; na árvore, acompanham regras condicionais e os caminhos até uma decisão. Comparar os dois afasta a ideia de que exista um algoritmo melhor que os outros. Ambos usam dados e regras, cada um à sua maneira, e entregam saídas que precisam ser lidas à luz do problema e dos exemplos disponíveis.
+
+O \textit{k}-means traz uma mudança: os pontos não vêm com categorias dadas de antemão. A atividade volta à pergunta sobre o que se quer produzir com os dados e mostra que formar grupos por proximidade não é escolher uma classe conhecida. A atualização dos centroides e a observação da reorganização dos pontos poderão exigir mais tempo, pois a diferença entre agrupamento e classificação pode levar o professor a retomar a linguagem dos encontros anteriores. Uma síntese breve registra o que os cinco modelos têm em comum, dados e regras que produzem uma saída, e o que muda conforme a finalidade de cada tarefa.
+
+O sétimo encontro compara os cinco modelos. A turma analisa situações-problema e discute se a tarefa pede prever um valor, escolher uma categoria ou formar grupos, justificando com os dados disponíveis. No oitavo, cada estudante responde primeiro a um núcleo de questões comparáveis às do diagnóstico. Depois resolve um desafio de transferência, baseado em situação diferente das trabalhadas nas aulas. Nesse desafio, identifica os dados necessários, indica um tipo de tarefa e um modelo compatível e explica uma consequência possível de alterar um dado, um parâmetro ou uma regra.
+
+O encontro comparativo recupera diferenças que podem ter ficado dispersas e prepara a transferência para o desafio final. Ao justificar por que uma situação pede previsão, classificação ou agrupamento, o estudante considera a finalidade da tarefa antes de escolher o modelo. O núcleo comparável permite examinar mudanças em relação ao diagnóstico. O desafio de transferência mostra como os conceitos são mobilizados diante de outro contexto e será analisado como evidência final adicional, sem comparação direta com questões de complexidade diferente.
+
+O trabalho na plataforma será em duplas, cada uma com um computador do laboratório. As duplas favorecem a conversa sobre hipóteses. As previsões são individuais e depois discutidas em dupla. Nos encontros 2, 4 e 6, cada estudante fará também um registro breve antes e depois da exploração. Esses encontros representam, respectivamente, previsão de valor, classificação e agrupamento. O instrumento final permanecerá individual. Se o laboratório estiver indisponível, o professor poderá projetar o experimento para a turma e manter os momentos individuais de previsão e explicação.
+
+O detalhamento preliminar dos oito encontros reúne objetivos de aprendizagem e tempo, ações de mediação, questões formativas, adaptações de infraestrutura e limites didáticos de cada módulo. As respostas digitadas no site não formarão o corpus, pois não permanecem armazenadas. As fontes da análise serão o diagnóstico inicial, os registros individuais dos encontros 2, 4 e 6, o núcleo comparável do instrumento final, o desafio de transferência e os registros docentes.
+
+A versão do site usada no campo será conferida, antes da intervenção, com os recursos previstos na sequência. Se o cenário da plataforma tiver dados diferentes dos discutidos no roteiro da aula, a diferença será corrigida ou explicada aos estudantes; o mesmo vale para os textos de apoio e as representações matemáticas.
+
+A pesquisa não pode analisar estudantes como se tivessem passado por uma sequência diferente do recurso usado. A conferência é, por isso, condição prática para que sequência, plataforma e instrumentos tenham o mesmo objeto de aprendizagem.
+
+\section{Materiais e limites do produto}
+
+Além da plataforma, a aplicação terá um diagnóstico inicial breve, três registros individuais de saída, um instrumento final dividido em núcleo comparável e desafio de transferência, um questionário breve de percepção e registros docentes sucintos. Os registros intermediários terão dois campos: a previsão anterior ao experimento e a explicação posterior. O questionário de percepção tratará da clareza, da dificuldade e do uso da plataforma, sem ser empregado como evidência de aprendizagem.
+
+O produto não comprova aprendizagem só por existir. Serve para que professor e estudantes discutam dados e parâmetros do modelo em sala.
+
+A adequação didática do produto só poderá ser avaliada com a aplicação planejada, as condições reais do campo e as evidências dos estudantes; ele não será apresentado como solução pronta para qualquer escola. Antes da aplicação, uma verificação prática testará a abertura local da plataforma, a leitura dos textos em tela, o funcionamento dos controles e a projeção para a turma toda. Se algum equipamento falhar, a atividade segue com o experimento projetado e pausas para previsão e explicação individual.
+
+A mudança de organização vai para o registro docente, porque a forma de acesso ao recurso pode alterar as interações observadas. Manter uma atividade pedagogicamente equivalente vale mais do que insistir em uma configuração técnica que a escola não consiga sustentar.
+
+A mesma verificação confere se os estudantes conseguem compreender os enunciados sem conhecer, antes da aula, o vocabulário técnico. ``Característica'', ``limiar'', ``vizinho'' e ``centroide'' aparecem com explicações situadas e exemplos visíveis. Se uma formulação gerar dúvida repetida, o ajuste do texto ou da mediação entra como aperfeiçoamento do produto, não como falha do estudante. Mantém-se o desafio conceitual; saem apenas os obstáculos de linguagem ou de acesso alheios ao conteúdo.
+
+\section{Alinhamento curricular preliminar}
+
+Uma matriz explicitará o vínculo da sequência com a Computação na Educação Básica, relacionando habilidade curricular, objetivo de aprendizagem, atividade e evidência a observar. A versão preliminar toma como referências do Ensino Médio os fundamentos, as potencialidades e os limites da inteligência artificial, os modelos computacionais simples para simulação e previsão e a análise de dados com princípios de ciência de dados. Esses conteúdos correspondem às habilidades EM13CO10, EM13CO11 e EM13CO12 do anexo da Resolução CNE/CEB nº 1/2022 \cite{brasil2022computacao}.
+
+A norma não prescreve os cinco modelos como algoritmos. Eles entram como situações didáticas para trabalhar como cada modelo relaciona dados, regras e resultados, considerando seus limites. A matriz apontará ligações possíveis com a Matemática, sem tirar da Computação o lugar de objeto principal.
+
+A escolha final das habilidades depende da série, do componente curricular, do currículo da rede e das condições confirmadas no campo.

@@ -1,0 +1,163 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{microtype}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+
+\geometry{top=1.7cm,bottom=1.7cm,left=1.8cm,right=1.8cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist[itemize]{leftmargin=*,itemsep=0.25em,topsep=0.2em}
+\setlist[enumerate]{leftmargin=*,itemsep=0.35em,topsep=0.2em}
+\definecolor{azul}{HTML}{173B57}
+\definecolor{cinza}{HTML}{F2F4F7}
+\definecolor{cinzaescuro}{HTML}{5E6670}
+
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+\fancyhf{}
+\lhead{Sequência didática de \textit{machine learning}}
+\rhead{Aula 2: regressão linear}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newcommand{\campo}[1]{\textbf{#1}}
+\newcommand{\linha}{\rule{\linewidth}{0.35pt}}
+\newcommand{\bloco}[1]{%
+  \vspace{0.25em}
+  \noindent\colorbox{cinza}{\parbox{0.96\linewidth}{#1}}%
+  \vspace{0.3em}
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries\color{azul} Aula 2: regressão linear}\par
+  \vspace{0.25em}
+  {\large Massa, alongamento da mola, previsão e erro}\par
+  \vspace{0.35em}
+  {\small Roteiro de aplicação da sequência didática}\par
+\end{center}
+
+\bloco{\textbf{Lugar desta aula na pesquisa.} Este é o segundo encontro da sequência de oito aulas. A atividade introduz a regressão linear como forma de estimar um valor numérico a partir de exemplos. O registro individual ao final integra o conjunto de evidências previsto para os encontros 2, 4 e 6.}
+
+\section*{1. Identificação}
+
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}p{4.1cm}X@{}}
+Turma: & \rule{8.5cm}{0.35pt} \\
+Data: & \rule{8.5cm}{0.35pt} \\
+Duração: & 50 minutos \\
+Organização: & Exploração individual; registro individual ao final. \\
+Recursos: & Plataforma no módulo de regressão linear, computadores do laboratório ou Chromebooks, quadro e folha de registro. \\
+\end{tabularx}
+
+\section*{2. Objetivos da aula}
+
+Ao final do encontro, espera-se que os estudantes consigam reconhecer uma situação de previsão de valor numérico, interpretar uma tendência em gráfico de dispersão e relacionar uma alteração na inclinação da reta ou nos dados a mudanças na previsão e no erro.
+
+\textbf{Relação curricular:} EM13CO11 e EM13CO12.
+
+\textbf{Conceitos em foco:} dado, variável, previsão numérica, gráfico de dispersão, reta de tendência, inclinação, valor observado, valor previsto, resíduo e erro.
+
+\section*{3. Preparação antes da aula}
+
+\begin{itemize}
+  \item Abrir o módulo de regressão linear e confirmar que o cenário de massa e alongamento da mola está disponível.
+  \item Conferir se os eixos, os pontos, a reta e os controles podem ser vistos pela turma.
+  \item Separar uma folha de registro individual para cada estudante e usar o mesmo código anônimo adotado no diagnóstico inicial.
+  \item Confirmar que cada estudante terá acesso individual ao módulo, em computador do laboratório ou Chromebook.
+\end{itemize}
+
+\bloco{\textbf{Cuidado didático.} A situação da mola é um cenário sintético. A finalidade é observar relações entre valores, dados e modelo, sem tratar o gráfico como previsão exata de um fenômeno real.}
+
+\section*{4. Desenvolvimento da aula}
+
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}p{1.65cm}|p{5.0cm}|X|}
+\hline
+\textbf{Tempo} & \textbf{Ação com a turma} & \textbf{Mediação docente} \\
+\hline
+0--7 min & Retomar a aula anterior: dados entram em um sistema e uma saída é produzida. Apresentar a diferença entre escolher uma categoria e estimar um valor. & Perguntar: ``Se queremos saber o alongamento para uma massa ainda não testada, qual valor queremos prever?'' Registrar no quadro que a saída será um número. \\
+\hline
+7--12 min & Apresentar a tabela e o gráfico de massa aplicada e alongamento da mola. Identificar os eixos, os pontos observados e o valor a estimar. & Nomear cada eixo antes de apresentar a reta. Perguntar qual variável representa a massa e qual representa o alongamento. \\
+\hline
+12--18 min & Pedir que cada estudante antecipe o que acontece com a previsão de um ponto à direita quando a inclinação da reta aumenta. & Solicitar uma resposta específica: aumenta, diminui ou permanece igual? Pedir que indiquem no desenho por que pensam isso. \\
+\hline
+18--33 min & Explorar o módulo de forma guiada. Alterar a inclinação, observar a reta e comparar valores previstos e observados. Se houver tempo, mostrar um passo de ajuste da reta. & Apresentar o resíduo como diferença entre o ponto observado e o valor indicado pela reta. Não exigir cálculo geral de erro nem ajuste manual perfeito. \\
+\hline
+33--43 min & Retomar previsões registradas individualmente e confrontá-las com o gráfico. Explorar um ponto que fique distante da reta. & Perguntar o que muda na previsão quando a reta se move e o que um ponto distante informa sobre a diferença entre observado e previsto. \\
+\hline
+43--50 min & Aplicar e recolher o registro individual. Encerrar com uma síntese oral. & Esclarecer palavras do enunciado sem sugerir respostas. Reforçar que o registro não vale nota e interessa como explicação do estudante. \\
+\hline
+\end{tabularx}
+
+\section*{5. Perguntas para conduzir a conversa}
+
+\begin{itemize}
+  \item ``O que os pontos do gráfico representam?''
+  \item ``Qual valor a reta tenta estimar?''
+  \item ``O que tende a acontecer com um ponto à direita quando a inclinação aumenta?''
+  \item ``Onde aparece a diferença entre o valor observado e o valor previsto?''
+  \item ``Uma reta próxima de alguns pontos garante que ela explique todos os casos?''
+\end{itemize}
+
+\section*{6. Evidência a observar}
+
+O registro individual permite verificar se o estudante relaciona a inclinação da reta a uma mudança na previsão e se interpreta o resíduo como diferença entre valor observado e valor previsto. Também convém registrar, após a aula, dificuldades recorrentes da turma, ajustes de linguagem realizados e condições de infraestrutura que tenham interferido na atividade.
+
+\newpage
+
+\begin{center}
+  {\LARGE\bfseries\color{azul} Registro individual}\par
+  \vspace{0.2em}
+  {\large Aula 2: massa, alongamento e previsão}\par
+  \vspace{0.35em}
+  {\small Material para recolhimento ao final da aula}\par
+\end{center}
+
+\bloco{\textbf{Orientação ao estudante.} Esta atividade não vale nota. Responda individualmente e explique como você pensou, mesmo que não tenha certeza. Use o gráfico e o que foi discutido na aula.}
+
+\textbf{Código do participante:} \rule{5cm}{0.4pt}
+\hfill
+\textbf{Data:} \rule{3cm}{0.4pt}
+
+\section*{Situação}
+
+Em um experimento fictício, foram colocadas massas diferentes em uma mola. Para cada massa, foi observado quanto a mola aumentou de tamanho. Os pontos do gráfico mostram as observações, e a reta indica uma previsão de alongamento para cada massa.
+
+\section*{Questão 1}
+
+Para uma massa maior, localizada à direita do gráfico, a previsão de alongamento tende a aumentar ou diminuir quando a inclinação da reta aumenta? Explique usando a posição da reta no gráfico.
+
+\vspace{0.25em}
+\linha\par\vspace{0.75em}
+\linha
+
+\section*{Questão 2}
+
+Um ponto observado ficou acima da reta. O que isso indica sobre o alongamento observado e o alongamento previsto pela reta para aquela massa?
+
+\vspace{0.25em}
+\linha\par\vspace{0.75em}
+\linha\par\vspace{0.75em}
+\linha
+
+\section*{Questão 3}
+
+Uma nova massa foi colocada na mola e a reta indicou um alongamento de 12 cm. Depois do experimento, foi observado um alongamento de 15 cm. Qual é a diferença entre os dois valores? O que essa diferença mostra sobre a previsão?
+
+\vspace{0.25em}
+\linha\par\vspace{0.75em}
+\linha\par\vspace{0.75em}
+\linha
+
+\end{document}

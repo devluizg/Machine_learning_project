@@ -1,0 +1,511 @@
+PROJETO DE QUALIFICAÇÃO
+
+Pesquisador: Luiz Gabriel Bezerra da Conceição
+Programa: PROFCOMP/UFPA
+Orientador: professor Marcos Braga
+
+
+TÍTULO PROVISÓRIO
+
+Ensino introdutório de machine learning no Ensino Médio por meio de uma sequência didática apoiada por uma plataforma interativa
+
+
+1. INTRODUÇÃO
+
+1.1 Contextualização e delimitação do tema
+
+A incorporação de recursos de inteligência artificial às rotinas escolares e sociais dos estudantes aproxima os jovens de respostas prontas que dispensam o esforço cognitivo. Esse movimento se intensifica nas redes sociais e em plataformas de vídeo, onde circulam demonstrações de ferramentas que realizam atividades acadêmicas e prometem resultados rápidos.
+
+Assistir a essas demonstrações, porém, não garante que o estudante aprenda o conteúdo nem que compreenda como a inteligência artificial opera, quais dados utilizou e por qual processo chegou ao resultado. Sem esse entendimento, o estudante recebe a saída sem desenvolver análise crítica sobre ela, e o currículo escolar tem pouco espaço para explicar como uma inteligência artificial chega às suas respostas. A Resolução CNE/CEB nº 1/2022 define diretrizes para a Computação na Educação Básica como complemento à Base Nacional Comum Curricular e atribui aos sistemas de ensino a organização da implantação curricular (BRASIL, 2022). Em 2026, o Ministério da Educação publicou o documento orientador *Inteligência Artificial na Educação Básica*, que reforça o papel do professor e defende que a IA seja tratada como recurso de tutoria e apoio à aprendizagem, e não apenas como geradora de respostas prontas (BRASIL, 2026).
+
+A educação em inteligência artificial tem sido debatida internacionalmente como parte da formação cidadã, pois os estudantes precisam compreender, conforme sua escolaridade, as possibilidades e os limites de sistemas inteligentes (TOURETZKY et al., 2019). No Ensino Médio, essa necessidade se coloca de modo particular: usar muito os recursos digitais não é o mesmo que ter letramento computacional. Muitos estudantes usam celulares e aplicativos com desenvoltura, mas nem sempre tiveram oportunidade de interpretar uma tabela, distinguir correlação de previsão ou perceber por que um resultado muda quando a regra é alterada. Outros ainda enfrentam restrições de acesso a computador e internet fora da escola.
+
+A discussão sobre autoria, cópia e uso responsável é necessária, mas não resolve o problema educacional. Se a conversa se limita a liberar ou proibir uma ferramenta, o estudante continua sendo apenas usuário, e entender como uma inteligência artificial é treinada pode ampliar sua consciência sobre o que ela é e favorecer um uso voltado ao seu próprio desenvolvimento cognitivo. O ensino de Computação permite deslocar a conversa para o que alimenta um modelo e por que uma mudança nos dados altera sua resposta, e este projeto focaliza o ensino introdutório de *machine learning* para discuti-lo a partir da relação entre dados e modelos computacionais.
+
+O recorte não pretende exigir programação prévia nem formar especialistas em algoritmos: em oito encontros, estudantes do Ensino Médio observarão dados, formularão hipóteses e explicarão o efeito de modificar parâmetros, com a Matemática como linguagem de interpretação, e não como barreira inicial para o estudo do problema.
+
+1.2 Problema educacional e justificativa
+
+O problema que motiva este trabalho aparece na rotina escolar. Muitos estudantes utilizam a inteligência artificial sem promover aprendizagem, apenas solicitam respostas prontas para concluírem tarefas rapidamente. Como esse uso não envolve entender o que a ferramenta faz e como faz, ensinar os conceitos básicos de aprendizado de máquina seria o caminho natural, já que é nesse ensino que o estudante conhece o processo por trás das respostas que recebe. Mas aí surge um segundo problema, que é o pouco contato dos estudantes com dados.
+
+Em geral, tabelas e gráficos apresentados no Ensino Médio chegam prontos, inseridos em questões. O estudante lê o que está na página, mas não pergunta de onde vieram os dados nem reflete sobre o que mudaria no resultado se um valor ou uma condição fosse diferente.
+
+Essa lacuna é relevante porque compreender um modelo de *machine learning* exige algum contato prévio com dados, além de noções básicas de estatística e probabilidade. Já existem trabalhos voltados ao ensino do tema na Educação Básica. Em um mapeamento de 30 unidades didáticas, Marques, Gresse von Wangenheim e Hauck (2020) observaram que várias delas cobrem apenas os processos mais acessíveis, como a gestão de dados, ou apresentam o aprendizado e o teste dos modelos de forma abstrata, deixando parte do funcionamento interno oculto. Nesses casos, o contato com dados tende a se limitar à gestão, sem mostrar como os dados e os parâmetros alteram o resultado do modelo. No Ensino Médio, a revisão de Martins e Gresse von Wangenheim (2023) indica que os estudantes conseguem compreender e aplicar conceitos, algoritmos e tarefas básicas de *machine learning*, com bons resultados de abordagens práticas baseadas em problemas ou projetos. A mesma revisão aponta a necessidade de avaliações mais rigorosas sobre como o tema é ensinado. A questão, portanto, não se limita à presença da inteligência artificial na escola. É preciso organizar situações em que os estudantes relacionem dados, finalidade da tarefa, regra, parâmetro e resultado.
+
+Quando os dados chegam prontos e as relações entre eles não são trabalhadas, o estudante tende a aprender os conceitos de *machine learning* apenas pelo nome. Termos como treinamento, modelo, parâmetro e previsão podem ser repetidos sem que se saiba como se ligam entre si. Um estudante pode dizer que um modelo foi treinado sem saber explicar o que muda quando um parâmetro é alterado, e pode reconhecer uma reta no gráfico sem relacioná-la a uma previsão. O problema educacional está na passagem entre nomear um conceito e utilizá-lo para explicar uma situação.
+
+Há ainda uma diferença importante entre apresentar a inteligência artificial como tema de cultura digital e ensiná-la como conteúdo de Computação. A discussão cultural é indispensável para tratar de riscos, vieses, autoria e impactos sociais. Ela precisa, contudo, ser acompanhada de experiências em que o estudante investigue uma representação de dados e uma regra computacional. A proposta não reduz questões éticas a uma equação ou a um gráfico. Considera-se que a discussão sobre limites passa a ter outra base quando o estudante reconhece que modelos dependem de dados, critérios e decisões humanas.
+
+Romper com a recepção passiva de resultados prontos exige oportunidades para prever, alterar dados ou parâmetros, observar o efeito produzido e explicar por que ele surgiu. Esse processo começa antes do modelo, na origem dos dados. Um estudante que monta uma tabela com medidas da própria turma sabe de onde vêm os números e o que cada coluna representa. Essa experiência torna a leitura do gráfico menos mecânica. Em seguida, ver uma reta se deslocar quando os dados mudam, ou a mudança de categoria quando o limiar é alterado, produz evidências visíveis. A explicação solicitada após a observação impede que a experiência se transforme em entretenimento com gráficos. Essa organização se aproxima das abordagens práticas, baseadas em problemas ou projetos, que Martins e Gresse von Wangenheim (2023) identificaram como bem-sucedidas no Ensino Médio. Compreender de onde vêm os dados e o que muda com um parâmetro é o que permite ao estudante questionar o resultado que recebe, e não apenas aceitá-lo.
+
+O produto educacional prevê uma plataforma interativa em português brasileiro, articulada a uma sequência didática para estudantes do Ensino Médio. A plataforma apresenta cinco módulos introdutórios: regressão linear, regressão logística, *k*-vizinhos mais próximos, árvore de decisão e *k*-means. Os modelos serão tratados como conteúdos centrais, sem receber necessariamente a mesma formalização matemática. A regressão linear permite explorar tendência, previsão e erro; a regressão logística introduz probabilidade e limiar. O *k*-NN coloca em evidência distância e votação; a árvore de decisão trabalha com regras e divisões; o *k*-means permite discutir grupos e dados sem rótulos prévios.
+
+O uso da plataforma, por si só, não será tomado como evidência de aprendizagem. Ferramentas visuais podem apoiar a compreensão, mas seu potencial depende de como as representações são desenhadas e das tarefas cognitivas pedidas aos estudantes (AINSWORTH, 2006). Por isso, cada módulo relacionará uma situação-problema, a origem dos dados, uma hipótese inicial, uma manipulação controlada e uma explicação posterior. A sequência segue o movimento de prever, experimentar, observar e explicar. A devolutiva do experimento participa da mediação docente, aproximando-se da avaliação formativa discutida por Black e Wiliam (1998). Serão oito encontros de cerca de 50 minutos, com dados coletados pela própria turma nos encontros 2 e 8 e fornecidos pelo site, em cenários sintéticos, nos encontros 3 a 7. Um estudante que modifica o limiar de uma classificação precisa discutir por que a mudança ocorreu. Sem essa conversa, o controle vira um botão sem significado.
+
+A justificativa profissional está na necessidade de um recurso que possa ser aplicado e analisado por um professor da Educação Básica, em turmas heterogêneas, com tempo limitado e infraestrutura variável. Para um programa profissional como o ProfComp, a articulação entre problema escolar, conteúdo de Computação, intervenção docente e produto utilizável é parte central da relevância do estudo. A plataforma não será avaliada como software genérico, nem a pesquisa pretende demonstrar que qualquer interface interativa resolve dificuldades de aprendizagem.
+
+Espera-se contribuir para uma discussão que não trate a inteligência artificial como conteúdo reservado a cursos técnicos, nem a simplifique a ponto de ocultar dados, regras e limites. A contribuição é localizada e dependerá da turma, da mediação e do tempo disponível. Documentar essas condições pode ajudar outros docentes a avaliar se uma proposta semelhante serve ao seu contexto, sem antecipar generalizações que a pesquisa não poderá sustentar.
+
+1.3 Pergunta de pesquisa
+
+Como estudantes do Ensino Médio demonstram compreensão de fundamentos introdutórios de *machine learning* ao participar de uma sequência didática, apoiada por uma plataforma interativa, que aborda cinco modelos?
+
+A pergunta olha para o modo como essa compreensão aparece nas explicações, nas interpretações de gráficos e tabelas e nas escolhas justificadas pelos estudantes. Não se pretende responder se a plataforma, isoladamente, funciona nem calcular um ganho geral de aprendizagem. O interesse está em examinar como os estudantes relacionam dados, finalidade da tarefa, regra, parâmetro e resultado, e em que medida questionam a origem dos dados e o efeito de alterá-los. Essas relações serão observadas em produções individuais, elaboradas em um percurso mediado pelo professor e influenciado pelo contexto da turma.
+
+
+2. OBJETIVOS
+
+
+2.1 Objetivo geral
+
+Desenvolver e analisar uma sequência didática apoiada por uma plataforma interativa para o ensino introdutório de fundamentos de *machine learning*, como conteúdo de Computação, a estudantes do Ensino Médio.
+
+
+2.2 Objetivos específicos
+
+- analisar referências sobre ensino de inteligência artificial e *machine learning* na Educação Básica, visualização interativa, múltiplas representações e avaliação da compreensão conceitual;
+- relacionar os objetivos de aprendizagem da sequência aos eixos e às habilidades pertinentes da Computação na Educação Básica, sem supor que a norma prescreva algoritmos específicos;
+- organizar uma sequência didática que trabalhe regressão linear, regressão logística, k-vizinhos mais próximos, árvore de decisão e k-means por meio do ciclo prever, experimentar, observar e explicar;
+- ajustar cenários sintéticos, atividades de organização de tabelas pela turma, controles e explicações matemáticas da plataforma às condições do campo de aplicação;
+- aplicar a sequência em uma turma de Ensino Médio sob docência do pesquisador;
+- analisar, nas explicações, interpretações de gráficos e tabelas e escolhas justificadas dos estudantes, indícios de compreensão sobre dados, finalidade da tarefa, regra, parâmetro e resultado, presentes no diagnóstico inicial, no desafio final individual e nos registros docentes breves;
+- sistematizar a plataforma, a sequência e os instrumentos de aplicação como produto educacional.
+
+
+3. REFERENCIAL TEÓRICO
+
+
+3.1 Ensino de Computação, inteligência artificial e formação na Educação Básica
+
+O ensino de Computação na Educação Básica não se limita à familiaridade com aplicativos, à navegação na internet ou ao consumo de ferramentas digitais. Ele envolve conhecimentos e práticas que permitem compreender como informações são representadas, organizadas e processadas por sistemas computacionais. Recursos cotidianos baseados em inteligência artificial aproximam essa discussão da experiência dos estudantes, mas essa proximidade não substitui a necessidade de ensinar os princípios que orientam o funcionamento desses recursos.
+
+A Resolução CNE/CEB nº 1/2022 estabelece normas para a Computação como complemento à BNCC e atribui aos sistemas de ensino a definição de parâmetros e abordagens para sua implementação (BRASIL, 2022).
+
+É necessário distinguir o ensino de Computação da informática na educação, em que o computador apoia a aprendizagem de conteúdos de diversas áreas e o foco recai sobre sua inserção pedagógica (VALENTE, 2002). A plataforma deste projeto também será um recurso didático, mas o objeto central de aprendizagem não é operar a interface nem estudar um conteúdo externo com auxílio do computador.
+
+A sequência focaliza conceitos e práticas da Computação relacionados a dados, características, modelos, regras, parâmetros, treinamento, previsão, classificação, agrupamento e limites de sistemas de inteligência artificial. Espera-se que os estudantes interpretem como dados e regras participam da produção de uma saída, comparem finalidades de diferentes modelos, antecipem efeitos de modificações e expliquem os resultados observados.
+
+A Matemática apoia essa interpretação por meio de gráficos, funções, distância, probabilidade, média e erro, sem substituir o conteúdo computacional que organiza as atividades. A compreensão curricular da área se estrutura pelos eixos Pensamento Computacional, Mundo Digital e Cultura Digital, para os quais as Diretrizes da Sociedade Brasileira de Computação e a Resolução CNE/CEB nº 1/2022 oferecem referências (SOCIEDADE BRASILEIRA DE COMPUTAÇÃO, 2018; BRASIL, 2022). Os eixos não serão tratados como conteúdos separados, mas evitam que a plataforma seja reduzida a um conjunto de controles técnicos.
+
+O pensamento computacional participa da proposta como forma de organizar e analisar problemas, dados, regras e procedimentos, e não como sinônimo de qualquer atividade realizada com computador. Wing (2006) chama a atenção para práticas como abstração e decomposição na formulação de soluções computacionais. Neste estudo, essa aproximação aparece quando o estudante separa uma situação em dados disponíveis, saída desejada, regra ou modelo e resultado produzido.
+
+Essa mobilização não será tomada como medida de um desenvolvimento amplo de pensamento computacional nem como base para afirmar melhoria em outros componentes curriculares. Sua função é ajudar a interpretar o conteúdo específico da sequência.
+
+O Mundo Digital aparece quando os estudantes analisam como modelos processam representações numéricas e executam regras para produzir respostas, percebendo que uma decisão automatizada depende de elementos que podem ser descritos, modificados e discutidos. A Cultura Digital é acionada na problematização de possibilidades, riscos e limites de sistemas de inteligência artificial presentes no cotidiano. Uma sequência de oito encontros não responde a todo o currículo de Computação, mas pode oferecer uma contribuição delimitada e coerente com estudantes iniciantes.
+
+Touretzky et al. (2019) defendem que a educação em inteligência artificial para a Educação Básica deve ajudar os estudantes a compreender ideias que orientam sistemas inteligentes e seus impactos. Na mesma direção, o documento da AI4K12 sobre *machine learning* (TOURETZKY et al., 2023) situa a aprendizagem a partir de dados como uma das grandes ideias da inteligência artificial e inclui, para a faixa do Ensino Médio, a diferenciação entre aprendizagem supervisionada e não supervisionada. Essas referências não são um currículo pronto para a realidade brasileira, mas oferecem linguagem conceitual útil para selecionar conhecimentos que não dependam de programação avançada.
+
+No contexto brasileiro, Camada e Durães (2020) identificaram possibilidades de pesquisa e aplicação para o ensino de inteligência artificial na Educação Básica a partir de uma revisão sistemática. Durães et al. (2021), por sua vez, relatam a elaboração, a aplicação e a avaliação de uma sequência didática sobre fundamentos de IA com estudantes do Ensino Médio integrado. Essas experiências mostram que o tema já vem sendo trabalhado e reforçam a necessidade de considerar tempo escolar, repertório matemático, mediação docente e infraestrutura disponível.
+
+A presença de inteligência artificial neste projeto se justifica pela possibilidade de discutir como sistemas computacionais dependem de representações, dados e decisões humanas de modelagem. Compreender de onde vêm os dados e o que muda quando um parâmetro é alterado é o que permite ao estudante questionar o resultado que recebe, em vez de apenas aceitá-lo. A questão educacional não será se o estudante consegue usar uma ferramenta generativa para terminar uma tarefa escolar, mas se consegue explicar, em situações delimitadas, como alterações nos dados, nos parâmetros ou nas regras participam de previsões, classificações e agrupamentos, o que mantém a proposta vinculada ao ensino de Computação.
+
+
+3.2 Machine learning introdutório no Ensino Médio
+
+O *machine learning* ocupa lugar específico entre os conteúdos de inteligência artificial porque permite investigar como computadores identificam padrões em dados e os utilizam para produzir respostas em tarefas definidas. Ao mapearem unidades instrucionais destinadas à escola, Marques, Gresse von Wangenheim e Hauck (2020) observaram que muitos materiais apresentam aspectos básicos de *machine learning* ou deixam partes do processo em nível abstrato.
+
+A questão pedagógica não é expor cada algoritmo em todos os detalhes técnicos. O que precisa ser definido é o que o estudante deve compreender para não tratar o resultado do modelo como uma resposta sem história.
+
+No Ensino Médio, Martins e Gresse von Wangenheim (2023) reúnem evidências de que estudantes iniciantes podem compreender e aplicar conceitos, algoritmos e tarefas básicas de *machine learning*. Em revisão da produção sobre a Educação Básica, Sanusi et al. (2023) também identificam experiências em diferentes níveis escolares, com presença expressiva do Ensino Médio. As pesquisas, porém, indicam lacunas na integração curricular, na formação de professores e na avaliação das intervenções. Também se observa que a adequação à faixa etária não se resolve apenas pela idade dos participantes, pois depende do que se escolhe ensinar, de como as relações são representadas e da ajuda oferecida durante a atividade.
+
+A leitura desses estudos permite afirmar que o Ensino Médio não deve ser considerado inadequado, de partida, para discutir aprendizagem a partir de dados e modelos simples. Não permite supor, porém, que qualquer atividade digital sobre inteligência artificial produzirá compreensão. As intervenções analisadas têm recursos, durações e objetivos distintos, e uma experiência conduzida em uma escola específica não pode ser convertida automaticamente em receita para outra. Para este projeto, a literatura oferece base para formular uma proposta viável, mas não garantia antecipada sobre seus resultados.
+
+Isso exige cuidado com o ponto de partida. Uma aula que inicia pela expressão matemática de um algoritmo pode afastar estudantes que ainda consolidam a leitura de gráficos e noções de proporcionalidade. Já uma exploração que se limita a manipular controles e repetir nomes técnicos pode ocultar o raciocínio que se pretende desenvolver. A proposta assume que a introdução ao tema precisa partir de problemas reconhecíveis, avançar para dados e representações examináveis e, em seguida, aproximar a regra que gera uma saída. A progressão cria uma porta de entrada compatível com o nível de escolaridade previsto, sem diminuir o conteúdo de Computação.
+
+As dificuldades esperadas não decorrem somente do vocabulário técnico. Há um obstáculo interpretativo quando o estudante precisa ler dois eixos, localizar um ponto, comparar distâncias ou reconhecer o que está representado por uma cor, uma curva ou uma regra. A leitura de uma visualização precisa ser ensinada como parte da atividade, pois observar uma mudança nem sempre significa explicar a relação que a produziu.
+
+Há também um obstáculo matemático. Noções de função, média, probabilidade e distância nem sempre estão estabilizadas no repertório de uma turma. A sequência não resolverá, em oito aulas, lacunas acumuladas na escolarização matemática. Ela deverá tornar essas noções recuperáveis quando forem necessárias para responder a uma pergunta concreta sobre o modelo, sem ocultar a Matemática e sem antecipar uma formalização que torne a atividade inacessível.
+
+Trabalhar com essa recuperação não significa transformar o percurso em revisão extensa de Matemática antes de iniciar o conteúdo de Computação, porque a necessidade aparece dentro de cada problema. Na regressão linear, a discussão sobre tendência pode levar à comparação entre previsão e valor observado. No *k*-NN, a distância ganha sentido porque determina quais exemplos participam de uma votação, e no *k*-means a posição do centróide pode ser acompanhada antes que se apresente qualquer cálculo mais formal. Quando a relação se torna visível, tabela, gráfico e expressão matemática passam a ajudar a explicar o mesmo fenômeno, em vez de competirem entre si. A mediação deverá identificar quando uma retomada curta é suficiente e quando a dificuldade impede que a turma prossiga com a interpretação planejada.
+
+A interface visual exige cuidado porque pode reduzir algumas barreiras e, ao mesmo tempo, ocultar outras. Um controle que altera o número de vizinhos torna uma mudança visível, mas não explica, por si só, por que certos pontos passam a decidir uma categoria. Uma árvore desenhada pode tornar as regras percorríveis, mas não garante que o estudante reconheça quais características foram usadas em cada divisão. O recurso visual precisa ser acompanhado por previsão, comparação e retomada coletiva.
+
+A plataforma proposta trabalha regressão linear, regressão logística, *k*-vizinhos mais próximos, árvore de decisão e *k*-means. A seleção permite discutir previsão de valores numéricos, classificação e formação de grupos sem rótulos prévios. Em vez de memorizar cinco definições isoladas ou reproduzir procedimentos técnicos, espera-se que o estudante, em cada módulo, reconheça o problema tratado, levante uma hipótese sobre o efeito de uma alteração e explique, após o experimento, a relação entre dados, parâmetro, gráfico e resultado.
+
+Os modelos foram escolhidos porque mostram mecanismos distintos em representações examináveis por estudantes iniciantes. A regressão linear permite discutir tendência, previsão, resíduo e erro. A regressão logística separa probabilidade e classificação, já que uma variação no limiar altera a decisão sem modificar o valor calculado. O *k*-NN aproxima a classificação pelo confronto com exemplos semelhantes, enquanto a árvore de decisão torna visível uma sequência de condições. O *k*-means permite discutir grupos quando não existe uma categoria indicada para cada ponto.
+
+O recorte aproxima duas formas de aprendizagem a partir de dados. Em regressão linear, regressão logística, *k*-NN e árvore de decisão, os exemplos trazem uma resposta conhecida que orienta a tarefa de prever um valor ou escolher uma categoria. No *k*-means, não há categoria fornecida previamente, e o objetivo é formar grupos a partir de uma medida de proximidade. Touretzky et al. (2023) situam essa diferenciação entre aprendizagem supervisionada e não supervisionada como uma das ideias centrais para a educação em IA. Neste projeto, ela será abordada com exemplos sintéticos e visualizações.
+
+Os cinco módulos não devem ser assimilados com a mesma velocidade ou pelo mesmo caminho. A regressão linear pode permitir maior aproximação com conteúdos matemáticos já conhecidos, enquanto o agrupamento sem rótulos pode exigir mais tempo para que os estudantes diferenciem descobrir grupos e separar categorias previamente definidas. A retomada no encontro seguinte e a comparação coletiva no sétimo encontro são escolhas didáticas que evitam tratar cada modelo como episódio isolado.
+
+O nível introdutório não exige ocultar os limites dos modelos. Uma reta resume a tendência apenas dentro do conjunto observado e pode ser afetada por pontos atípicos, e uma porcentagem representada na regressão logística não é certeza.
+
+No *k*-NN, a decisão depende dos exemplos guardados, da escala das características e do número de vizinhos escolhido. Em árvores, regras mais detalhadas não garantem melhor comportamento em casos novos, e no *k*-means os grupos dependem do número de centróides e de sua posição inicial.
+
+Esses limites entram como questões de interpretação. A intenção é evitar a promessa de precisão automática e também uma abordagem moralizante e abstrata sobre inteligência artificial. Quando o estudante altera um dado, um limiar, uma condição ou um centróide, deve poder observar uma consequência e discutir de que regra ela decorre.
+
+A contribuição deste estudo será documentar uma intervenção em um campo específico, seus materiais e as compreensões que os estudantes demonstram naquele contexto. Os oito encontros correspondem a uma duração viável para esse campo e exigirão atenção às retomadas e ao ritmo efetivo da turma.
+
+O trabalho em duplas cria espaço para que os estudantes comparem hipóteses diante do mesmo experimento e reduz a dependência de um computador por participante. Durante a aula, as previsões são individuais e depois discutidas em dupla, mas as fontes analisadas na pesquisa são apenas o diagnóstico inicial, o desafio final e os registros do professor. Isso permite distinguir o que foi discutido coletivamente do que cada estudante consegue registrar e justificar.
+
+A proposta se diferencia pela articulação entre seleção explícita de modelos, dados coletados pela turma e sintéticos, visualizações com controles, previsões antes da manipulação, mediação docente e instrumentos individuais de análise. Os cinco modelos não são inéditos, e a plataforma não resolve sozinha as dificuldades apontadas pela literatura.
+
+Essa articulação será examinada no campo, poderá demandar ajustes e só sustentará afirmações após a análise das evidências produzidas pelos estudantes.
+
+
+3.3 Representações, visualização e experimentação guiada
+
+Ferramentas visuais ocupam lugar importante no ensino de *machine learning* para estudantes iniciantes. Gresse von Wangenheim et al. (2021) identificaram ferramentas que favorecem a construção interativa de modelos, embora muitas estejam concentradas em classificação de imagens e atividades de curta duração. O produto proposto trabalha dados sintéticos tabulares e inclui regressão, classificação e agrupamento. Essa diferença de recorte, porém, não o transforma em resposta automática às limitações indicadas pela literatura.
+
+A interação ganha sentido pedagógico quando está ligada a uma pergunta, a uma consequência observável e a uma explicação solicitada ao estudante. Uma visualização pode colocar em primeiro plano uma relação que permaneceria abstrata em uma explicação exclusivamente verbal. Também pode criar a impressão de que observar uma mudança equivale a compreendê-la.
+
+Por isso, o gráfico precisa ser lido, a escala precisa ser reconhecida, a cor precisa ter significado explicitado e a regra do modelo precisa estar disponível de algum modo.
+
+A decisão de trabalhar dados sintéticos responde a essa necessidade. Ela permite controlar o que será comparado e criar situações em que a alteração de um elemento tenha consequência perceptível, sem apresentar o exemplo como previsão confiável sobre pessoas reais. O controle didático do cenário torna possível perguntar o que mudou, por que mudou e qual elemento do modelo participou dessa mudança.
+
+Tabela, gráfico, fórmula, texto explicativo e controle interativo apoiam-se na ideia de múltiplas representações. Ainsworth (2006) argumenta que representações distintas podem desempenhar funções complementares durante a aprendizagem, mas também exigem tarefas de interpretação e integração. A plataforma não deve apenas reunir recursos na mesma tela. Cada representação precisa ter uma função definida na pergunta que será examinada pela turma.
+
+Uma alteração na inclinação da reta, no limiar de decisão, no número de vizinhos, na condição da árvore ou na posição dos centróides deve ser acompanhada por uma questão que convide o estudante a antecipar e interpretar a mudança. Na regressão linear, a tabela mostra pares de valores, o plano cartesiano apresenta a distribuição dos pontos e a reta permite examinar tendência ou previsão. Na regressão logística, a curva e a probabilidade exibida precisam ser lidas junto ao limiar que transforma uma estimativa em classe.
+
+No k-NN, o estudante deverá relacionar a posição do ponto consultado, a distância até os exemplos e a votação dos vizinhos. Em árvores, o caminho de regras deve ser associado às condições que o produziram. Nos agrupamentos, os centróides precisam ser compreendidos como posições que reorganizam os grupos, e não como marcadores decorativos. Esses exemplos não constituem etapas separadas de uma aula; mostram como cada visualização pode sustentar uma relação entre dado, regra e saída.
+
+Essa escolha orienta o ciclo prever, experimentar, observar e explicar. Antes de alterar um controle, o estudante registra ou verbaliza uma hipótese. Durante o experimento, observa o que muda no gráfico, na decisão ou na medida calculada. Depois, explica por que o resultado confirmou ou contrariou sua expectativa. A intenção é evitar uma manipulação por tentativa e erro, em que parâmetros são movimentados sem que se construa uma relação compreensível entre entrada, regra e saída.
+
+O momento de previsão torna visível uma ideia que poderia permanecer implícita. Se um estudante afirma que aumentar o número de vizinhos não mudará uma classificação e, depois, encontra decisão diferente, o professor pode perguntar quais exemplos passaram a ser considerados e por que a votação se alterou.
+
+Se prevê que mover um centróide não terá efeito e observa a reorganização dos pontos, a nova explicação pode recuperar a noção de proximidade. A hipótese inicial não precisa estar correta para ter valor pedagógico.
+
+A plataforma precisa atender também a condições de acesso e uso. Para estudantes com insegurança no manuseio do computador, os controles deverão ser legíveis e indicar o que pode ser modificado em cada momento. Para aqueles que operam a interface com facilidade, o desafio estará na explicação, não na velocidade de mover um controle. A mediação docente e o trabalho em duplas ajudam a evitar que a técnica de uso se transforme em obstáculo ou substitua a questão conceitual.
+
+O controle interativo não será tratado como decoração ou recompensa após uma explicação pronta. Ele produz uma comparação ao manter alguns elementos estáveis, alterar um dado, parâmetro ou regra e observar uma consequência. A sequência orienta inicialmente uma alteração por vez, pois mudanças simultâneas dificultam atribuir uma consequência a uma causa percebida.
+
+Depois da exploração guiada, o modo livre poderá ampliar comparações, desde que o professor retome a finalidade do experimento e solicite explicações que não se limitem a descrever cores, posições ou números exibidos.
+
+As representações matemáticas serão apresentadas em camadas. Uma situação concreta introduz o problema; tabela ou gráfico permite localizar dados e relações; cálculo elementar explicita uma quantidade relevante; e a fórmula, quando utilizada, resume a regra discutida. A fórmula da reta, a distância entre pontos, o limiar, uma condição de árvore ou a média que atualiza um centróide devem explicar uma alteração observável, e não funcionar como requisito de memorização desarticulada.
+
+Apresentar a Matemática em camadas não retira precisão dos conceitos. Significa decidir o que é necessário para uma compreensão inicial e em que momento esse elemento passa a fazer sentido. Antes de calcular a distância entre dois pontos, o estudante precisa reconhecer por que proximidade importa no k-NN. Antes de discutir o erro de uma reta, precisa comparar uma previsão com um valor observado.
+
+Quando a fórmula entra depois dessas experiências, ela deixa de ser informação isolada e passa a nomear uma relação que o estudante já pode examinar no experimento.
+
+
+3.4 Avaliação da compreensão durante a intervenção
+
+Avaliar o ensino de *machine learning* na Educação Básica continua sendo uma questão aberta. Rauber et al. (2023) identificaram avaliações que vão de questionários a tarefas baseadas em desempenho e apontaram a necessidade de abordagens mais abrangentes.
+
+Gresse von Wangenheim et al. (2022) propõem uma rubrica baseada em desempenho para conceitos e práticas de *machine learning*. A proposta demonstra a importância de transformar expectativas de aprendizagem em critérios observáveis, embora esteja situada em classificação de imagens e exija adaptação ao recorte desta pesquisa.
+
+Reconhecer o nome de um algoritmo não demonstra, por si só, que o estudante compreende a tarefa que ele resolve ou a relação entre dados e saída. Uma resposta numérica correta também pode resultar de tentativa, leitura superficial de um gráfico ou repetição de uma fala do professor. Os instrumentos precisarão solicitar justificativas curtas, mas suficientes para tornar examinável o modo como o estudante chega a uma conclusão.
+
+A compreensão não será reduzida ao acerto de uma pergunta de múltipla escolha. Serão procurados indícios de que o estudante diferencia dados, características e finalidades dos modelos; antecipa uma consequência de alteração simples; interpreta uma representação; e justifica o resultado observado. O diagnóstico inicial e o desafio final individual oferecerão produções comparáveis, enquanto os registros breves do professor-pesquisador ajudarão a reconstruir condições de uso, dúvidas recorrentes e intervenções realizadas durante as aulas.
+
+O diagnóstico inicial não terá função de selecionar estudantes ou medir deficiência. Ele permitirá conhecer ideias de partida, por exemplo, quando alguém atribui uma decisão à inteligência artificial sem mencionar dados ou regras, confunde previsão com classificação ou supõe que agrupamentos já possuem categorias definidas. O desafio final retomará dimensões semelhantes em situações novas, evitando que a comparação dependa da repetição literal dos exemplos explorados na plataforma.
+
+Black e Wiliam (1998) discutem a avaliação formativa como parte do processo de ensino, pois as informações produzidas pelos estudantes podem orientar decisões docentes. As perguntas presentes na plataforma terão função de devolutiva imediata e de organização da conversa em sala. Suas respostas não serão coletadas digitalmente. A análise da pesquisa ficará concentrada nos instrumentos individuais e nos registros docentes definidos para a intervenção.
+
+Durante a exploração, o professor poderá usar previsões para identificar uma dificuldade que exija retomada, sem registrar cada fala como dado de pesquisa. Se muitas duplas interpretarem uma probabilidade de 70\% como garantia de ocorrência, a aula poderá interromper a manipulação para discutir a diferença entre estimativa e certeza.
+
+Se houver confusão entre k-NN e k-means, uma comparação poderá recuperar a presença ou ausência de rótulos nos exemplos. Essas intervenções pertencem ao ensino; o registro posterior apenas contextualizará as produções individuais.
+
+Os critérios propostos organizam a análise em quatro dimensões: reconhecer dados e finalidade da tarefa; antecipar consequências de uma alteração; interpretar representações; e discutir limites de uma decisão automatizada. Eles não serão usados para ordenar estudantes ou produzir um índice isolado de competência. Orientarão a leitura das explicações, distinguindo respostas que apenas nomeiam elementos, descrevem mudanças ou articulam dados, procedimento e resultado.
+
+Uma situação sobre consumo fictício de energia, por exemplo, poderá exigir que o estudante diferencie temperatura e consumo, em vez de chamar todos os valores simplesmente de dados. Outras situações poderão solicitar a antecipação do efeito de alterar um ponto, um limiar, um número de vizinhos, uma condição ou um centróide. A leitura de tabela, gráfico, caminho de decisão e agrupamento será examinada em relação à explicação apresentada, não apenas pelo acerto isolado.
+
+As respostas podem revelar níveis diferentes de elaboração sem que seja necessário construir uma escala rígida de pontuação. Há diferença entre escrever que 'mudou porque o programa mudou' e explicar que a alteração de limiar passou a classificar como alerta valores antes abaixo da regra estabelecida. Esses contrastes serão usados como formas de explicar, não como rótulos fixos para caracterizar estudantes.
+
+Os resultados serão apresentados em sínteses por dimensão, frequências descritivas quando ajudarem a situar o conjunto e poucos excertos anonimizados que ilustrem explicações contrastantes. Não haverá divulgação de respostas individuais, comparação entre alunos ou tentativa de demonstrar uma relação causal isolada entre plataforma e aprendizagem. O que poderá ser discutido será a trajetória de uma intervenção específica, as evidências produzidas em seu interior e os limites que impedem extrapolá-las para outros contextos.
+
+
+3.5 Síntese do referencial e posicionamento da proposta
+
+A literatura e os documentos curriculares mobilizados orientam o posicionamento da proposta. O *machine learning* será tratado como conteúdo introdutório de Computação, e não como pretexto para ensinar o uso instrumental de aplicativos. A sequência seleciona ideias fundamentais, tarefas e limites observáveis, sem antecipar uma formação universitária em algoritmos. A visualização será organizada como atividade de comparação orientada, na qual o estudante formula uma hipótese, observa uma consequência e explica a relação entre dado, regra e resultado.
+
+Esse posicionamento também define como a compreensão será examinada. A análise buscará evidências em produções individuais contextualizadas, sem reduzir o estudo a uma medida de acertos ou a uma promessa de efeito causal amplo. Há propostas, ferramentas e experiências documentadas para o ensino de IA e *machine learning* na Educação Básica, mas a literatura revisada aponta necessidade de avaliações mais rigorosas, clareza sobre conteúdos e estratégias e atenção aos contextos de aplicação (MARTINS; GRESSE VON WANGENHEIM, 2023; RAUBER; GRESSE VON WANGENHEIM, 2023; SANUSI et al., 2023).
+
+O presente projeto não reivindica preencher essa lacuna sozinho nem apresentar uma plataforma inédita em sentido absoluto. Sua contribuição pretendida é tornar examinável uma articulação concreta entre cinco modelos, visualizações, sequência didática, instrumentos e critérios de análise em uma turma de Ensino Médio sob docência do pesquisador.
+
+A coerência entre referencial, produto e método será, por isso, um critério de qualidade da pesquisa. Cada recurso do site deverá corresponder a um objetivo de aprendizagem, cada objetivo deverá aparecer em atividade e instrumento, e as conclusões futuras deverão respeitar o que as evidências efetivamente permitirem afirmar.
+
+
+4. PRODUTO EDUCACIONAL E SEQUÊNCIA DIDÁTICA
+
+
+4.1 Concepção do produto educacional
+
+O produto educacional será composto por uma plataforma interativa em português brasileiro e por uma sequência didática destinada a estudantes do Ensino Médio. A plataforma funcionará no navegador, com dados sintéticos e cálculos executados localmente. Não exigirá cadastro, conta de usuário, envio de respostas ou coleta de informações pessoais.
+
+Essa opção reduz barreiras de acesso e permite que o recurso seja utilizado em contextos com conectividade limitada, desde que esteja disponível no computador ou na projeção usada durante a aula. A plataforma será empregada como recurso de mediação no ensino de Computação. Ela não substitui explicação, conversa ou intervenção do professor.
+
+A proposta reúne cinco módulos introdutórios de *machine learning*: regressão linear, regressão logística, k-vizinhos mais próximos, árvore de decisão e k-means. Os modelos não serão apresentados como um catálogo de comandos nem como conteúdos independentes sem relação entre si. A intenção é que os estudantes comparem diferentes maneiras de trabalhar com dados, reconhecendo situações em que se pretende prever um valor, escolher uma categoria ou formar grupos sem rótulos prévios.
+
+Os cinco modelos terão lugar central na sequência, ainda que cada um mobilize uma camada matemática diferente. A regressão linear permite tratar tendência, função, previsão, resíduo e erro. A regressão logística aproxima probabilidade e limiar de decisão. O k-NN introduz distância, proximidade e votação, a árvore de decisão apresenta regras, divisões e caminhos, e o k-means trabalha agrupamento, centróides e atualização dos grupos.
+
+A diferença de formalização não diminui a importância de algum módulo. Ela decorre da necessidade de adequar cada conceito ao repertório de estudantes iniciantes e de tornar visível uma relação que possa ser discutida durante a aula.
+
+Os modelos serão conectados por perguntas que retornam ao longo da sequência, e não apenas pela presença na mesma plataforma. Em todos os módulos, a turma deverá perguntar qual é o dado disponível, que saída se espera e qual alteração pode modificar essa saída.
+
+A resposta muda conforme o modelo. Uma reta produz uma previsão numérica, a regressão logística conduz a uma probabilidade que pode ser comparada com um limiar, o k-NN depende dos exemplos próximos, a árvore percorre condições e o k-means reorganiza pontos sem categorias dadas de antemão.
+
+Retomar a mesma família de perguntas permitirá que os estudantes comparem os modelos sem reduzir suas diferenças a uma lista de nomes. Também permitirá que o professor identifique se uma dificuldade pertence a um conceito específico ou à leitura de dados e gráficos que atravessa os módulos.
+
+
+4.2 Organização pedagógica da plataforma
+
+Cada módulo será organizado a partir de uma situação-problema e de uma pergunta que ajude o estudante a identificar o que o modelo tenta aprender. Antes de manipular os controles, deverá prever uma consequência possível. Em seguida, poderá alterar um dado, parâmetro ou regra selecionada para o experimento, observar a mudança no gráfico, na classificação ou no agrupamento e elaborar uma explicação sobre o que aconteceu.
+
+O ciclo prever, experimentar, observar e explicar orienta a experiência em todos os módulos. Ele torna explícito o raciocínio que acompanha a manipulação. Uma alteração na inclinação de uma reta deverá levar o estudante a comparar previsão e valor observado; a mudança de um limiar deverá permitir discutir por que uma classe pode se modificar mesmo quando a porcentagem calculada permanece a mesma. O mesmo princípio vale para o número de vizinhos, as divisões da árvore e a posição dos centróides.
+
+A abertura da sequência partirá de aplicações de inteligência artificial presentes no cotidiano dos estudantes, como recomendações, classificações e assistentes digitais. A conversa inicial deverá chegar rapidamente a um problema concreto com dados. Os conceitos matemáticos entrarão quando forem necessários para interpretar uma situação, um gráfico ou uma decisão produzida pelo modelo.
+
+As representações visuais deverão ser acompanhadas por descrições textuais, tabelas ou regras acessíveis, para que a compreensão não dependa somente de cores, posição ou movimento. As visualizações tridimensionais disponíveis no protótipo terão papel complementar e não serão tratadas como condição para entender o conceito central. A interface também deverá preservar controles acessíveis por teclado e respeitar preferências de redução de movimento.
+
+
+4.3 Cenários e dados dos experimentos
+
+Os dados utilizados nas atividades serão predominantemente sintéticos. Nos encontros 2 e 8, a turma organizará pequenas tabelas a partir de dados simples, voluntários e sem identificação nominal, ou de medidas de objetos da sala. Essas tabelas terão função didática e não integrarão o corpus da pesquisa. Os demais cenários evitarão notas, comportamentos, trajetórias ou outras informações pessoais dos estudantes.
+
+Os cenários constituem uma primeira proposta e poderão ser ajustados após a definição da turma e da escola. Na regressão linear, pretende-se explorar a relação entre temperatura e consumo fictício de energia em uma sala. Na regressão logística, uma leitura de sensor fictício permitirá discutir probabilidade e alerta. O k-NN poderá classificar objetos ou situações simuladas a partir de duas características mensuráveis.
+
+A árvore de decisão trabalhará uma situação de irrigação simulada, baseada em umidade e temperatura. No k-means, pontos de coleta fictícios distribuídos em um mapa de bairro permitirão explorar proximidade, centróides e agrupamentos sem rótulos prévios. Os cenários não serão escolhidos apenas por serem visualmente atraentes. Cada um deverá permitir que uma mudança de dado ou parâmetro produza consequência observável e discutível com apoio em conceitos matemáticos adequados.
+
+Antes da aplicação, os exemplos precisarão ser revistos quanto à clareza da linguagem, à pertinência para a turma e ao tempo necessário para a atividade.
+
+
+4.4 Sequência didática provisória
+
+A sequência foi planejada inicialmente para oito encontros de aproximadamente cinquenta minutos. O número de aulas, a turma e o componente curricular ainda dependem da viabilidade do campo. O cenário preferencial é uma turma de Ensino Médio sob docência do pesquisador, possivelmente em uma disciplina de Projeto Permanente por Afinidade, mas a proposta poderá ser ajustada para outro componente, inclusive Matemática, caso as condições de lotação e calendário escolar assim exijam.
+
+Cada encontro deverá conservar uma estrutura reconhecível, ainda que o conteúdo do modelo mude. A aula começa por uma situação ou pergunta que delimita o problema. Em seguida, os estudantes levantam uma previsão individual breve, exploram um controle ou representação com o colega, discutem o que observaram e participam de uma síntese conduzida pelo professor.
+
+Essa organização cria continuidade entre as aulas. Ela também torna explícito que a plataforma não é usada como intervalo entre explicações, mas como parte do próprio trabalho de construir e revisar hipóteses.
+
+O primeiro encontro terá uma função de nivelamento conceitual. Antes de apresentar qualquer modelo, a turma discutirá aplicações cotidianas de inteligência artificial e diferenciará dado, característica, resultado esperado, regra, treinamento, previsão, classificação e agrupamento. A conversa deverá chegar a situações em que os estudantes identifiquem o que seria fornecido ao sistema e o que se espera que ele produza.
+
+O diagnóstico inicial será aplicado individualmente nesse momento ou em etapa imediatamente anterior, conforme o tempo efetivamente disponível. Seu propósito será registrar ideias de partida sem antecipar os nomes técnicos explorados depois.
+
+Do segundo ao sexto encontro, serão desenvolvidos os módulos de regressão linear, regressão logística, k-NN, árvore de decisão e k-means. No segundo encontro, a coleta e a organização da tabela da turma antecederão a exploração da regressão linear. Em cada aula, a atividade deverá recuperar elementos dos encontros anteriores, evitando que os modelos sejam tratados como conteúdos descartáveis depois de uma única experiência.
+
+Os encontros sobre regressão linear e regressão logística abrirão a parte dedicada aos modelos supervisionados. Na regressão linear, o objetivo será reconhecer uma tendência, produzir uma previsão e compará-la com um valor observado, mobilizando gráfico cartesiano, reta e noção inicial de erro. A regressão logística retomará a ideia de prever a partir de exemplos, mas deslocará a discussão para probabilidade e classificação por limiar.
+
+A proximidade entre as duas atividades permitirá que a turma compare duas saídas distintas, um valor numérico e uma categoria, sem perder de vista que ambas dependem dos dados e das escolhas que estruturam o modelo.
+
+O k-NN e a árvore de decisão serão tratados como duas maneiras diferentes de chegar a uma classificação. No primeiro, os estudantes deverão observar o papel da distância e do número de vizinhos na votação. No segundo, acompanharão regras condicionais e caminhos que levam a uma decisão.
+
+A comparação entre os dois módulos deverá evitar a ideia de que existe um algoritmo universalmente melhor. O foco será reconhecer que os dois modelos usam dados e regras de modo distinto, produzindo saídas que precisam ser interpretadas à luz do problema e dos exemplos disponíveis.
+
+O encontro sobre k-means introduzirá uma mudança importante, pois os pontos não terão categorias fornecidas previamente. A atividade deverá recuperar a pergunta sobre o que se deseja produzir com os dados e mostrar que formar grupos por proximidade não é a mesma tarefa que escolher uma classe conhecida.
+
+A atualização dos centróides e a reorganização dos pontos serão exploradas com calma, uma vez que essa diferença entre agrupamento e classificação tende a exigir nova retomada da linguagem usada nos encontros anteriores. Ao final, uma síntese breve deverá registrar o que permanece comum aos cinco modelos, dados e regras que produzem uma saída, e o que muda conforme a finalidade de cada tarefa.
+
+O sétimo encontro será dedicado à comparação entre os cinco modelos. A turma deverá analisar situações-problema e discutir se a tarefa envolve prever um valor, escolher uma categoria ou formar grupos, justificando a escolha com base nos dados disponíveis. No último encontro, as duplas organizarão uma pequena tabela própria e discutirão o modelo compatível com a tarefa. Em seguida, cada estudante realizará um desafio individual de síntese, no qual será convidado a reconhecer uma situação, identificar dados necessários, indicar um tipo de modelo compatível e explicar uma possível consequência da alteração de um dado, parâmetro ou regra.
+
+O encontro comparativo não exigirá domínio de uma taxonomia completa de algoritmos. Seu papel será recuperar diferenças que podem ter ficado dispersas e preparar uma situação de transferência para o desafio final. Ao justificar por que uma situação pede previsão, classificação ou agrupamento, o estudante mobiliza a finalidade da tarefa antes de escolher um nome de modelo. O desafio individual seguirá essa lógica e examinará se relações trabalhadas em exemplos conhecidos podem ser usadas em situação estruturalmente semelhante, com dados apresentados de outra forma.
+
+Durante a exploração da plataforma, o trabalho será planejado inicialmente em duplas. Essa organização favorece a conversa sobre hipóteses e reduz a dependência de um computador por estudante. As previsões e o desafio final, contudo, serão individuais, permitindo que cada participante registre sua própria compreensão. Caso a infraestrutura da escola não permita um equipamento por dupla, o professor poderá projetar o experimento para a turma e manter os momentos individuais de previsão e explicação.
+
+O detalhamento preliminar dos oito encontros organiza objetivos de aprendizagem, tempo, ações de mediação, questões formativas, adaptações de infraestrutura e limites didáticos de cada módulo. As previsões feitas durante a exploração terão função formativa e não serão tratadas como corpus individual sistemático, pois o site não as armazena. O diagnóstico inicial, o desafio final e os registros docentes permanecerão como fontes centrais para a análise da pesquisa.
+
+Para preservar a coerência do produto, a versão do site utilizada no campo deverá ser conferida antes da intervenção em relação aos cenários, controles e perguntas previstos na sequência. Se o cenário da plataforma apresentar, por exemplo, dados diferentes daqueles discutidos no roteiro da aula, essa diferença deverá ser corrigida ou explicitada ao estudante. O mesmo vale para textos de apoio e representações matemáticas.
+
+A pesquisa não poderá analisar como se os alunos tivessem passado por uma sequência que não corresponde ao recurso efetivamente usado. Essa verificação é condição prática para que produto, intervenção e evidências mantenham o mesmo objeto de aprendizagem.
+
+
+4.5 Materiais e limites do produto
+
+Além da plataforma, a aplicação utilizará diagnóstico inicial breve, desafio final individual e registros docentes sucintos. Não está prevista uma cartilha extensa para acompanhar cada aula, pois esse material aumentaria a carga de aplicação e correção sem ser indispensável ao objetivo da investigação. As perguntas presentes no site funcionarão como devolutiva imediata durante a aprendizagem; o diagnóstico e o desafio final produzirão as evidências analisadas na pesquisa.
+
+O produto não comprova aprendizagem apenas por existir. Sua função é criar condições para que dados, parâmetros, cálculos e resultados sejam discutidos em sala. A avaliação de sua adequação didática dependerá da aplicação planejada, das condições reais do campo e das evidências produzidas pelos estudantes, sem apresentá-lo como solução pronta para qualquer escola ou contexto.
+
+Haverá uma verificação prática anterior à aplicação, envolvendo abertura local da plataforma, leitura dos textos em tela, funcionamento dos controles e possibilidade de projeção coletiva. Se algum equipamento não estiver disponível, a atividade poderá ser conduzida com o experimento projetado e pausas para previsão e explicação individual.
+
+A mudança de organização deverá ser anotada no registro docente, pois a forma de acesso ao recurso pode interferir nas interações observadas. Preservar uma atividade pedagogicamente equivalente é mais importante do que insistir em configuração técnica que a escola não possa sustentar.
+
+Essa conferência também deverá observar se os enunciados podem ser compreendidos sem que o estudante precise conhecer vocabulário técnico antes da própria aula. Termos como 'característica', 'limiar', 'vizinho' e 'centróide' precisarão aparecer acompanhados de explicações situadas e de exemplos visíveis.
+
+Quando uma formulação gerar dúvida recorrente, o ajuste do texto ou da mediação deverá ser registrado como parte do aperfeiçoamento do produto, e não tratado como falha do estudante. O critério será manter o desafio conceitual, removendo apenas obstáculos de linguagem ou acesso que não pertencem ao conteúdo que se pretende ensinar.
+
+
+4.6 Alinhamento curricular preliminar
+
+O vínculo da sequência com a Computação na Educação Básica será explicitado por uma matriz que relacione habilidade curricular, objetivo de aprendizagem, atividade e evidência a observar. A matriz preliminar toma como referências do Ensino Médio o estudo dos fundamentos, das potencialidades e dos limites da inteligência artificial; a exploração de modelos computacionais simples para simulação e previsão; e a análise de informações a partir de dados sob princípios de ciência de dados.
+
+Esses elementos correspondem às habilidades EM13CO10, EM13CO11 e EM13CO12 do anexo da Resolução CNE/CEB nº 1/2022 (BRASIL, 2022).
+
+Os cinco modelos não serão tratados como algoritmos prescritos pela BNCC. Eles serão empregados como situações didáticas para desenvolver compreensões relacionadas a dados, modelos, regras, parâmetros, previsão, classificação, agrupamento e limites de sistemas de IA. A matriz indicará articulações possíveis com conhecimentos matemáticos, sem descaracterizar o objeto principal de ensino, que é a Computação. A seleção definitiva das habilidades dependerá da série, do componente curricular, do currículo da rede e das condições confirmadas do campo.
+
+
+5. PERCURSO METODOLÓGICO
+
+
+5.1 Natureza, abordagem e estratégia da pesquisa
+
+A pesquisa será de natureza aplicada, com abordagem predominantemente qualitativa e apoio de dados quantitativos descritivos. Não buscará medir o efeito isolado da plataforma nem estabelecer relações causais generalizáveis entre a intervenção e o desempenho de estudantes. A análise examinará indícios presentes nas produções individuais e nas situações observadas durante a aplicação da sequência didática.
+
+A estratégia principal será uma intervenção pedagógica. Damiani et al. (2013) caracterizam esse tipo de investigação pelo planejamento e pela implementação de mudanças ou inovações pedagógicas, acompanhados da análise de seus efeitos. Essa formulação é compatível com o projeto porque sequência, plataforma e instrumentos serão planejados para uma situação de ensino, aplicados no campo e examinados a partir das evidências produzidas.
+
+A intervenção será compreendida como uma unidade formada pela sequência didática, pela plataforma, pela mediação docente e pelos instrumentos de produção de dados. Separar artificialmente esses elementos seria inadequado, pois a plataforma só adquire o sentido previsto quando está vinculada à pergunta proposta, à previsão solicitada e à discussão posterior.
+
+Reconhecer essa unidade não autoriza atribuir qualquer mudança observada a um único componente. As produções dos estudantes serão lidas como evidências construídas em um percurso de ensino situado, no qual tempo de aula, infraestrutura, retomadas conceituais e interação entre duplas podem interferir na forma como uma explicação aparece. A posição do professor-pesquisador exigirá registro claro das condições de aplicação e prudência na interpretação dos dados.
+
+A definição metodológica final deverá ser discutida com o orientador antes da submissão do projeto e do início da produção de dados. Essa decisão dependerá também das condições confirmadas do campo e das exigências éticas e institucionais aplicáveis.
+
+
+5.2 Contexto e participantes
+
+O campo previsto é uma turma de Ensino Médio de escola pública na qual o pesquisador atue como professor. A possibilidade inicial é uma turma vinculada à disciplina Projeto Permanente por Afinidade, em escola de tempo integral. Esse cenário não está garantido para o próximo ano letivo, pois a lotação docente e a composição das turmas poderão mudar.
+
+Se necessário, a sequência poderá ser aplicada em outra turma do Ensino Médio sob docência do pesquisador, inclusive em um componente de Matemática, desde que sejam preservadas as condições pedagógicas e éticas definidas para a pesquisa.
+
+Os participantes serão estudantes iniciantes em *machine learning*. Não haverá exigência de programação prévia. A sequência pressupõe leitura de tabelas e gráficos elementares, localização de pontos em eixos cartesianos, comparação de valores e mobilização de noções iniciais de média, distância, função e probabilidade quando esses conhecimentos forem retomados durante os módulos.
+
+O número de participantes, a série, o componente curricular, a escola e o calendário de aplicação serão informados após a confirmação do campo.
+
+
+5.3 Etapas da intervenção
+
+O primeiro momento corresponderá ao estudo das referências e ao aperfeiçoamento da plataforma, dos exemplos sintéticos e dos instrumentos. Em seguida, a sequência didática será preparada de acordo com a turma e as condições de infraestrutura disponíveis.
+
+A aplicação está planejada inicialmente para oito encontros de aproximadamente cinquenta minutos. Qualquer ajuste de duração deverá ser justificado no texto final.
+
+Durante a intervenção, as atividades na plataforma serão realizadas preferencialmente em duplas. Previsão e explicação terão momentos individuais, enquanto a exploração dos controles poderá ser discutida com o colega. Ao final de cada encontro, o professor-pesquisador organizará uma síntese breve que recupere a pergunta do módulo, as alterações realizadas e as explicações construídas pela turma.
+
+As sínteses de encerramento não terão a função de produzir uma resposta correta única para ser copiada pelos estudantes. Elas servirão para recuperar o que foi observado, explicitar relações ainda confusas e preparar a passagem para o encontro seguinte. Caso a turma confunda uma probabilidade com garantia de ocorrência, por exemplo, a retomada poderá recuperar o papel do limiar e distinguir estimativa de certeza antes de avançar para outro modelo.
+
+O registro docente indicará que a retomada ocorreu e quais dificuldades a motivaram, sem substituir as respostas individuais como fonte de evidência da compreensão. Essa separação ajuda a preservar o vínculo entre a mediação necessária ao ensino e a análise cuidadosa do que cada participante conseguiu elaborar.
+
+A plataforma não registrará respostas ou dados pessoais. Os registros de pesquisa serão produzidos apenas pelos instrumentos descritos a seguir.
+
+
+5.4 Instrumentos de produção de dados
+
+Antes da sequência, os participantes realizarão diagnóstico individual breve. O instrumento buscará identificar ideias iniciais sobre dados, modelos, treinamento, previsão, classificação, agrupamento e resultado de alterações simples.
+
+Ele não terá finalidade classificatória nem será tratado como prova de domínio prévio. Servirá para situar o ponto de partida das explicações dos estudantes.
+
+Ao final da sequência, será aplicado desafio individual de síntese. Ele apresentará situação nova e solicitará que o estudante identifique os dados necessários, reconheça o tipo de tarefa, indique um modelo compatível e explique o que poderia ocorrer com uma mudança de dado, parâmetro ou regra.
+
+Algumas questões serão equivalentes ou comparáveis às do diagnóstico. Isso permitirá examinar mudanças no uso dos conceitos sem reduzir a análise a uma contagem de acertos.
+
+Depois de cada aula, o professor-pesquisador produzirá um registro breve, em tópicos, sobre dificuldades recorrentes, condições de uso, intervenções realizadas e situações que ajudem a interpretar as respostas dos estudantes. Não será solicitada uma cartilha extensa nem haverá intenção de coletar uma produção individual para cada módulo.
+
+As perguntas inseridas no site terão função formativa imediata. Elas não serão utilizadas como fonte principal de dados, pois as respostas não permanecem salvas.
+
+As versões preliminares do diagnóstico e do desafio final serão organizadas em instrumento próprio. Elas mobilizarão dimensões comparáveis: dados e finalidade da tarefa, previsão sobre uma alteração, interpretação de representação e possibilidade ou limite de uma decisão automatizada. O diagnóstico não exigirá nomes de modelos; o desafio final solicitará o emprego dos conceitos trabalhados quando pertinente. A comparação será qualitativa e descritiva, sem conversão automática das respostas em nota de ganho.
+
+A comparabilidade entre os instrumentos não dependerá de repetir a mesma pergunta ou de apresentar novamente o mesmo cenário. Repetições literais podem favorecer a lembrança da atividade anterior sem revelar se a relação conceitual foi mobilizada em outra situação.
+
+O diagnóstico poderá perguntar, por exemplo, que informações seriam necessárias para uma recomendação ou classificação simples. O desafio final apresentará um conjunto de dados diferente e solicitará que o estudante justifique a escolha de uma tarefa, de um modelo ou de uma alteração possível. A dimensão observada permanece a mesma, mas a situação exige que a resposta seja reconstruída. Quando houver item equivalente, sua formulação deverá manter o foco na explicação, não apenas no reconhecimento de uma palavra trabalhada durante a sequência.
+
+Os instrumentos também precisarão ser compatíveis com o tempo escolar disponível e com o fato de que os participantes serão estudantes do Ensino Médio em uma atividade inserida no cotidiano da turma. Não se pretende aplicar teste extenso que interrompa a sequência ou transforme a intervenção em rotina de avaliação formal.
+
+Perguntas abertas curtas, acompanhadas de gráfico, tabela ou situação-problema, podem oferecer indícios mais úteis que grande quantidade de itens objetivos, desde que o enunciado deixe claro o que se pede. Antes da aplicação, o professor-pesquisador verificará se cada questão está ligada a um objetivo de aprendizagem e a uma atividade efetivamente realizada.
+
+Caso algum conceito não tenha sido abordado nas condições previstas, ele não deverá ser tratado como ausência de compreensão no desafio final. Essa precaução mantém os instrumentos vinculados ao percurso de ensino e protege a análise contra interpretações que ultrapassem as evidências disponíveis.
+
+
+5.5 Procedimentos de análise
+
+As respostas ao diagnóstico e ao desafio final serão organizadas por códigos, sem identificação nominal dos participantes. A análise será orientada por critérios construídos a partir dos objetivos de aprendizagem da sequência: diferenciar dados, características e finalidade do modelo; antecipar consequência de alteração simples em dado, parâmetro ou regra; interpretar uma representação; e justificar o resultado observado, relacionando entrada, procedimento computacional e saída com apoio no conceito ou na matemática trabalhada.
+
+A primeira etapa consistirá na leitura integral das respostas e na organização de uma matriz por participante e dimensão de análise. Em cada dimensão, será registrada a presença, a ausência ou a forma de manifestação de uma explicação, sem apresentar essa marcação como nota individual.
+
+Uma resposta poderá apenas indicar que 'a classificação mudou', enquanto outra relacionará a mudança ao limiar escolhido ou à proximidade entre exemplos. A diferença entre esses modos de explicar será mais informativa que uma oposição simples entre certo e errado.
+
+Em seguida, as respostas do diagnóstico e do desafio final serão colocadas em relação, procurando continuidades, deslocamentos e dificuldades persistentes. A análise considerará, por exemplo, se o estudante passa a distinguir uma tarefa de previsão de uma tarefa de classificação, se identifica dados compatíveis com um problema e se consegue prever uma consequência antes de observá-la na tela.
+
+Quando houver condições para isso, frequências descritivas poderão indicar quantas produções apresentam determinada característica. Elas servirão para situar o conjunto, não para sustentar inferências estatísticas ou generalizações sobre outras turmas.
+
+Os registros não serão apresentados integralmente na dissertação. O texto final deverá reunir sínteses das respostas, frequências descritivas quando contribuírem para a leitura do conjunto e poucos excertos anonimizados que ilustrem modos distintos de explicação. Os registros docentes contextualizarão os resultados quando uma dificuldade recorrente, uma retomada matemática ou uma condição de infraestrutura ajudar a compreender as produções escritas.
+
+A interpretação aproximará o que o estudante escreveu das condições em que a atividade ocorreu, mas não usará registros do professor para completar ou atribuir ao participante compreensão que não esteja evidenciada em sua produção individual. Essa separação é inegociável para que a análise permaneça prudente e compatível com as fontes produzidas.
+
+
+5.6 Aspectos éticos
+
+A produção de dados somente poderá começar após a confirmação das exigências institucionais e éticas aplicáveis ao projeto. A Resolução CNS nº 510/2016 dispõe sobre pesquisas em Ciências Humanas e Sociais que utilizam dados obtidos diretamente de participantes ou informações identificáveis, enquanto a Resolução CNS nº 466/2012 estabelece diretrizes gerais para pesquisas envolvendo seres humanos (BRASIL, 2016; BRASIL, 2012).
+
+Como a intervenção poderá envolver adolescentes, consentimento dos responsáveis, assentimento dos participantes e apreciação ética deverão ser definidos conforme a orientação institucional e a tramitação exigida antes da aplicação.
+
+As respostas serão anonimizadas por códigos, e documentos com informações de identificação, quando necessários, serão mantidos separadamente dos instrumentos de análise. Dados brutos não serão inseridos no código da plataforma nem publicados em repositório aberto. A participação será voluntária. Estudantes que não participarem da produção de dados deverão ter acesso a atividade pedagógica equivalente, sem prejuízo da experiência escolar.
+
+
+6. CONTRIBUIÇÕES ESPERADAS E LIMITES DA PROPOSTA
+
+
+6.1 Contribuições esperadas
+
+Espera-se produzir uma proposta de ensino introdutório de *machine learning* situada no campo da Computação na Educação Básica. A contribuição articula plataforma local, sequência didática de oito encontros, instrumentos individuais de diagnóstico e síntese, critérios de análise e orientações de mediação docente. Esse conjunto poderá tornar explícitas relações entre dados, características, modelos, regras, parâmetros, previsões, classificações, agrupamentos e limites de sistemas de inteligência artificial.
+
+No plano pedagógico, a proposta deverá oferecer percurso para estudantes iniciantes que não depende de programação prévia nem de formalização matemática avançada. A expectativa é criar condições para formular hipóteses, testar uma alteração e explicar a consequência observada, relacionando representações gráficas, tabelas, regras e cálculos elementares. O interesse da pesquisa não é afirmar domínio técnico profundo dos modelos, mas identificar compreensões conceituais situadas ao longo da intervenção.
+
+No plano curricular, a matriz construída para o projeto permitirá explicitar a relação entre os objetivos de aprendizagem, as atividades e as habilidades de Computação do Ensino Médio relacionadas a fundamentos de inteligência artificial, exploração de modelos simples e análise de dados. Essa articulação procura contribuir para discussões sobre a implementação da Computação na Educação Básica sem alegar que a BNCC prescreve algoritmos específicos ou uma forma única de organização curricular.
+
+No plano profissional, a investigação poderá sistematizar uma experiência de docência adaptável a outros contextos de Ensino Médio, desde que sejam respeitadas condições de infraestrutura, mediação, conhecimento prévio e adequação curricular de cada escola. Plataforma e materiais não serão apresentados como solução pronta ou universal. Poderão, contudo, oferecer subsídios para professores interessados em tratar inteligência artificial e dados de forma menos centrada no uso passivo de ferramentas prontas.
+
+O produto também deverá tornar visível o percurso de planejamento que sustenta sua utilização. Não bastará disponibilizar telas, gráficos e controles. A sequência, os cenários, as perguntas de previsão e os critérios de análise precisarão indicar que compreensão se pretende favorecer em cada atividade e que tipo de explicação poderá ser observado.
+
+Essa documentação poderá ajudar outros professores a adaptar a proposta sem perder de vista a relação entre conteúdo de Computação, Matemática mobilizada e mediação necessária em sala de aula.
+
+A finalidade não será padronizar aulas para contextos distintos, mas oferecer uma referência suficientemente explícita para que adaptações futuras sejam justificadas e não reduzam a proposta a uma demonstração de ferramentas.
+
+
+6.2 Limites e riscos reconhecidos
+
+O número de encontros e a duração prevista da intervenção limitam a profundidade com que cada modelo poderá ser abordado. Trabalhar cinco modelos introdutórios em oito aulas exige retomadas e comparações constantes, mas não permite supor que uma única exploração resulte em aprendizagem consolidada. O projeto deverá priorizar conceitos e relações fundamentais, deixando de fora formalizações e procedimentos técnicos que ultrapassem o nível introdutório definido.
+
+Diferenças no repertório matemático, na experiência de uso de computador e no acesso a equipamentos podem afetar a participação dos estudantes. A sequência prevê trabalho em duplas, projeção coletiva como alternativa e retomada de noções matemáticas quando necessárias. Essas medidas não eliminam desigualdades de acesso ou de experiência. Os registros docentes ajudarão a interpretar como tais condições interferem nas produções individuais, evitando atribuir ao modelo ou à plataforma explicação exclusiva para as respostas observadas.
+
+O estudo será realizado em uma turma sob docência do pesquisador, ainda a ser definida. Por esse motivo, suas evidências estarão vinculadas a um contexto específico, à mediação realizada, aos dados sintéticos selecionados e às condições materiais daquele campo. Não se pretende generalizar resultados para todas as escolas públicas ou medir um efeito causal isolado da plataforma.
+
+Da mesma forma, a comparação entre diagnóstico e desafio final permitirá examinar transformações nas explicações, mas não estabelecerá, por si só, uma medida universal de aprendizagem.
+
+Há limites próprios dos modelos e das representações adotadas. Os conjuntos de dados serão simplificados para tornar relações visíveis, e os resultados produzidos pela interface não deverão ser confundidos com previsões confiáveis sobre pessoas ou situações reais. As vistas tridimensionais representarão métricas calculadas, não atributos adicionais dos dados.
+
+A escolha dos cinco modelos, os cenários definitivos e a adequação didática da linguagem deverão ser revistos antes da aplicação, evitando reforçar a ideia de que sistemas de inteligência artificial são neutros, autônomos ou infalíveis.
+
+
+7. CRONOGRAMA PROVISÓRIO
+
+
+O cronograma será ajustado após a confirmação da turma, da lotação docente, do componente curricular, do calendário escolar e das exigências institucionais e éticas. A organização abaixo apresenta a ordem de trabalho prevista; ela não substitui o calendário acadêmico oficial nem as condições que ainda dependem da definição do campo.
+
+| Etapa | Atividades principais | Condição para conclusão |
+| --- | --- | --- |
+| 1. Consolidação do projeto | Revisar problema, objetivos, referencial, matriz curricular, sequência e instrumentos. | Versão de qualificação coerente e submetida à apreciação do orientador. |
+| 2. Aperfeiçoamento do produto | Padronizar cenários sintéticos, adequar textos e controles do site à sequência, criar síntese comparativa e realizar verificações de acessibilidade e projeção. | Protótipo compatível com a aplicação planejada. |
+| 3. Preparação do campo | Confirmar turma, escola, componente curricular, infraestrutura, calendário e autorizações aplicáveis. | Campo definido e condições pedagógicas e éticas confirmadas. |
+| 4. Revisão dos instrumentos | Ajustar diagnóstico, desafio final, rubrica e registro docente ao perfil da turma. | Instrumentos revisados e prontos para uso. |
+| 5. Aplicação da intervenção | Realizar os oito encontros, produzir registros docentes e aplicar diagnóstico e desafio final. | Produções organizadas por códigos, sem identificação nominal no corpus de análise. |
+| 6. Organização e análise | Anonimizar, organizar e analisar respostas e registros; elaborar sínteses, frequências descritivas e excertos. | Categorias analíticas e resultados interpretados. |
+| 7. Redação da dissertação e do produto | Redigir resultados, discussão, considerações finais e versão final do produto educacional. | Versão submetida às revisões do orientador. |
+| 8. Revisão e entrega | Revisar normalização, ética, acessibilidade, anexos e exigências de depósito. | Trabalho e produto preparados para a etapa institucional correspondente. |
+
+
+REFERÊNCIAS
+
+AINSWORTH, Shaaron. DeFT: A conceptual framework for considering learning with multiple representations. *Learning and Instruction*, v. 16, n. 3, p. 183–198, 2006. DOI: <https://doi.org/10.1016/j.learninstruc.2006.03.001>.
+
+BLACK, Paul; WILIAM, Dylan. Assessment and classroom learning. *Assessment in Education: Principles, Policy & Practice*, v. 5, n. 1, p. 7–74, 1998. DOI: <https://doi.org/10.1080/0969595980050102>.
+
+BRASIL. Conselho Nacional de Educação. Câmara de Educação Básica. Resolução CNE/CEB nº 1, de 4 de outubro de 2022. Define normas sobre Computação na Educação Básica, complemento à Base Nacional Comum Curricular. Brasília, DF: MEC, 2022. Disponível em: <https://portal.mec.gov.br/docman/outubro-2022-pdf/241671-rceb001-22/file>. Acesso em: 9 out. 2026.
+
+BRASIL. Conselho Nacional de Saúde. Resolução nº 466, de 12 de dezembro de 2012. Aprova diretrizes e normas regulamentadoras de pesquisas envolvendo seres humanos. Brasília, DF: Ministério da Saúde, 2012. Disponível em: <https://www.gov.br/conselho-nacional-de-saude/pt-br/atos-normativos/resolucoes/2012/resolucao-no-466.pdf/view>. Acesso em: 9 out. 2026.
+
+BRASIL. Conselho Nacional de Saúde. Resolução nº 510, de 7 de abril de 2016. Dispõe sobre as normas aplicáveis a pesquisas em Ciências Humanas e Sociais. Brasília, DF: Ministério da Saúde, 2016. Disponível em: <https://www.gov.br/conselho-nacional-de-saude/pt-br/atos-normativos/resolucoes/2016/resolucao-no-510.pdf/view>. Acesso em: 9 out. 2026.
+
+CAMADA, Marcos Yuzuru; DURÃES, Gilvan Martins. Ensino da Inteligência Artificial na Educação Básica: um novo horizonte para as pesquisas brasileiras. *Anais do Simpósio Brasileiro de Informática na Educação*, 2020. DOI: <https://doi.org/10.5753/cbie.sbie.2020.1553>.
+
+DURÃES, Gilvan Martins et al. Ensino de fundamentos da inteligência artificial no ensino médio integrado sob a perspectiva educacional e tecnológica de Paulo Freire. *Trilhas: Revista de Extensão do IF Baiano*, v. 1, n. 2, 2021. Disponível em: <https://periodicos.ifbaiano.edu.br/index.php/trilhas/article/view/87>. Acesso em: 9 out. 2026.
+
+DAMIANI, Magda Floriana; ROCHEFORT, Renato Siqueira; CASTRO, Rafael Fonseca de; DARIZ, Marion Rodrigues; PINHEIRO, Sílvia Siqueira. Discutindo pesquisas do tipo intervenção pedagógica. *Cadernos de Educação*, n. 45, p. 57–67, 2013. DOI: <https://doi.org/10.15210/caduc.v0i45.3822>.
+
+GRESSE VON WANGENHEIM, Christiane; ALVES, Nathalia da Cruz; RAUBER, Marcelo F.; HAUCK, Jean C. R.; YETER, Ibrahim H. A proposal for performance-based assessment of the learning of machine learning concepts and practices in K-12. *Informatics in Education*, v. 21, n. 3, p. 479–500, 2022. DOI: <https://doi.org/10.15388/infedu.2022.18>.
+
+GRESSE VON WANGENHEIM, Christiane; HAUCK, Jean Carlo Rossa; PACHECO, Fernando S.; BUENO, Matheus F. Bertonceli. Visual tools for teaching machine learning in K-12: A ten-year systematic mapping. *Education and Information Technologies*, v. 26, n. 5, p. 5733–5778, 2021. DOI: <https://doi.org/10.1007/s10639-021-10570-8>.
+
+MARQUES, Lívia S.; GRESSE VON WANGENHEIM, Christiane; HAUCK, Jean C. R. Teaching machine learning in school: A systematic mapping of the state of the art. *Informatics in Education*, v. 19, n. 2, p. 283–321, 2020. DOI: <https://doi.org/10.15388/infedu.2020.14>.
+
+MARTINS, Ramon Mayor; GRESSE VON WANGENHEIM, Christiane. Findings on teaching machine learning in high school: A ten-year systematic literature review. *Informatics in Education*, v. 22, n. 3, p. 421–440, 2023. DOI: <https://doi.org/10.15388/infedu.2023.18>.
+
+RAUBER, Marcelo Fernando; GRESSE VON WANGENHEIM, Christiane. Assessing the learning of machine learning in K-12: A ten-year systematic mapping. *Informatics in Education*, v. 22, n. 2, p. 295–328, 2023. DOI: <https://doi.org/10.15388/infedu.2023.11>.
+
+SANUSI, Ismaila Temitayo; OYELERE, Solomon Sunday; VARTIAINEN, Henriikka; SUHONEN, Jarkko; TUKIAINEN, Markku. A systematic review of teaching and learning machine learning in K-12 education. *Education and Information Technologies*, v. 28, p. 5967–5997, 2023. DOI: <https://doi.org/10.1007/s10639-022-11416-7>.
+
+SOCIEDADE BRASILEIRA DE COMPUTAÇÃO. Diretrizes para ensino de Computação na Educação Básica. Brasília, DF: SBC, 2018. Disponível em: <https://www.sbc.org.br/wp-content/uploads/2024/07/DiretrizesSBC-ComputacaoNaEducacaoBasica.pdf>. Acesso em: 9 out. 2026.
+
+TOURETZKY, David S.; GARDNER-MCCUNE, Christina; MARTIN, Fred; SEEHORN, Deborah. Envisioning AI for K-12: What should every child know about AI? *Proceedings of the AAAI Conference on Artificial Intelligence*, v. 33, n. 1, p. 9795–9799, 2019. DOI: <https://doi.org/10.1609/aaai.v33i01.33019795>.
+
+TOURETZKY, David S. et al. Machine learning and the five big ideas in AI. *International Journal of Artificial Intelligence in Education*, v. 33, p. 233–266, 2023. DOI: <https://doi.org/10.1007/s40593-022-00314-1>.
+
+VALENTE, José Armando. Uso da internet em sala de aula. *Educar em Revista*, n. 19, p. 131–146, 2002. Disponível em: <https://revistas.ufpr.br/educar/article/view/2086>. Acesso em: 9 out. 2026.
+
+WING, Jeannette M. Computational thinking. *Communications of the ACM*, v. 49, n. 3, p. 33–35, 2006. DOI: <https://doi.org/10.1145/1118178.1118215>.

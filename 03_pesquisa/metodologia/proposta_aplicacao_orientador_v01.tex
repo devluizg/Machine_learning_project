@@ -1,0 +1,192 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+
+\geometry{top=1.7cm,bottom=1.7cm,left=1.8cm,right=1.8cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.2}
+\setlist[itemize]{leftmargin=1.5em,itemsep=2pt,topsep=3pt}
+\setlist[enumerate]{leftmargin=1.7em,itemsep=3pt,topsep=3pt}
+
+\definecolor{azul}{HTML}{173B57}
+\definecolor{azulclaro}{HTML}{EAF1F7}
+\definecolor{verde}{HTML}{2B6B52}
+\definecolor{cinza}{HTML}{F4F5F7}
+\definecolor{texto}{HTML}{27303A}
+
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+\fancyhf{}
+\lhead{\textcolor{texto}{Proposta de aplicação da pesquisa}}
+\rhead{\textcolor{texto}{Versão para orientação}}
+\cfoot{\textcolor{texto}{\thepage}}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newcommand{\titulo}[1]{\vspace{7pt}{\large\bfseries\color{azul}#1}\par\vspace{2pt}}
+\newcommand{\caixa}[1]{\begingroup\setlength{\fboxsep}{8pt}\colorbox{azulclaro}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{#1}}\endgroup}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries\color{azul} Proposta de aplicação da pesquisa}\par
+  \vspace{3pt}
+  {\large Ensino introdutório de \textit{machine learning} no Ensino Médio}\par
+  \vspace{5pt}
+  \small Documento de trabalho para apreciação do orientador
+\end{center}
+
+\caixa{\textbf{Finalidade desta conversa.} Apresentar uma proposta objetiva de aplicação e pedir validação antes de consolidar instrumentos, sequência e procedimentos de análise. O documento descreve um planejamento, não resultados já obtidos.}
+
+\titulo{1. Ideia central}
+
+Pretendo desenvolver e aplicar uma sequência didática de oito aulas, apoiada por uma plataforma interativa, para ensinar fundamentos introdutórios de \textit{machine learning} a estudantes do Ensino Médio. O foco não será ensinar programação nem treinamento técnico de algoritmos. Quero investigar como os estudantes explicam a relação entre dados, regras, parâmetros, representações e resultados ao explorar situações didáticas.
+
+\textbf{Pergunta proposta:} que mudanças e permanências podem ser identificadas nas explicações de estudantes do Ensino Médio sobre fundamentos introdutórios de \textit{machine learning} ao longo de uma sequência didática apoiada por uma plataforma interativa?
+
+\textbf{Objetivo geral:} desenvolver e analisar uma sequência didática apoiada por uma plataforma interativa para o ensino introdutório de fundamentos de \textit{machine learning}, como conteúdo de Computação, a estudantes do Ensino Médio.
+
+\titulo{2. O que pretendo ensinar}
+
+O recorte proposto reúne cinco modelos, pois eles permitem comparar três finalidades: prever um valor numérico, classificar casos e formar grupos sem rótulos prévios.
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{>{\bfseries}p{4cm} X}
+\toprule
+Modelo & Ideia que o estudante deverá interpretar \\
+\midrule
+Regressão linear & Dados, tendência, previsão numérica e erro. \\
+Regressão logística & Probabilidade, limiar e decisão entre classes. \\
+$k$-vizinhos mais próximos & Proximidade, exemplos rotulados e votação. \\
+Árvore de decisão & Regras, perguntas e caminhos de decisão. \\
+$k$-means & Agrupamento, ausência de rótulos e centróides. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Em todas as aulas, a proposta é conduzir o ciclo: \textbf{prever, experimentar, observar e explicar}. A plataforma será um recurso de mediação. Ela não substituirá a discussão conduzida pelo professor nem será tratada como causa isolada de qualquer mudança observada.
+
+\titulo{3. Tipo de pesquisa proposto}
+
+A proposta é uma \textbf{pesquisa aplicada}, de abordagem \textbf{predominantemente qualitativa}, com apoio de dados quantitativos descritivos. A estratégia será uma \textbf{intervenção pedagógica de grupo único}, conduzida em uma turma de Ensino Médio na qual eu atue como professor.
+
+O estudo permitirá descrever mudanças, permanências e dificuldades nas explicações dos participantes. Não haverá grupo de controle, alocação aleatória ou pretensão de provar que a plataforma, isoladamente, causou a aprendizagem.
+
+\newpage
+
+\begin{center}
+  {\LARGE\bfseries\color{azul} Roteiro de aplicação}\par
+  \vspace{3pt}
+  {\large Oito encontros de aproximadamente 50 minutos}
+\end{center}
+
+\small
+\begin{tabularx}{\textwidth}{>{\centering\arraybackslash}p{1.15cm} >{\raggedright\arraybackslash}p{3.2cm} X}
+\toprule
+\textbf{Aula} & \textbf{Foco} & \textbf{O que será feito} \\
+\midrule
+1 & Dados, modelos e tipos de tarefa & Apresentar a proposta; aplicar diagnóstico individual antes do uso orientado do site; discutir previsão, classificação e agrupamento. \\
+\addlinespace
+2 & Regressão linear & Explorar massa, alongamento, tendência e previsão numérica. O estudante registra individualmente uma previsão antes e uma explicação depois da exploração. \\
+\addlinespace
+3 & Regressão logística & Explorar probabilidade, limiar e classificação. A turma discute por que uma mudança no limiar pode alterar a decisão sem modificar a probabilidade. \\
+\addlinespace
+4 & $k$-vizinhos mais próximos & Explorar doçura, acidez, distância, vizinhos e votação. Haverá registro individual antes e depois da exploração. \\
+\addlinespace
+5 & Árvore de decisão & Explorar largura, altura, regras, caminhos e profundidade. A ênfase será explicar como uma decisão é produzida. \\
+\addlinespace
+6 & $k$-means & Explorar agrupamento de pontos por doçura e acidez, sem categorias prévias. Haverá registro individual antes e depois da exploração. \\
+\addlinespace
+7 & Comparação entre modelos & Comparar finalidades, entradas, saídas, regras e limites dos cinco modelos. Preparar a turma para uma situação nova. \\
+\addlinespace
+8 & Síntese individual & Aplicar instrumento final individual com núcleo comparável, desafio de transferência e questionário breve de percepção. \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\titulo{Organização em sala}
+
+Cada estudante explorará a plataforma individualmente, usando os computadores do laboratório e, conforme a disponibilidade confirmada no campo, Chromebooks para completar o acesso. As produções usadas na pesquisa serão individuais. Se houver falha técnica, a aula poderá ocorrer com projeção do site e instrumentos individuais em papel.
+
+\caixa{\textbf{Ponto de controle.} Antes da aplicação, confirmarei turma, série, componente curricular, calendário, equipamentos disponíveis e adequação dos exemplos à realidade da escola.}
+
+\newpage
+
+\begin{center}
+  {\LARGE\bfseries\color{azul} Evidências e análise previstas}
+\end{center}
+
+\titulo{4. O que será produzido pelos estudantes}
+
+\begin{tabularx}{\textwidth}{>{\bfseries}p{4cm} X}
+\toprule
+Material & Função na pesquisa \\
+\midrule
+Diagnóstico inicial & Registrar o ponto de partida antes do ensino orientado. Terá questões sobre dados, finalidade da tarefa, previsão, regras e limites de decisões automatizadas. Não valerá nota. \\
+\addlinespace
+Registros intermediários & Nos encontros 2, 4 e 6, registrar uma previsão antes da exploração e uma explicação depois dela. Esses registros ajudam a acompanhar o percurso. \\
+\addlinespace
+Instrumento final & Retomar, em questões equivalentes, relações avaliadas no diagnóstico; incluir uma situação inédita para examinar transferência. \\
+\addlinespace
+Questionário de percepção & Registrar clareza, dificuldade, uso das representações e condições de exploração da plataforma. Não será tratado como prova de aprendizagem. \\
+\addlinespace
+Registro docente & Anotar tempo, infraestrutura, dificuldades recorrentes, retomadas feitas e adaptações necessárias em cada aula. \\
+\bottomrule
+\end{tabularx}
+
+\titulo{5. Como pretendo analisar}
+
+As respostas serão organizadas por códigos, sem nomes dos estudantes. A análise usará uma rubrica com três níveis, de 0 a 2, em quatro dimensões:
+
+\begin{itemize}
+  \item dados e finalidade da tarefa;
+  \item alteração de dado, regra ou parâmetro e sua consequência;
+  \item uso de gráficos, tabelas, regras, vizinhos ou centróides na explicação;
+  \item possibilidades e limites de decisões automatizadas.
+\end{itemize}
+
+Compararei apenas as questões planejadas como equivalentes entre diagnóstico e instrumento final. O resultado será apresentado por mudanças, permanências, dificuldades e respostas em branco ou incompletas. Usarei frequências absolutas e relativas somente para descrever a turma, sempre acompanhadas da leitura qualitativa das justificativas escritas.
+
+Quando for viável, um segundo avaliador examinará uma parcela das respostas para discutir a aplicação da rubrica. O desafio de transferência será analisado separadamente, pois não terá a mesma dificuldade ou extensão do diagnóstico.
+
+\titulo{6. Cuidados éticos e limites}
+
+O início da produção de dados dependerá das autorizações éticas e institucionais aplicáveis. A participação será voluntária, as respostas serão anonimizadas e estudantes que não participarem da pesquisa terão acesso à atividade pedagógica equivalente. Não serão coletados dados pessoais no site.
+
+As conclusões ficarão limitadas à turma e às condições de aplicação. A pesquisa buscará compreender o que os estudantes explicam ao longo da intervenção, sem generalizar os resultados para todo o Ensino Médio nem atribuir efeitos exclusivos à plataforma.
+
+\newpage
+
+\begin{center}
+  {\LARGE\bfseries\color{azul} O que preciso validar na orientação}
+\end{center}
+
+\caixa{\textbf{Minha proposta para decisão:} após a conversa, ajustarei o planejamento aprovado e somente então consolidarei os instrumentos, a sequência e os procedimentos de aplicação.}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+  \item A pergunta de pesquisa e o objetivo geral estão adequados ao foco da dissertação?
+  \item A caracterização como intervenção pedagógica de grupo único, predominantemente qualitativa, é apropriada para o campo previsto?
+  \item O recorte com cinco modelos é viável e pedagogicamente justificável para oito aulas?
+  \item O diagnóstico, os registros intermediários e o instrumento final são suficientes para examinar mudanças nas explicações dos estudantes?
+  \item A rubrica proposta e o uso de frequências descritivas são adequados para organizar os resultados?
+  \item Há ajuste necessário no público, na disciplina, na duração, nos conteúdos matemáticos ou nas exigências éticas antes de seguir para o campo?
+\end{enumerate}
+
+\vfill
+\begin{center}
+  \textcolor{verde}{\large\bfseries Resultado esperado da reunião: uma proposta delimitada e validada para começar os ajustes finais.}
+\end{center}
+
+\end{document}
