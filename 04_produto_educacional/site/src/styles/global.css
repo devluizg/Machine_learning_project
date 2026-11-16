@@ -310,3 +310,16 @@ button,.hero-cta,.primer-link,.hero-mini-cta,.home-support a,.support-actions a,
 .outcome-metric-row strong{color:#0d668c;font-size:15px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
 .outcome-subnote{margin:0;font-size:12.5px;line-height:1.5;color:#334155}
 
+/* Gráfico em largura total no topo + 02 / PREVEJA E EXPERIMENTE horizontal logo abaixo */
+.lab-grid{grid-template-columns:1fr;gap:20px}
+.visual-card .learning-plot{width:100%;max-height:500px;display:block;margin:0 auto}
+.control-card-head{margin-bottom:16px}
+.control-card-head h3{margin:4px 0 0}
+.control-horizontal{display:grid;grid-template-columns:minmax(220px,.9fr) minmax(260px,1.15fr) minmax(260px,1.15fr);gap:20px;align-items:start}
+.control-horizontal .prediction-prompt{margin-bottom:0;border-radius:16px}
+.control-horizontal .outcome-card{margin-top:0}
+.control-actions{display:grid;gap:12px;align-content:start}
+.control-actions .guide-instruction,.control-actions .range-control,.control-actions .segmented-control{margin-bottom:0}
+@media(max-width:960px){.control-horizontal{grid-template-columns:1fr}}
+
+
