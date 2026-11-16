@@ -1,0 +1,11 @@
+=== B2A_a (65.5s | topic=70w -> out=94w | topic_sim=0.68 | 4g_top=27 | orig>65%=0/3 max_s=0.44 | leaks=[]) ===
+Na tela, quando a inclinação da reta mudava, o aluno tinha que confrontar o valor calculado com o dado medido na atividade. Na SVM por exemplo, ao invés de apenas ajustar o hiperparâmetro para melhor acurácia, o empurrar da fronteira para perto de um grupo possibilita discutir com a turma o porquê do hiperparâmetro (neste caso, a margem) diminuir. O mesmo modo de raciocínio se repete quando o aluno precisa ajustar a quantidade de vizinhos no k-NN, as quebras condicionais na árvore de decisão e o lugar onde os centroides vão ficar no k-means.
+
+=== B2A_b (40.7s | topic=60w -> out=66w | topic_sim=0.91 | 4g_top=39 | orig>65%=0/3 max_s=0.49 | leaks=[]) ===
+Ao deslocar a inclinação da reta, os alunos podem comparar a estimativa gerada com o número observado nos exemplos. De forma semelhante, trazer a fronteira para junto de uma classe abre o debate sobre o estreitamento da margem na SVM. Essa lógica se repete quando os estudantes alteram quantos vizinhos o k-NN considera, mudam as regras de corte da árvore ou reposicionam os centroides no k-means.
+
+=== B2B_a (43.0s | topic=69w -> out=79w | topic_sim=0.50 | 4g_top=31 | orig>65%=0/3 max_s=0.58 | leaks=[]) ===
+Para ilustrar o uso prático da plataforma, as Figuras 2a e 2b mostram dois módulos já abertos e em atividade. Na primeira interface, o estudante trabalha com a atividade de estimativa numérica apoiada na reta, enquanto que na segunda pode visualizar a divisa que separa os casos já rotulados. Em qualquer uma das duas telas, a tarefa consiste em que o aluno preveja o comportamento antes de tocar no controle e justifique posteriormente o que foi observado na prática.
+
+=== B2B_b (37.3s | topic=67w -> out=78w | topic_sim=0.70 | 4g_top=22 | orig>65%=0/3 max_s=0.47 | leaks=[]) ===
+O funcionamento desse percurso se torna mais claro nas Figuras 2a e 2b que exemplificam dois módulos da plataforma. A Figura 2a mostra a tela voltada para o cálculo numérico com base na reta, já a Figura 2b exibe a mesma tela, porém com uma linha de separação entre os exemplos, com um rótulo. Nos dois ambientes apresentados, primeiro é necessário realizar uma previsão, antes de mexer nos ajustes e, após ter explorado o modelo, explicar o resultado.

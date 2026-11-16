@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coletor de Voz Autoral — Luiz Gabriel (v4.0)</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --green: #22c55e;
+      --amber: #f59e0b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px 16px;
+    }
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      display: grid;
+      gap: 18px;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+    }
+    h1 {
+      font-size: 1.25rem;
+      margin: 0;
+    }
+    .stats {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    .badge {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 999px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+    .label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .ai-box {
+      background: #0b1220;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 1.05rem;
+      color: #e2e8f0;
+      min-height: 82px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 130px;
+      background: #0b1220;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      font: inherit;
+      font-size: 1.05rem;
+      resize: vertical;
+    }
+    textarea:focus, .ai-edit:focus {
+      outline: 2px solid var(--accent);
+      border-color: transparent;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    button, a.btn {
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: #0f172a;
+      color: var(--text);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font: inherit;
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    button:hover, a.btn:hover {
+      border-color: var(--accent);
+    }
+    button.primary {
+      background: var(--green);
+      color: #052e16;
+      border-color: var(--green);
+    }
+    button.primary:hover {
+      filter: brightness(1.06);
+    }
+    button.mic-active {
+      background: #dc2626;
+      border-color: #dc2626;
+      color: #fff;
+    }
+    .hint {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--green);
+      color: #052e16;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.2s ease;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .toggle-custom {
+      font-size: 0.82rem;
+      padding: 4px 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Coletor de Frases — Sua Voz Autoral (v4.0)</h1>
+        <div class="hint">Reescreva uma frase por vez do seu jeito (sem copiar o vocabulário da IA).</div>
+      </div>
+      <div class="stats">
+        <span class="badge" id="savedBadge">Salvas: 0</span>
+        <a class="btn" href="/api/export">Baixar JSONL</a>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="label-row">
+        <span>Frase gerada por IA (Entrada)</span>
+        <button type="button" class="toggle-custom" id="toggleCustomBtn">Colar frase própria</button>
+      </div>
+      <div class="ai-box" id="aiDisplay">Carregando frases...</div>
+      <textarea id="aiCustomInput" class="ai-edit" style="display:none; min-height:85px;" placeholder="Cole aqui qualquer frase gerada por IA que você quiser reestruturar..."></textarea>
+    </section>
+
+    <section class="card">
+      <div class="label-row">
+        <span>Como você falaria / escreveria (Saída)</span>
+        <span id="wordCount">0 palavras</span>
+      </div>
+      <textarea id="luizInput" placeholder="Dite ou digite aqui a frase estruturada do seu jeito (sem dois-pontos)..."></textarea>
+      <div class="actions">
+        <div class="btn-group">
+          <button type="button" id="micBtn">Ditar (Microfone)</button>
+          <button type="button" id="skipBtn">Pular frase</button>
+        </div>
+        <button type="button" class="primary" id="saveBtn">Salvar & Próxima (Ctrl+Enter)</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast">Frase salva!</div>
+
+  <script>
+    let queue = [];
+    let index = 0;
+    let customMode = false;
+
+    const aiDisplay = document.getElementById("aiDisplay");
+    const aiCustomInput = document.getElementById("aiCustomInput");
+    const toggleCustomBtn = document.getElementById("toggleCustomBtn");
+    const luizInput = document.getElementById("luizInput");
+    const wordCount = document.getElementById("wordCount");
+    const savedBadge = document.getElementById("savedBadge");
+    const saveBtn = document.getElementById("saveBtn");
+    const skipBtn = document.getElementById("skipBtn");
+    const micBtn = document.getElementById("micBtn");
+    const toast = document.getElementById("toast");
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1600);
+    }
+
+    function updateWordCount() {
+      const words = luizInput.value.trim().split(/\s+/).filter(Boolean).length;
+      wordCount.textContent = `${words} palavra${words === 1 ? "" : "s"}`;
+    }
+
+    function renderCurrent() {
+      if (customMode) return;
+      if (index < queue.length) {
+        aiDisplay.textContent = queue[index];
+      } else {
+        aiDisplay.textContent = "Fila concluída! Use 'Colar frase própria' ou adicione mais frases.";
+      }
+      luizInput.value = "";
+      updateWordCount();
+      luizInput.focus();
+    }
+
+    async function loadQueue() {
+      const res = await fetch("/api/queue");
+      const data = await res.json();
+      queue = data.queue || [];
+      index = 0;
+      savedBadge.textContent = `Salvas: ${data.saved_count || 0}`;
+      renderCurrent();
+    }
+
+    async function saveCurrent() {
+      const inp = customMode ? aiCustomInput.value.trim() : (queue[index] || "").trim();
+      const out = luizInput.value.trim();
+      if (!inp || !out) {
+        showToast("Preencha a frase antes de salvar.");
+        return;
+      }
+      saveBtn.disabled = true;
+      try {
+        const res = await fetch("/api/save", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ input: inp, output: out }),
+        });
+        const data = await res.json();
+        if (data.ok) {
+          savedBadge.textContent = `Salvas: ${data.saved_count}`;
+          showToast("Salva em luiz_frases_gold.jsonl!");
+          if (customMode) {
+            aiCustomInput.value = "";
+            luizInput.value = "";
+            updateWordCount();
+            aiCustomInput.focus();
+          } else {
+            index += 1;
+            renderCurrent();
+          }
+        }
+      } finally {
+        saveBtn.disabled = false;
+      }
+    }
+
+    toggleCustomBtn.addEventListener("click", () => {
+      customMode = !customMode;
+      aiDisplay.style.display = customMode ? "none" : "block";
+      aiCustomInput.style.display = customMode ? "block" : "none";
+      toggleCustomBtn.textContent = customMode ? "Voltar para fila pronta" : "Colar frase própria";
+      (customMode ? aiCustomInput : luizInput).focus();
+    });
+
+    skipBtn.addEventListener("click", () => {
+      if (!customMode && index < queue.length) {
+        index += 1;
+        renderCurrent();
+      }
+    });
+
+    saveBtn.addEventListener("click", saveCurrent);
+    luizInput.addEventListener("input", updateWordCount);
+    luizInput.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        saveCurrent();
+      }
+    });
+
+    // Ditado por voz nativo (pt-BR) se disponível no navegador
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const rec = new SpeechRecognition();
+      rec.lang = "pt-BR";
+      rec.continuous = true;
+      rec.interimResults = false;
+      let active = false;
+
+      rec.onresult = (event) => {
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            const chunk = event.results[i][0].transcript.trim();
+            luizInput.value = (luizInput.value ? luizInput.value.trimEnd() + " " : "") + chunk;
+            updateWordCount();
+          }
+        }
+      };
+      rec.onend = () => {
+        active = false;
+        micBtn.classList.remove("mic-active");
+        micBtn.textContent = "Ditar (Microfone)";
+      };
+      micBtn.addEventListener("click", () => {
+        if (active) {
+          rec.stop();
+        } else {
+          active = true;
+          micBtn.classList.add("mic-active");
+          micBtn.textContent = "Parar ditado";
+          rec.start();
+        }
+      });
+    } else {
+      micBtn.disabled = true;
+      micBtn.title = "Navegador sem suporte a Web Speech API";
+    }
+
+    loadQueue();
+  </script>
+</body>
+</html>

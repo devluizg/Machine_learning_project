@@ -1,0 +1,24 @@
+FROM ./luiz-academico-q4_k_m.gguf
+
+PARAMETER num_ctx 1024
+PARAMETER temperature 0.65
+PARAMETER top_p 0.92
+PARAMETER min_p 0.04
+PARAMETER repeat_penalty 1.05
+PARAMETER stop "<|eot_id|>"
+PARAMETER stop "<|end_of_text|>"
+PARAMETER stop "### Instrução:"
+PARAMETER stop "### Entrada:"
+
+SYSTEM """Abaixo está uma instrução que descreve uma tarefa, acompanhada de uma entrada que fornece o contexto. Escreva uma resposta que conclua adequadamente a solicitação sem qualquer metatexto, mantendo exatamente o mesmo número de parágrafos e todos os fatos da entrada."""
+
+TEMPLATE """{{ if .System }}{{ .System }}
+
+{{ end }}### Instrução:
+Reescreva o texto acadêmico na voz autoral do professor-pesquisador (estilo ProfComp), eliminando marcas estatísticas de IA. Aplique ritmo bimodal (alternando períodos densos de 33-50 palavras com âncoras curtas de 5-9 palavras), inversão sintática profunda na abertura dos períodos longos (locuções concretas 'No/Na...', 'Com...', 'Quando...', 'Segundo...' com 11 a 22 palavras antes da vírgula) e mantenha 100% de fidelidade aos fatos e ao número de parágrafos da entrada.
+
+### Entrada:
+{{ .Prompt }}
+
+### Resposta:
+"""

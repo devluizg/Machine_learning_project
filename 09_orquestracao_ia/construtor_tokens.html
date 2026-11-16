@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Construtor de Próximo Token — Luiz Gabriel</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --green: #22c55e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      padding: 24px 16px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      gap: 16px;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+    h1 { font-size: 1.25rem; margin: 0; }
+    .hint { font-size: 0.88rem; color: var(--muted); }
+    .stats { display: flex; gap: 10px; align-items: center; }
+    .badge {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 999px;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+    .label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+    .preview-box {
+      background: #0b1220;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 1.15rem;
+      min-height: 76px;
+    }
+    .slot-hl {
+      color: #7dd3fc;
+      font-weight: 600;
+      border-bottom: 1px dashed #38bdf8;
+      padding-bottom: 1px;
+    }
+    .slot-block {
+      background: #0b1220;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: grid;
+      gap: 8px;
+    }
+    .slot-title {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chip {
+      cursor: pointer;
+      background: #1e293b;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font: inherit;
+      font-size: 0.94rem;
+      text-align: left;
+      transition: all 0.12s ease;
+    }
+    .chip:hover { border-color: var(--accent); }
+    .chip.selected {
+      background: #0284c7;
+      border-color: #38bdf8;
+      color: #fff;
+      font-weight: 600;
+    }
+    .custom-word {
+      width: 100%;
+      background: #0f172a;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font: inherit;
+      font-size: 0.9rem;
+    }
+    .custom-word:focus, textarea:focus {
+      outline: 2px solid var(--accent);
+      border-color: transparent;
+    }
+    textarea {
+      width: 100%;
+      min-height: 76px;
+      background: #0b1220;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      font: inherit;
+      font-size: 1rem;
+      resize: vertical;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    button, a.btn {
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: #0f172a;
+      color: var(--text);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font: inherit;
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-decoration: none;
+    }
+    button.primary {
+      background: var(--green);
+      color: #052e16;
+      border-color: var(--green);
+    }
+    button.primary:hover { filter: brightness(1.06); }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--green);
+      color: #052e16;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.2s ease;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Construtor de Frases por Escolha de Palavras</h1>
+        <div class="hint">Clique nas opções que combinam com o seu jeito de escrever (ou edite abaixo) e salve.</div>
+      </div>
+      <div class="stats">
+        <span class="badge" id="savedBadge">Salvas: 0 / 20</span>
+        <a class="btn" href="/api/export">Baixar JSONL</a>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="label">Frase montada com as suas escolhas</div>
+      <div class="preview-box" id="previewBox">Carregando...</div>
+      <div id="slotsArea" style="display:grid; gap:10px;"></div>
+    </section>
+
+    <section class="card">
+      <div class="label">Ajuste fino opcional antes de salvar (se quiser mudar algo)</div>
+      <textarea id="finalEdit"></textarea>
+      <div class="actions">
+        <button type="button" id="skipBtn">Pular esta frase</button>
+        <button type="button" class="primary" id="saveBtn">Salvar & Próxima</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast">Salvo!</div>
+
+  <script>
+    let templates = [];
+    let idx = 0;
+    let totalCount = 20;
+    let selections = {};
+
+    const previewBox = document.getElementById("previewBox");
+    const slotsArea = document.getElementById("slotsArea");
+    const finalEdit = document.getElementById("finalEdit");
+    const savedBadge = document.getElementById("savedBadge");
+    const saveBtn = document.getElementById("saveBtn");
+    const skipBtn = document.getElementById("skipBtn");
+    const toast = document.getElementById("toast");
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1500);
+    }
+
+    function buildText(tpl, asHtml = false) {
+      return tpl.segments.map((seg) => {
+        if (typeof seg === "string") return seg;
+        const val = selections[seg.slot] ?? seg.options[0];
+        if (asHtml) {
+          const safe = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+          return `<span class="slot-hl">${safe}</span>`;
+        }
+        return val;
+      }).join("");
+    }
+
+    function refreshPreview() {
+      const tpl = templates[idx];
+      if (!tpl) return;
+      previewBox.innerHTML = buildText(tpl, true);
+      finalEdit.value = buildText(tpl, false).replace(/\s+/g, " ").trim();
+    }
+
+    function renderTemplate() {
+      slotsArea.innerHTML = "";
+      if (idx >= templates.length) {
+        previewBox.textContent = "Todas as 20 frases foram concluídas! Clique em 'Baixar JSONL' para ver o arquivo.";
+        finalEdit.value = "";
+        return;
+      }
+      const tpl = templates[idx];
+      selections = {};
+      tpl.segments.forEach((seg) => {
+        if (typeof seg === "string") return;
+        selections[seg.slot] = seg.options[0];
+
+        const block = document.createElement("div");
+        block.className = "slot-block";
+
+        const title = document.createElement("div");
+        title.className = "slot-title";
+        title.textContent = `Escolha (${seg.slot})`;
+        block.appendChild(title);
+
+        const chips = document.createElement("div");
+        chips.className = "chips";
+
+        const customInput = document.createElement("input");
+        customInput.type = "text";
+        customInput.className = "custom-word";
+        customInput.placeholder = "Ou digite outra palavra/expressão sua aqui...";
+
+        seg.options.forEach((opt, i) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "chip" + (i === 0 ? " selected" : "");
+          btn.textContent = opt;
+          btn.addEventListener("click", () => {
+            chips.querySelectorAll(".chip").forEach((c) => c.classList.remove("selected"));
+            btn.classList.add("selected");
+            customInput.value = "";
+            selections[seg.slot] = opt;
+            refreshPreview();
+          });
+          chips.appendChild(btn);
+        });
+
+        customInput.addEventListener("input", () => {
+          const v = customInput.value.trim();
+          if (v) {
+            chips.querySelectorAll(".chip").forEach((c) => c.classList.remove("selected"));
+            selections[seg.slot] = v;
+          } else {
+            const firstBtn = chips.querySelector(".chip");
+            if (firstBtn) {
+              firstBtn.classList.add("selected");
+              selections[seg.slot] = seg.options[0];
+            }
+          }
+          refreshPreview();
+        });
+
+        block.appendChild(chips);
+        block.appendChild(customInput);
+        slotsArea.appendChild(block);
+      });
+      refreshPreview();
+    }
+
+    async function loadTemplates() {
+      const res = await fetch("/api/templates");
+      const data = await res.json();
+      templates = data.templates || [];
+      totalCount = data.total || 20;
+      idx = 0;
+      savedBadge.textContent = `Salvas: ${data.saved_count || 0} / ${totalCount}`;
+      renderTemplate();
+    }
+
+    async function saveCurrent() {
+      const tpl = templates[idx];
+      const out = finalEdit.value.trim();
+      if (!tpl || !out) return;
+      saveBtn.disabled = true;
+      try {
+        const res = await fetch("/api/save", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            template_id: tpl.id,
+            ai_baseline: tpl.ai_baseline,
+            output: out,
+            choices: selections,
+          }),
+        });
+        const data = await res.json();
+        if (data.ok) {
+          savedBadge.textContent = `Salvas: ${data.saved_count} / ${totalCount}`;
+          showToast("Salva em luiz_escolhas_tokens.jsonl!");
+          idx += 1;
+          renderTemplate();
+        }
+      } finally {
+        saveBtn.disabled = false;
+      }
+    }
+
+    skipBtn.addEventListener("click", () => {
+      if (idx < templates.length) {
+        idx += 1;
+        renderTemplate();
+      }
+    });
+    saveBtn.addEventListener("click", saveCurrent);
+    loadTemplates();
+  </script>
+</body>
+</html>

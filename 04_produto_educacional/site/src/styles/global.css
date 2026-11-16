@@ -302,3 +302,11 @@ button,.hero-cta,.primer-link,.hero-mini-cta,.home-support a,.support-actions a,
 .module-page .practice-card strong,.practice-card strong{color:var(--sky)!important;font-weight:800!important;font-size:13.5px!important;display:block!important;margin-bottom:6px!important}
 .module-page .practice-card>div>p:last-child strong,.practice-card>div>p:last-child strong{color:var(--orange)!important}
 @media(max-width:700px){.module-page .practice-card>div,.practice-card>div{grid-template-columns:1fr!important}}
+
+/* Leitura estruturada de valores no cartão O QUE ACONTECEU (alinhamento com a sequência didática) */
+.outcome-metrics{display:grid;gap:8px;margin:10px 0 12px}
+.outcome-metric-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:8px 12px;background:rgba(255,255,255,.78);border:1px solid rgba(13,102,140,.18);border-radius:10px;font-size:13px}
+.outcome-metric-row span{color:#1e293b;font-weight:600}
+.outcome-metric-row strong{color:#0d668c;font-size:15px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.outcome-subnote{margin:0;font-size:12.5px;line-height:1.5;color:#334155}
+
