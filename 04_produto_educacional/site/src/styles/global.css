@@ -322,4 +322,12 @@ button,.hero-cta,.primer-link,.hero-mini-cta,.home-support a,.support-actions a,
 .control-actions .guide-instruction,.control-actions .range-control,.control-actions .segmented-control{margin-bottom:0}
 @media(max-width:960px){.control-horizontal{grid-template-columns:1fr}}
 
+/* Alto contraste com letra branca no cartão VERIFIQUE O QUE ENTENDEU */
+.module-page .quick-check,.quick-check{background:rgba(10,27,54,.88)!important;border:1px solid rgba(135,175,215,.25)!important;color:#ffffff!important}
+.module-page .quick-check .tiny-label,.quick-check .tiny-label{color:#ffffff!important}
+.module-page .quick-check h3,.quick-check h3{color:#ffffff!important}
+.module-page .quick-option,.quick-option{color:var(--ink)!important}
+.module-page .quick-feedback,.quick-feedback{color:#ffffff!important}
+
+
 
