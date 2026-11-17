@@ -329,5 +329,25 @@ button,.hero-cta,.primer-link,.hero-mini-cta,.home-support a,.support-actions a,
 .module-page .quick-option,.quick-option{color:var(--ink)!important}
 .module-page .quick-feedback,.quick-feedback{color:#ffffff!important}
 
+/* Quadrados dos resíduos, barra de área total e tigela do erro (Mínimos Quadrados) */
+.residual-square{fill:rgba(255,107,61,.15);stroke:rgba(255,107,61,.78);stroke-width:1.4;transition:all .12s ease}
+.squares-panel{display:grid;grid-template-columns:1.25fr 1fr;gap:16px;margin-top:14px;padding:14px 16px;background:#f7fafc;border:1px solid var(--line);border-radius:16px;align-items:center}
+.squares-summary-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px;font-size:13px;color:var(--ink)}
+.squares-summary-head strong{color:#0d668c;font-size:16px;font-variant-numeric:tabular-nums}
+.sse-bar{display:flex;height:18px;width:100%;background:#e2e8f0;border-radius:8px;overflow:hidden;border:1px solid rgba(8,29,61,.14)}
+.sse-segment{height:100%;background:linear-gradient(180deg,#ff855e 0%,#ff6b3d 100%);border-right:1px solid rgba(255,255,255,.8);transition:width .15s ease}
+.sse-segment:last-child{border-right:0}
+.squares-caption{margin:8px 0 0;font-size:12px;line-height:1.45;color:#334155}
+.bowl-box{display:grid;gap:4px}
+.bowl-box strong{font-size:12.5px;color:var(--ink)}
+.bowl-svg{width:100%;height:auto;max-height:112px;display:block}
+.bowl-axis{stroke:#94a3b8;stroke-width:1}
+.bowl-curve{fill:none;stroke:#0d668c;stroke-width:2.5;stroke-linecap:round}
+.bowl-min-line{stroke:#0d668c;stroke-width:1.25;stroke-dasharray:3 3;opacity:.65}
+.bowl-dot{fill:#ff6b3d;stroke:#ffffff;stroke-width:2}
+.bowl-label{font-size:10px;fill:#475569;font-weight:700}
+@media(max-width:760px){.squares-panel{grid-template-columns:1fr}}
+
+
 
 
