@@ -188,17 +188,25 @@ export function LessonActivitySheet({ spec }: { spec: LessonActivitySpec }) {
     };
 
     try {
-      await fetch(GOOGLE_SCRIPT_URL, {
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
-        mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(payload),
       });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const result = (await response.json()) as { ok?: boolean; error?: string };
+      if (!result.ok) {
+        throw new Error(result.error ?? 'Falha ao gravar na planilha.');
+      }
       const now = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
       setSubmittedAt(now);
       persistLesson(answers, savedTime ?? now, now);
     } catch {
-      setSendError('Não foi possível enviar pela internet. Clique em "Baixar respostas (.txt)" para não perder seu registro.');
+      setSendError(
+        'Não foi possível confirmar o envio na planilha (verifique a URL do Apps Script ou a permissão "Qualquer pessoa"). Use "Baixar respostas (.txt)" para não perder seu registro.',
+      );
     } finally {
       setSending(false);
     }
