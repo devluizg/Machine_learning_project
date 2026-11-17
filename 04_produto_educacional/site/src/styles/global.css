@@ -378,6 +378,18 @@ button,.hero-cta,.primer-link,.hero-mini-cta,.home-support a,.support-actions a,
 .activity-error{margin:16px 0 0;padding:12px 14px;border-radius:12px;background:#fff1ec;border:1px solid #f5b69f;color:#9a3412;font-size:13px;font-weight:700}
 .activity-submitted-banner{margin:16px 0 0;padding:12px 14px;border-radius:12px;background:#e6f6ee;border:1px solid #86efac;color:#166534;font-size:13px;font-weight:700}
 .activity-question-item textarea:disabled,.activity-participant-box input:disabled{background:#f1f5f9;color:#475569;cursor:not-allowed}
+.activity-question-header{display:grid;gap:4px}
+.activity-question-header strong{font-size:14.5px;color:var(--navy)}
+.activity-question-header span{font-size:13.5px;line-height:1.55;color:#334155}
+.activity-fill-table{width:100%;border-collapse:collapse;background:#ffffff;border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:460px}
+.activity-fill-table th{background:#eef5fa;color:var(--navy);font-size:12px;font-weight:800;text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+.activity-fill-table td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.activity-fill-table tr:last-child td{border-bottom:0}
+.activity-table-label{font-size:13px;font-weight:700;color:#1e293b;width:40%}
+.activity-fill-table input{width:100%;box-sizing:border-box;padding:9px 11px;border:1px solid #94a3b8;border-radius:10px;font-size:13px;background:#ffffff;color:var(--ink)}
+.activity-fill-table input:focus{outline:2px solid var(--orange);border-color:var(--orange)}
+.activity-fill-table input:disabled{background:#f1f5f9;color:#475569;cursor:not-allowed}
+
 
 
 

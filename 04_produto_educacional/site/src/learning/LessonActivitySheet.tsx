@@ -6,11 +6,21 @@ export const GOOGLE_SCRIPT_URL: string =
   import.meta.env.VITE_GOOGLE_SCRIPT_URL ??
   'https://script.google.com/macros/s/AKfycbz41lkTQqjEYGwkxlYTja9K8yVmQnEpTeiu6JM2F2qDy2H_r0evCHyE-pcTnrHPgP8y/exec';
 
+export interface TableQuestionSpec {
+  columns: readonly string[];
+  rows: readonly {
+    id: string;
+    label: string;
+    placeholder?: string;
+  }[];
+}
+
 export interface ActivityQuestion {
   id: string;
   title: string;
   prompt: string;
   rows?: number;
+  table?: TableQuestionSpec;
 }
 
 export interface LessonActivitySpec {
@@ -57,6 +67,37 @@ function loadPredictionNote(moduleId: string): string {
   } catch {
     return '';
   }
+}
+
+function cellKey(questionId: string, rowId: string, colIndex: number): string {
+  return `${questionId}__${rowId}__c${colIndex}`;
+}
+
+function formatQuestionAnswer(q: ActivityQuestion, answers: Record<string, string>): string {
+  if (!q.table) {
+    return (answers[q.id] ?? '').trim();
+  }
+  const valueCols = q.table.columns.slice(1);
+  const formattedRows = q.table.rows.map((row) => {
+    const colsText = valueCols
+      .map((colName, idx) => {
+        const val = (answers[cellKey(q.id, row.id, idx)] ?? '').trim() || '(em branco)';
+        return valueCols.length === 1 ? val : `${colName}: ${val}`;
+      })
+      .join(' | ');
+    return `${row.label}: ${colsText}`;
+  });
+  return formattedRows.join('\n');
+}
+
+function isQuestionAnswered(q: ActivityQuestion, answers: Record<string, string>): boolean {
+  if (!q.table) {
+    return (answers[q.id] ?? '').trim().length > 0;
+  }
+  const valueColCount = q.table.columns.length - 1;
+  return q.table.rows.some((row) =>
+    Array.from({ length: valueColCount }, (_, idx) => (answers[cellKey(q.id, row.id, idx)] ?? '').trim().length > 0).some(Boolean),
+  );
 }
 
 function triggerDownload(filename: string, content: string, mimeType: string) {
@@ -110,9 +151,9 @@ export function LessonActivitySheet({ spec }: { spec: LessonActivitySpec }) {
     }
   };
 
-  const handleAnswerChange = (questionId: string, value: string) => {
+  const handleAnswerChange = (key: string, value: string) => {
     if (submittedAt) return;
-    const nextAnswers = { ...answers, [questionId]: value };
+    const nextAnswers = { ...answers, [key]: value };
     const now = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     setAnswers(nextAnswers);
     setSavedTime(now);
@@ -142,7 +183,7 @@ export function LessonActivitySheet({ spec }: { spec: LessonActivitySpec }) {
       responses: spec.questions.map((q) => ({
         id: q.id,
         title: q.title,
-        answer: (answers[q.id] ?? '').trim(),
+        answer: formatQuestionAnswer(q, answers),
       })),
     };
 
@@ -188,7 +229,7 @@ export function LessonActivitySheet({ spec }: { spec: LessonActivitySpec }) {
     spec.questions.forEach((q) => {
       lines.push(`--- ${q.title} ---`);
       lines.push(`Pergunta: ${q.prompt}`);
-      lines.push(`Resposta: ${(answers[q.id] ?? '').trim() || '(em branco)'}`);
+      lines.push(`Resposta:\n${formatQuestionAnswer(q, answers) || '(em branco)'}`);
       lines.push(``);
     });
 
@@ -218,7 +259,7 @@ export function LessonActivitySheet({ spec }: { spec: LessonActivitySpec }) {
     }
   };
 
-  const answeredCount = spec.questions.filter((q) => (answers[q.id] ?? '').trim().length > 0).length;
+  const answeredCount = spec.questions.filter((q) => isQuestionAnswered(q, answers)).length;
   const isLocked = Boolean(submittedAt);
 
   return (
@@ -248,18 +289,55 @@ export function LessonActivitySheet({ spec }: { spec: LessonActivitySpec }) {
       <div className="activity-questions-grid">
         {spec.questions.map((q) => (
           <div className="activity-question-item" key={q.id}>
-            <label htmlFor={`q-${spec.moduleId}-${q.id}`}>
+            <div className="activity-question-header">
               <strong>{q.title}</strong>
               <span>{q.prompt}</span>
-            </label>
-            <textarea
-              disabled={isLocked}
-              id={`q-${spec.moduleId}-${q.id}`}
-              onChange={(e) => handleAnswerChange(q.id, e.target.value)}
-              placeholder="Escreva sua resposta e explique como pensou..."
-              rows={q.rows ?? 3}
-              value={answers[q.id] ?? ''}
-            />
+            </div>
+            {q.table ? (
+              <div className="table-scroll">
+                <table className="activity-fill-table">
+                  <thead>
+                    <tr>
+                      {q.table.columns.map((col) => (
+                        <th key={col}>{col}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {q.table.rows.map((row) => (
+                      <tr key={row.id}>
+                        <td className="activity-table-label">{row.label}</td>
+                        {q.table!.columns.slice(1).map((colName, colIdx) => {
+                          const key = cellKey(q.id, row.id, colIdx);
+                          return (
+                            <td key={key}>
+                              <input
+                                aria-label={`${row.label} — ${colName}`}
+                                disabled={isLocked}
+                                onChange={(e) => handleAnswerChange(key, e.target.value)}
+                                placeholder={row.placeholder ?? 'Digite aqui...'}
+                                type="text"
+                                value={answers[key] ?? ''}
+                              />
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <textarea
+                aria-label={q.title}
+                disabled={isLocked}
+                id={`q-${spec.moduleId}-${q.id}`}
+                onChange={(e) => handleAnswerChange(q.id, e.target.value)}
+                placeholder="Escreva sua resposta e explique como pensou..."
+                rows={q.rows ?? 3}
+                value={answers[q.id] ?? ''}
+              />
+            )}
           </div>
         ))}
       </div>

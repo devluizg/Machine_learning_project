@@ -16,8 +16,14 @@ export const lessonActivities: Record<string, LessonActivitySpec> = {
       {
         id: 'q2-variaveis',
         title: '2. Leitura das variáveis',
-        prompt: 'Qual é o valor usado como entrada e qual é o valor que queremos prever?',
-        rows: 2,
+        prompt: 'Complete a tabela identificando o que entra no modelo e o que queremos prever:',
+        table: {
+          columns: ['Papel na tarefa', 'Sua resposta'],
+          rows: [
+            { id: 'entrada', label: 'Valor usado como entrada', placeholder: 'Ex.: número de passos' },
+            { id: 'saida', label: 'Valor que queremos prever', placeholder: 'Ex.: distância percorrida (m)' },
+          ],
+        },
       },
       {
         id: 'q3-caso-novo',
@@ -26,16 +32,28 @@ export const lessonActivities: Record<string, LessonActivitySpec> = {
         rows: 2,
       },
       {
+        id: 'q4-hipotese',
+        title: '4. Hipótese antes de alterar a reta',
+        prompt: 'Para 20 passos, a previsão de distância tende a aumentar, diminuir ou permanecer igual quando a inclinação da reta aumenta? Explique.',
+        rows: 2,
+      },
+      {
         id: 'q5-registro-exploracao',
-        title: '4 e 5. Registro da exploração (Antes e Depois)',
-        prompt:
-          'Anote os valores mostrados no painel "O QUE ACONTECEU" antes e depois de aumentar a inclinação: (a) Inclinação da reta, (b) Previsão para 20 passos, (c) Erro médio mostrado (MSE).',
-        rows: 3,
+        title: '5. Registro da exploração (Antes e Depois)',
+        prompt: 'Anote na tabela abaixo os valores mostrados no painel "O QUE ACONTECEU" antes e depois de aumentar a inclinação:',
+        table: {
+          columns: ['Situação', 'Antes da alteração', 'Depois da alteração'],
+          rows: [
+            { id: 'inclinacao', label: 'Inclinação da reta', placeholder: 'Ex.: 0,45 m/passo' },
+            { id: 'previsao20', label: 'Previsão para 20 passos', placeholder: 'Ex.: 9,50 m' },
+            { id: 'erro-medio', label: 'Erro médio mostrado (MSE)', placeholder: 'Ex.: 4,212 m²' },
+          ],
+        },
       },
       {
         id: 'q6-comparacao-hipotese',
         title: '6. Compare sua hipótese',
-        prompt: 'O resultado confirmou ou contrariou sua previsão inicial? Explique o que mudou no gráfico e nos quadrados dos erros.',
+        prompt: 'O resultado confirmou ou contrariou sua previsão do item 4? Explique o que mudou no gráfico e nos quadrados dos erros.',
         rows: 2,
       },
       {
@@ -60,10 +78,16 @@ export const lessonActivities: Record<string, LessonActivitySpec> = {
       },
       {
         id: 'q10-sintese',
-        title: 'Síntese final',
-        prompt:
-          'Complete a frase explicando com suas palavras: "A regressão linear usa uma reta para representar uma ________. A reta produz uma ________ numérica. A diferença entre o valor observado e o previsto é chamada de ________."',
-        rows: 2,
+        title: 'Síntese final para completar',
+        prompt: 'Preencha cada lacuna da síntese:',
+        table: {
+          columns: ['Trecho da frase', 'Palavra que completa'],
+          rows: [
+            { id: 'lacuna1', label: 'A regressão linear usa uma reta para representar uma...', placeholder: 'Digite a palavra' },
+            { id: 'lacuna2', label: 'A reta produz uma ... numérica.', placeholder: 'Digite a palavra' },
+            { id: 'lacuna3', label: 'A diferença entre o valor observado e o previsto é chamada de...', placeholder: 'Digite a palavra' },
+          ],
+        },
       },
     ],
   },
