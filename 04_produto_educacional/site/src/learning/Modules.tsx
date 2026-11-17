@@ -38,18 +38,23 @@ function Lab({ question, predictionQuestion, scenario, concept, guidedAction, wo
   return <>
     <div className="lab-intro"><span className="section-number">01 / ENTENDA O PROBLEMA</span><h2>{question}</h2><p>{scenario}</p><p className="concept-line"><strong>Ideia principal:</strong> {concept}</p><div className="learning-mode" role="group" aria-label="Modo de aprendizagem"><button aria-pressed={learningMode === 'guiado'} onClick={() => { if (learningMode !== 'guiado') onEnterGuided(); setLearningMode('guiado'); }} type="button">Modo aula</button><button aria-pressed={learningMode === 'livre'} onClick={() => setLearningMode('livre')} type="button">Aprofundamento opcional</button></div><p className="mode-hint">{learningMode === 'guiado' ? 'Siga apenas a ação indicada para este encontro. O aprofundamento fica disponível depois da atividade principal.' : 'Controles avançados e vistas 3D estão liberados. Voltar ao modo aula restaura o exercício obrigatório.'}</p></div>
     <div className="lab-grid">
-      <section className="visual-card" aria-label="Visualização do experimento"><div className="visual-card-head"><span className="tiny-label">EXPERIMENTO VISUAL</span><span className="synthetic-badge">Dados sintéticos</span></div>{visual}</section>
-      <aside className="control-card">
+      <section className="visual-card" aria-label="Visualização do experimento">
+        <div className="visual-card-head"><span className="tiny-label">EXPERIMENTO VISUAL</span><span className="synthetic-badge">Dados sintéticos</span></div>
+        <div className="visual-workspace">
+          <div className="visual-stage">{visual}</div>
+          <aside className="visual-sidebar" aria-label="Controles e resultados do experimento">
+            <div className="control-actions">{learningMode === 'guiado' ? guidedAction : children}</div>
+            <div aria-live="polite" className="outcome-card"><span className="tiny-label">O QUE ACONTECEU</span>{result}</div>
+          </aside>
+        </div>
+      </section>
+      <section className="control-card prediction-card">
         <div className="control-card-head">
           <span className="section-number">02 / PREVEJA E EXPERIMENTE</span>
           <h3>{learningMode === 'guiado' ? 'Faça um teste de cada vez' : 'Controle o modelo'}</h3>
         </div>
-        <div className="control-horizontal">
-          <div className="prediction-prompt"><label htmlFor="prediction-note">Antes de alterar: {predictionQuestion}</label><textarea id="prediction-note" placeholder="Eu acho que..." rows={3} /></div>
-          <div className="control-actions">{learningMode === 'guiado' ? guidedAction : children}</div>
-          <div aria-live="polite" className="outcome-card"><span className="tiny-label">O QUE ACONTECEU</span>{result}</div>
-        </div>
-      </aside>
+        <div className="prediction-prompt"><label htmlFor="prediction-note">Antes de alterar: {predictionQuestion}</label><textarea id="prediction-note" placeholder="Eu acho que..." rows={2} /></div>
+      </section>
     </div>
     {learningMode === 'guiado' && <div className="worked-card"><span className="section-number">03 / VEJA A CONTA ACONTECER</span>{workedExample}</div>}
     <div className="learning-bottom"><section className="math-card"><span className="section-number">04 / LIGUE À MATEMÁTICA</span><div className="formula">{formula.split('•').map((expression, index) => <span className="formula-expression" key={`${question}-formula-${index}`}>{expression.trim()}</span>)}</div><p>{note}</p></section><section className="reflection-card"><span className="section-number">05 / EXPLIQUE</span><label htmlFor="student-note">O que mudou quando você alterou o controle? Explique com suas palavras.</label><textarea id="student-note" key={question} placeholder="Minha hipótese é que..." rows={3} /><small>Rascunho local: não é enviado nem salvo.</small></section></div>
