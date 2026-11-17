@@ -354,6 +354,33 @@ button,.hero-cta,.primer-link,.hero-mini-cta,.home-support a,.support-actions a,
 .bowl-label{font-size:10px;fill:#475569;font-weight:700}
 @media(max-width:760px){.squares-panel{grid-template-columns:1fr}}
 
+/* Folha Digital do Estudante (05 / ATIVIDADE DA SEQUÊNCIA DIDÁTICA) */
+.math-card-wide{margin-top:18px}
+.activity-sheet-card{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--orange);border-radius:24px;padding:28px;margin-top:18px;box-shadow:0 14px 34px rgba(2,8,20,.35);color:var(--ink)}
+.activity-sheet-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:16px}
+.activity-sheet-head h3{font:400 26px/1.25 Georgia,serif;margin:6px 0 0;color:var(--navy)}
+.activity-participant-box{display:grid;gap:6px;min-width:240px}
+.activity-participant-box label{font-size:12px;font-weight:800;color:var(--navy)}
+.activity-participant-box input{padding:10px 14px;border:1px solid #94a3b8;border-radius:12px;font-size:13.5px;background:#f8fafc;color:var(--ink)}
+.activity-situation{background:#f1f7fb;border:1px solid rgba(130,200,238,.45);border-radius:14px;padding:14px 16px;font-size:13.5px;line-height:1.6;margin:0 0 18px;color:#1e293b}
+.activity-questions-grid{display:grid;gap:16px}
+.activity-question-item{display:grid;gap:8px;padding:16px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}
+.activity-question-item label{display:grid;gap:4px;cursor:pointer}
+.activity-question-item label strong{font-size:14.5px;color:var(--navy)}
+.activity-question-item label span{font-size:13.5px;line-height:1.55;color:#334155}
+.activity-question-item textarea{width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid #94a3b8;border-radius:12px;background:#ffffff;font-size:13.5px;line-height:1.5;color:var(--ink);resize:vertical;font-family:inherit}
+.activity-question-item textarea:focus,.activity-participant-box input:focus{outline:2px solid var(--orange);border-color:var(--orange)}
+.activity-sheet-footer{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.activity-status{display:grid;gap:3px}
+.activity-status span{font-size:13px;font-weight:700;color:#0d668c}
+.activity-status small{font-size:12px;color:#475569}
+.activity-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.activity-error{margin:16px 0 0;padding:12px 14px;border-radius:12px;background:#fff1ec;border:1px solid #f5b69f;color:#9a3412;font-size:13px;font-weight:700}
+.activity-submitted-banner{margin:16px 0 0;padding:12px 14px;border-radius:12px;background:#e6f6ee;border:1px solid #86efac;color:#166534;font-size:13px;font-weight:700}
+.activity-question-item textarea:disabled,.activity-participant-box input:disabled{background:#f1f5f9;color:#475569;cursor:not-allowed}
+
+
+
 
 
 
