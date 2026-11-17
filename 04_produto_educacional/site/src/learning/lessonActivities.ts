@@ -3,64 +3,64 @@ import type { LessonActivitySpec } from './LessonActivitySheet';
 export const lessonActivities: Record<string, LessonActivitySpec> = {
   'diagnostico-inicial': {
     moduleId: 'diagnostico-inicial',
-    lessonTitle: 'Aula 1: Diagnóstico inicial — dados, modelos e decisões',
+    lessonTitle: 'Aula 1: Diagnóstico inicial — como computadores aprendem com dados',
     situation:
-      'Este diagnóstico não é uma prova e não vale nota. Responda individualmente e escreva como você pensou, mesmo que não tenha certeza. Não é necessário conhecer inteligência artificial ou programação.',
+      'Este questionário NÃO é prova e NÃO vale nota. Responda do seu jeito, explicando como você pensou. Não precisa saber programação nem inteligência artificial — se não tiver certeza, escreva o que você imagina.',
     questions: [
       {
         id: 'q1-entradas-saida',
-        title: 'Questão 1 — O que entra no sistema e o que ele deve produzir?',
+        title: 'Questão 1 — O que o sistema recebe e o que ele precisa descobrir?',
         prompt:
-          'Consulte a tabela de consumo de energia da escola acima (Dias 1 a 4) e responda aos três itens:',
+          'Olhe a tabela lá em cima com os 4 dias anotados na escola (temperatura, pessoas na sala e gasto de energia). A escola quer usar esses dados para prever o gasto de energia de outros dias:',
         table: {
-          columns: ['Item da questão', 'Sua resposta'],
+          columns: ['Pergunta', 'Sua resposta'],
           rows: [
             {
               id: 'a-estimar',
-              label: 'a) Qual informação da tabela representa o resultado que a escola deseja estimar?',
-              placeholder: 'Digite sua resposta...',
+              label: 'a) Qual coluna da tabela mostra o que a escola quer descobrir (prever)?',
+              placeholder: 'Escreva o nome da coluna...',
             },
             {
               id: 'b-entradas',
-              label: 'b) Quais informações poderiam ajudar a produzir essa estimativa?',
-              placeholder: 'Digite sua resposta...',
+              label: 'b) Quais informações da tabela ajudam o sistema a fazer essa previsão?',
+              placeholder: 'Escreva quais colunas ajudam...',
             },
             {
               id: 'c-origem',
-              label: 'c) O que você gostaria de saber sobre a origem desses dados antes de confiar na estimativa?',
-              placeholder: 'Digite sua resposta...',
+              label: 'c) Antes de confiar nesse resultado, o que você perguntaria sobre como esses dados foram anotados?',
+              placeholder: 'Ex.: quem mediu, se o aparelho estava certo...',
             },
           ],
         },
       },
       {
         id: 'q2-previsao-tabela',
-        title: 'Questão 2 — Lendo a tabela para formular uma previsão',
+        title: 'Questão 2 — Fazendo uma previsão pela tabela',
         prompt:
-          'Observe novamente a tabela da Questão 1. Imagine um quinto dia com temperatura de 29 °C e quantidade de pessoas semelhante à dos dias 3 e 4. Sem fazer um cálculo exato, você espera que o consumo fique mais próximo de 5 ou de 10 unidades? Explique como os valores da tabela ajudaram você a responder.',
+          'Olhe a tabela de novo. Imagine um 5º dia com temperatura de 29 °C e uma quantidade de pessoas parecida com a dos dias 3 e 4. Sem fazer conta exata, você acha que o gasto de energia vai ficar mais perto de 5 ou de 10? Explique como a tabela ajudou você a pensar nisso.',
         rows: 4,
       },
       {
         id: 'q3-fronteira-classes',
-        title: 'Questão 3 — Quando uma fronteira entre classes muda',
+        title: 'Questão 3 — Quando a regra de separação muda',
         prompt:
-          'Um conjunto de sementes fictícias é descrito por comprimento e largura. Uma regra separa as classes A e B: quando a soma das duas medidas é igual ou maior que 12, a semente recebe a classe B; nos demais casos, recebe a classe A. Uma nova semente mede 6 de comprimento e 5 de largura.',
+          'Um aplicativo separa frutas em Tipo A e Tipo B usando duas medidas: tamanho e peso. A regra do aplicativo é: se (tamanho + peso) der 12 ou mais, a fruta vai para o Tipo B; se der menos que 12, vai para o Tipo A. Chegou uma fruta nova com tamanho 6 e peso 5.',
         table: {
-          columns: ['Item da questão', 'Sua resposta'],
+          columns: ['Pergunta', 'Sua resposta'],
           rows: [
             {
               id: 'a-regra-inicial',
-              label: 'a) Qual classe será indicada pela regra inicial (soma ≥ 12)?',
-              placeholder: 'Digite a classe e explique...',
+              label: 'a) Pela regra inicial (soma 12 ou mais), essa fruta vai para o Tipo A ou Tipo B?',
+              placeholder: 'Diga o tipo e explique a conta...',
             },
             {
               id: 'b-nova-fronteira',
-              label: 'b) Se a fronteira mudar e a classe B exigir soma ≥ 10, qual classe será indicada?',
-              placeholder: 'Digite a classe e explique...',
+              label: 'b) E se mudarem a regra do aplicativo para (soma 10 ou mais)? Para qual tipo ela vai agora?',
+              placeholder: 'Diga o tipo e explique...',
             },
             {
               id: 'c-medidas',
-              label: 'c) As medidas da semente mudaram quando a fronteira foi alterada? Explique.',
+              label: 'c) Quando o aplicativo mudou a regra, a fruta mudou de tamanho ou de peso? Explique.',
               placeholder: 'Sim ou não, e por quê...',
             },
           ],
@@ -68,35 +68,35 @@ export const lessonActivities: Record<string, LessonActivitySpec> = {
       },
       {
         id: 'q4-grupos-sem-rotulo',
-        title: 'Questão 4 — Organizando locais sem categorias prontas',
+        title: 'Questão 4 — Juntando pontos parecidos sem nome pronto',
         prompt:
-          'Uma equipe marcou em um mapa seis pontos fictícios de coleta de materiais recicláveis. Alguns pontos ficam próximos entre si. A equipe quer formar conjuntos de locais próximos para planejar as rotas, mas ainda não definiu nomes ou categorias para esses conjuntos.',
+          'Estudantes marcaram num mapa 6 pontos do bairro para recolher garrafas recicláveis. Alguns pontos ficam bem perto uns dos outros. Eles querem juntar os pontos próximos em grupos para organizar as rotas, mas ainda não deram nome nem categoria para nenhum grupo.',
         table: {
-          columns: ['Item da questão', 'Sua resposta'],
+          columns: ['Pergunta', 'Sua resposta'],
           rows: [
             {
               id: 'a-produzir',
-              label: 'a) O que a equipe deseja produzir com os pontos do mapa?',
-              placeholder: 'Digite sua resposta...',
+              label: 'a) O que eles querem descobrir olhando os pontos no mapa?',
+              placeholder: 'Escreva com suas palavras...',
             },
             {
               id: 'b-distancia',
-              label: 'b) Como a distância entre os pontos pode ajudar nessa tarefa?',
-              placeholder: 'Digite sua resposta...',
+              label: 'b) Como a distância entre os pontos ajuda a montar esses grupos?',
+              placeholder: 'Escreva como a proximidade ajuda...',
             },
             {
               id: 'c-definidos-antes',
-              label: 'c) Os conjuntos precisam estar definidos antes da análise? Explique.',
-              placeholder: 'Digite sua resposta...',
+              label: 'c) Eles precisam saber o nome de cada grupo antes de começar? Explique.',
+              placeholder: 'Sim ou não, e por quê...',
             },
           ],
         },
       },
       {
         id: 'q5-limites-decisao',
-        title: 'Questão 5 — Limites de uma decisão automatizada',
+        title: 'Questão 5 — Quando uma regra automática pode falhar',
         prompt:
-          'Uma escola pensa em usar um sistema para indicar quais salas precisam de manutenção. O sistema considera somente a temperatura: se estiver acima de 30 °C, a sala recebe o aviso "verificar manutenção". Você considera suficiente tomar a decisão usando apenas essa informação? Explique sua resposta, indique uma informação adicional que poderia ajudar e diga como ela poderia mudar a decisão.',
+          'Uma escola quer usar um sistema automático que avisa quando uma sala precisa de manutenção. A única regra do sistema é: se a temperatura passar de 30 °C, aparece o aviso "verificar manutenção". Você acha que olhar só a temperatura basta para tomar essa decisão? Explique por quê, diga mais uma informação que ajudaria e como ela poderia mudar o aviso.',
         rows: 5,
       },
     ],

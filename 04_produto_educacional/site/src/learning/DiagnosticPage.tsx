@@ -19,11 +19,11 @@ export function DiagnosticPage() {
           <span className="pill-badge">Aula 1 · Instrumento preliminar</span>
         </div>
         <div className="module-hero-body">
-          <span className="section-number">DIAGNÓSTICO INICIAL</span>
-          <h1>Dados, modelos e decisões</h1>
+          <span className="section-number">DIAGNÓSTICO INICIAL · AULA 1</span>
+          <h1>Como computadores aprendem com dados</h1>
           <p>
-            Este diagnóstico não é uma prova e não vale nota. Responda individualmente e escreva como você pensou,
-            mesmo que não tenha certeza.
+            Este questionário <strong>não é prova</strong> e <strong>não vale nota</strong>. Responda do seu jeito,
+            explicando como você pensou — não precisa saber programação nem inteligência artificial.
           </p>
         </div>
       </section>
@@ -31,10 +31,10 @@ export function DiagnosticPage() {
       <div className="module-content">
         <section className="worked-card" aria-label="Tabela de apoio para as Questões 1 e 2">
           <span className="section-number">DADOS DE APOIO · QUESTÕES 1 E 2</span>
-          <h3>Uso de uma sala da escola em quatro dias fictícios</h3>
+          <h3>Anotações de uma sala da escola em 4 dias</h3>
           <p>
-            A escola quer usar registros como esses para estimar o consumo de energia em outro dia. Use esta tabela
-            para responder às Questões 1 e 2 abaixo.
+            A escola anotou a temperatura, quantas pessoas estavam na sala e o gasto de energia em 4 dias. Use esta
+            tabela para responder às Questões 1 e 2 logo abaixo.
           </p>
           <div className="table-scroll">
             <table className="activity-fill-table">
@@ -43,7 +43,7 @@ export function DiagnosticPage() {
                   <th>Dia</th>
                   <th>Temperatura</th>
                   <th>Pessoas na sala</th>
-                  <th>Consumo de energia</th>
+                  <th>Gasto de energia</th>
                 </tr>
               </thead>
               <tbody>
