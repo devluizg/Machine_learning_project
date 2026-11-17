@@ -4,6 +4,12 @@ Este documento registra decisões confirmadas e evita que sugestões sejam trata
 
 ## Decisões confirmadas
 
+### 2026-11-17 — Folhas digitais das sequências didáticas, Diagnóstico Inicial e envio para planilha docente
+
+- Por decisão de Luiz Gabriel, as folhas das sequências didáticas (Aulas 2 a 6) e o Diagnóstico Inicial (Aula 1, rota `#/diagnostico`) passaram a integrar o site em formato digital (incluindo tabelas pré-desenhadas), substituindo o uso de papel em sala de aula.
+- O estudante informa seu nome completo na folha digital e envia as respostas diretamente para uma planilha privada do pesquisador via Google Apps Script (`GOOGLE_SCRIPT_URL`), com trava pós-envio na tela e opção de download local (`.txt`) como contingência offline.
+- A anonimização por códigos (`P01`, `P02` etc.) será realizada posteriormente pelo pesquisador na etapa de tratamento e análise dos dados, mantendo os arquivos públicos do repositório livres de quaisquer dados identificáveis de participantes.
+
 ### 2026-10-23 — Nome do produto educacional
 
 - A identificação visual do site passa a ser `Machine Learning Project`.

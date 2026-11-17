@@ -1,6 +1,106 @@
 import type { LessonActivitySpec } from './LessonActivitySheet';
 
 export const lessonActivities: Record<string, LessonActivitySpec> = {
+  'diagnostico-inicial': {
+    moduleId: 'diagnostico-inicial',
+    lessonTitle: 'Aula 1: Diagnóstico inicial — dados, modelos e decisões',
+    situation:
+      'Este diagnóstico não é uma prova e não vale nota. Responda individualmente e escreva como você pensou, mesmo que não tenha certeza. Não é necessário conhecer inteligência artificial ou programação.',
+    questions: [
+      {
+        id: 'q1-entradas-saida',
+        title: 'Questão 1 — O que entra no sistema e o que ele deve produzir?',
+        prompt:
+          'Consulte a tabela de consumo de energia da escola acima (Dias 1 a 4) e responda aos três itens:',
+        table: {
+          columns: ['Item da questão', 'Sua resposta'],
+          rows: [
+            {
+              id: 'a-estimar',
+              label: 'a) Qual informação da tabela representa o resultado que a escola deseja estimar?',
+              placeholder: 'Digite sua resposta...',
+            },
+            {
+              id: 'b-entradas',
+              label: 'b) Quais informações poderiam ajudar a produzir essa estimativa?',
+              placeholder: 'Digite sua resposta...',
+            },
+            {
+              id: 'c-origem',
+              label: 'c) O que você gostaria de saber sobre a origem desses dados antes de confiar na estimativa?',
+              placeholder: 'Digite sua resposta...',
+            },
+          ],
+        },
+      },
+      {
+        id: 'q2-previsao-tabela',
+        title: 'Questão 2 — Lendo a tabela para formular uma previsão',
+        prompt:
+          'Observe novamente a tabela da Questão 1. Imagine um quinto dia com temperatura de 29 °C e quantidade de pessoas semelhante à dos dias 3 e 4. Sem fazer um cálculo exato, você espera que o consumo fique mais próximo de 5 ou de 10 unidades? Explique como os valores da tabela ajudaram você a responder.',
+        rows: 4,
+      },
+      {
+        id: 'q3-fronteira-classes',
+        title: 'Questão 3 — Quando uma fronteira entre classes muda',
+        prompt:
+          'Um conjunto de sementes fictícias é descrito por comprimento e largura. Uma regra separa as classes A e B: quando a soma das duas medidas é igual ou maior que 12, a semente recebe a classe B; nos demais casos, recebe a classe A. Uma nova semente mede 6 de comprimento e 5 de largura.',
+        table: {
+          columns: ['Item da questão', 'Sua resposta'],
+          rows: [
+            {
+              id: 'a-regra-inicial',
+              label: 'a) Qual classe será indicada pela regra inicial (soma ≥ 12)?',
+              placeholder: 'Digite a classe e explique...',
+            },
+            {
+              id: 'b-nova-fronteira',
+              label: 'b) Se a fronteira mudar e a classe B exigir soma ≥ 10, qual classe será indicada?',
+              placeholder: 'Digite a classe e explique...',
+            },
+            {
+              id: 'c-medidas',
+              label: 'c) As medidas da semente mudaram quando a fronteira foi alterada? Explique.',
+              placeholder: 'Sim ou não, e por quê...',
+            },
+          ],
+        },
+      },
+      {
+        id: 'q4-grupos-sem-rotulo',
+        title: 'Questão 4 — Organizando locais sem categorias prontas',
+        prompt:
+          'Uma equipe marcou em um mapa seis pontos fictícios de coleta de materiais recicláveis. Alguns pontos ficam próximos entre si. A equipe quer formar conjuntos de locais próximos para planejar as rotas, mas ainda não definiu nomes ou categorias para esses conjuntos.',
+        table: {
+          columns: ['Item da questão', 'Sua resposta'],
+          rows: [
+            {
+              id: 'a-produzir',
+              label: 'a) O que a equipe deseja produzir com os pontos do mapa?',
+              placeholder: 'Digite sua resposta...',
+            },
+            {
+              id: 'b-distancia',
+              label: 'b) Como a distância entre os pontos pode ajudar nessa tarefa?',
+              placeholder: 'Digite sua resposta...',
+            },
+            {
+              id: 'c-definidos-antes',
+              label: 'c) Os conjuntos precisam estar definidos antes da análise? Explique.',
+              placeholder: 'Digite sua resposta...',
+            },
+          ],
+        },
+      },
+      {
+        id: 'q5-limites-decisao',
+        title: 'Questão 5 — Limites de uma decisão automatizada',
+        prompt:
+          'Uma escola pensa em usar um sistema para indicar quais salas precisam de manutenção. O sistema considera somente a temperatura: se estiver acima de 30 °C, a sala recebe o aviso "verificar manutenção". Você considera suficiente tomar a decisão usando apenas essa informação? Explique sua resposta, indique uma informação adicional que poderia ajudar e diga como ela poderia mudar a decisão.',
+        rows: 5,
+      },
+    ],
+  },
   'regressao-linear': {
     moduleId: 'regressao-linear',
     lessonTitle: 'Aula 2: passos e distância percorrida (Regressão Linear)',

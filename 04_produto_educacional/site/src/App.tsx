@@ -10,6 +10,7 @@ import {
   KmeansIcon,
 } from './components/ModelIcons';
 import { ComparisonPage, TeacherGuidePage } from './learning/CourseSupport';
+import { DiagnosticPage } from './learning/DiagnosticPage';
 import { HelpPage, LessonContext, StudentJourneyPage } from './learning/LearningSupport';
 import { KmeansModule, KnnModule, LinearModule, SvmModule, TreeModule } from './learning/Modules';
 
@@ -24,12 +25,12 @@ const models = [
 ] as const;
 
 type ModelId = (typeof models)[number]['id'];
-type RouteId = ModelId | 'sintese' | 'percurso' | 'professor' | 'ajuda';
+type RouteId = ModelId | 'diagnostico' | 'sintese' | 'percurso' | 'professor' | 'ajuda';
 
 function routeFromHash(): RouteId | null {
   const id = window.location.hash.replace(/^#\/?/, '');
   if (id === 'regressao-logistica') return 'svm';
-  if (id === 'sintese' || id === 'percurso' || id === 'professor' || id === 'ajuda') return id;
+  if (id === 'diagnostico' || id === 'sintese' || id === 'percurso' || id === 'professor' || id === 'ajuda') return id;
   return models.find((model) => model.id === id)?.id ?? null;
 }
 
@@ -78,6 +79,7 @@ export default function App() {
         </a>
         <nav aria-label="Navegação principal" className="main-nav">
           <a className={!route ? 'nav-active' : ''} href="#/">Início</a>
+          <a className={route === 'diagnostico' ? 'nav-active' : ''} href="#/diagnostico">Diagnóstico</a>
           <a className={route === 'percurso' ? 'nav-active' : ''} href="#/percurso">As 8 aulas</a>
           <a className={route === 'sintese' ? 'nav-active' : ''} href="#/sintese">Comparar</a>
           <a className={route === 'professor' ? 'nav-active' : ''} href="#/professor">Roteiro docente</a>
@@ -255,6 +257,8 @@ export default function App() {
               </div>
             </section>
           </>
+        ) : route === 'diagnostico' ? (
+          <DiagnosticPage />
         ) : route === 'sintese' ? (
           <ComparisonPage />
         ) : route === 'percurso' ? (
