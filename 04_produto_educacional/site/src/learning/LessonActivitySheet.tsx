@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 // Cole aqui a URL do Web App gerada no Google Apps Script da sua planilha
 // (ou defina VITE_GOOGLE_SCRIPT_URL no arquivo .env antes do build).
 export const GOOGLE_SCRIPT_URL: string =
-  import.meta.env.VITE_GOOGLE_SCRIPT_URL ?? '';
+  import.meta.env.VITE_GOOGLE_SCRIPT_URL ??
+  'https://script.google.com/macros/s/AKfycbz41lkTQqjEYGwkxlYTja9K8yVmQnEpTeiu6JM2F2qDy2H_r0evCHyE-pcTnrHPgP8y/exec';
 
 export interface ActivityQuestion {
   id: string;
